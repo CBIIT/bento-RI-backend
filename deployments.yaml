@@ -1,0 +1,10 @@
+Notes: Jenkins pipeline
+services:
+  backend:
+    version: 1
+    image: 1.2.0
+    buildNumber: 1
+  frontend:
+    version: 1.0.0
+    image: 1.2.0
+    buildNumber: 1
