@@ -8,3 +8,7 @@ services:
     version: 1.0.0
     image: 1.2.0
     buildNumber: 1
+  auth:
+    version: develop-16
+    image: develop-16
+    buildNumber: '16'
