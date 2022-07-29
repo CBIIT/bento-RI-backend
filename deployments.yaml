@@ -1,4 +1,5 @@
 Notes: Jenkins pipeline
+project: bento
 services:
   backend:
     version: develop-4.7.0-26
