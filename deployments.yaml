@@ -1,9 +1,9 @@
 Notes: Jenkins pipeline
 services:
   backend:
-    version: 1
-    image: 1.2.0
-    buildNumber: 1
+    version: develop-4.7.0-26
+    image: develop-4.7.0-26
+    buildNumber: '26'
   frontend:
     version: 1.0.0
     image: 1.2.0
