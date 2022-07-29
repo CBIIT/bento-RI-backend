@@ -13,3 +13,7 @@ services:
     version: develop-15
     image: develop-15
     buildNumber: '15'
+  files:
+    version: main-19
+    image: main-19
+    buildNumber: '19'
