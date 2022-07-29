@@ -13,3 +13,7 @@ services:
     version: release-2.0.0-16
     image: release-2.0.0-16
     buildNumber: '16'
+  files:
+    version: main-20
+    image: main-20
+    buildNumber: '20'
