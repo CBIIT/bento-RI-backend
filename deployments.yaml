@@ -5,6 +5,6 @@ services:
     image: 1.2.0
     buildNumber: 1
   frontend:
-    version: 1.0.0
-    image: 1.2.0
-    buildNumber: 1
+    version: develop-3.8.0-15
+    image: develop-3.8.0-15
+    buildNumber: '15'
