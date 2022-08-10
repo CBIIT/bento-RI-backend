@@ -17,3 +17,7 @@ services:
     version: main-21
     image: main-21
     buildNumber: '21'
+  users:
+    version: develop-9
+    image: develop-9
+    buildNumber: '9'
