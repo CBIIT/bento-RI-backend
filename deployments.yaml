@@ -17,3 +17,7 @@ services:
     version: main-20
     image: main-20
     buildNumber: '20'
+  users:
+    version: release-1.0.0-10
+    image: release-1.0.0-10
+    buildNumber: '10'
