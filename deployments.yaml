@@ -18,6 +18,6 @@ services:
     image: main-20
     buildNumber: '20'
   users:
-    version: release-1.0.0-10
-    image: release-1.0.0-10
-    buildNumber: '10'
+    version: master-12
+    image: master-12
+    buildNumber: '12'
