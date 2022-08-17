@@ -6,9 +6,9 @@ services:
     image: develop-4.7.0-26
     buildNumber: '26'
   frontend:
-    version: develop-3.8.0-16
-    image: develop-3.8.0-16
-    buildNumber: '16'
+    version: release-3.8.0-26
+    image: release-3.8.0-26
+    buildNumber: '26'
   auth:
     version: release-2.0.0-17
     image: release-2.0.0-17
