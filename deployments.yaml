@@ -6,9 +6,9 @@ services:
     image: Develop-53
     buildNumber: '53'
   frontend:
-    version: release-3.8.0-26
-    image: release-3.8.0-26
-    buildNumber: '26'
+    version: develop-3.8.0-29
+    image: develop-3.8.0-29
+    buildNumber: '29'
   auth:
     version: release-2.0.0-16
     image: release-2.0.0-16
