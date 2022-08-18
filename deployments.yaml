@@ -10,9 +10,9 @@ services:
     image: develop-3.8.0-29
     buildNumber: '29'
   auth:
-    version: release-2.0.0-16
-    image: release-2.0.0-16
-    buildNumber: '16'
+    version: 2.0.0-18
+    image: 2.0.0-18
+    buildNumber: '18'
   files:
     version: main-20
     image: main-20
