@@ -6,18 +6,18 @@ services:
     image: Develop-53
     buildNumber: '53'
   frontend:
-    version: 3.8.0-30
-    image: 3.8.0-30
-    buildNumber: '30'
+    version: 3.8.0-31
+    image: 3.8.0-31
+    buildNumber: '31'
   auth:
     version: 2.0.0-18
     image: 2.0.0-18
     buildNumber: '18'
   files:
-    version: 2.0.0-22
-    image: 2.0.0-22
-    buildNumber: '22'
+    version: 2.0.0-24
+    image: 2.0.0-24
+    buildNumber: '24'
   users:
-    version: 1.0.0-13
-    image: 1.0.0-13
-    buildNumber: '13'
+    version: 1.0.0-14
+    image: 1.0.0-14
+    buildNumber: '14'
