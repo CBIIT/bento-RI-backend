@@ -18,6 +18,6 @@ services:
     image: 2.0.0.34
     buildNumber: '34'
   users:
-    version: 1.0.0.18
-    image: 1.0.0.18
-    buildNumber: '18'
+    version: 1.0.0.19
+    image: 1.0.0.19
+    buildNumber: '19'
