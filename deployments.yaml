@@ -10,9 +10,9 @@ services:
     image: 3.8.0.60
     buildNumber: '60'
   auth:
-    version: 2.0.0.19
-    image: 2.0.0.19
-    buildNumber: '19'
+    version: 2.0.0.20
+    image: 2.0.0.20
+    buildNumber: '20'
   files:
     version: 2.0.0.35
     image: 2.0.0.35
