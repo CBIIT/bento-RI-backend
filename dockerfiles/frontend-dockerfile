@@ -1,0 +1,4 @@
+FROM cbiitssrepo/bento-frontend:release
+
+COPY ./dist /usr/share/nginx/html
+
