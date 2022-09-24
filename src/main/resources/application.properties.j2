@@ -1,11 +1,9 @@
 #API Version
 bento.api.version={{bento_api_version}}
 
-# Project
-project = {{project}}
-
 #Authentication
 auth.enabled={{auth_enabled}}
+# auth.endpoint=
 
 #Spring
 spring.mvc.throw-exception-if-no-handler-found=true
@@ -20,12 +18,12 @@ error.redirect_url=http://localhost/error.html
 # neo4j.password =
 
 #GraphQL
-graphql.schema=graphql/{{schema_file}}
-graphql.es_schema=graphql/{{es_schema_file}}
+graphql.schema=graphql/private-schema.graphql
+graphql.es_schema = graphql/private-es-schema.graphql
 
 #Public GraphQL
-graphql.public.schema=graphql/{{public_schema_file}}
-graphql.public.es_schema=graphql/{{public_es_schema_file}}
+graphql.public.schema=graphql/public-schema.graphql
+graphql.public.es_schema=graphql/public-es-schema.graphql
 
 #Query Restrictions
 allow_graphql_query = true
@@ -46,6 +44,3 @@ es.scheme = https
 es.filter.enabled = true
 # use es.sign.requests = true if running AWS OpenSearch
 es.sign.requests = true
-
-#Testing
-test.queries_file = yaml/{{test_queries_file}}
