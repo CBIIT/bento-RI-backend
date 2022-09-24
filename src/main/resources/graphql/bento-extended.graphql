@@ -899,7 +899,7 @@ type QueryType {
             sampleIds: samples,
             fileIds: fileIds,
             fileNames: fileNames,
-            subjectIds: study_subjects
+            subjectIds: study_subjects 
         }
     """, passThrough: true)
 
@@ -912,9 +912,9 @@ type QueryType {
             OR (samp.sample_id IN $sample_ids)
             OR (f.file_id IN $file_ids)
             OR (f.file_name IN $file_names)
-        RETURN {
+        RETURN { 
             group: p.program_acronym,
-            subjects: COUNT(DISTINCT ss)
+            subjects: COUNT(DISTINCT ss) 
         }
     """, passThrough: true)
 
@@ -925,7 +925,7 @@ type QueryType {
             OR (samp.sample_id IN $sample_ids)
             OR (f.file_id IN $file_ids)
             OR (f.file_name IN $file_names)
-        RETURN {
+        RETURN { 
             group: s.study_acronym + ': ' + s.study_short_description,
             subjects: COUNT(DISTINCT ss)
         }
@@ -941,8 +941,8 @@ type QueryType {
             OR (samp.sample_id IN $sample_ids)
             OR (f.file_id IN $file_ids))
             OR (f.file_name IN $file_names)
-        RETURN {
-            group: disease_subtypes,
+        RETURN { 
+            group: disease_subtypes, 
             subjects: COUNT(DISTINCT ss)
         }
     """, passThrough: true)
@@ -954,8 +954,8 @@ type QueryType {
             OR (samp.sample_id IN $sample_ids)
             OR (f.file_id IN $file_ids)
             OR (f.file_name IN $file_names)
-        RETURN {
-            group: sf.grouped_recurrence_score,
+        RETURN {   
+            group: sf.grouped_recurrence_score, 
             subjects: COUNT(DISTINCT ss)
         }
     """, passThrough: true)
@@ -968,7 +968,7 @@ type QueryType {
             OR (f.file_id IN $file_ids)
             OR (f.file_name IN $file_names)
         RETURN {
-            group: d.tumor_size_group,
+            group: d.tumor_size_group, 
             subjects: COUNT(DISTINCT ss)
         }
     """, passThrough: true)
@@ -981,7 +981,7 @@ type QueryType {
             OR (f.file_id IN $file_ids)
             OR (f.file_name IN $file_names)
         RETURN {
-            group: d.tumor_grade,
+            group: d.tumor_grade, 
             subjects: COUNT(DISTINCT ss)
         }
     """, passThrough: true)
@@ -994,7 +994,7 @@ type QueryType {
             OR (f.file_id IN $file_ids)
             OR (f.file_name IN $file_names)
         RETURN {
-            group: d.er_status,
+            group: d.er_status, 
             subjects: COUNT(DISTINCT ss)
         }
     """, passThrough: true)
@@ -1007,7 +1007,7 @@ type QueryType {
             OR (f.file_id IN $file_ids)
             OR (f.file_name IN $file_names)
         RETURN {
-            group: d.pr_status,
+            group: d.pr_status, 
             subjects: COUNT(DISTINCT ss)
         }
     """, passThrough: true)
@@ -1020,7 +1020,7 @@ type QueryType {
             OR (f.file_id IN $file_ids)
             OR (f.file_name IN $file_names)
         RETURN {
-            group: tp.chemotherapy_regimen,
+            group: tp.chemotherapy_regimen, 
             subjects: COUNT(DISTINCT ss)
         }
     """, passThrough: true)
@@ -1033,7 +1033,7 @@ type QueryType {
             OR (f.file_id IN $file_ids)
             OR (f.file_name IN $file_names)
         RETURN {
-            group: tp.endocrine_therapy_type,
+            group: tp.endocrine_therapy_type, 
             subjects: COUNT(DISTINCT ss)
         }
     """, passThrough: true)
@@ -1046,7 +1046,7 @@ type QueryType {
             OR (f.file_id IN $file_ids)
             OR (f.file_name IN $file_names)
         RETURN {
-            group: demo.menopause_status,
+            group: demo.menopause_status, 
             subjects: COUNT(DISTINCT ss)
         }
     """, passThrough: true)
@@ -1062,7 +1062,7 @@ type QueryType {
             OR (f.file_id IN $file_ids)
             OR (f.file_name IN $file_names))
         RETURN {
-            group: tissue_types,
+            group: tissue_types, 
             subjects: COUNT(DISTINCT samp)
         }
     """, passThrough: true)
@@ -1078,7 +1078,7 @@ type QueryType {
             OR (f.file_id IN $file_ids)
             OR (f.file_name IN $file_names))
         RETURN {
-            group: compositions,
+            group: compositions, 
             subjects: COUNT(DISTINCT samp)
         }
     """, passThrough: true)
@@ -1095,7 +1095,7 @@ type QueryType {
             OR (f.file_id IN $file_ids)
             OR (f.file_name IN $file_names))
         RETURN {
-            group: head(labels(parent)),
+            group: head(labels(parent)), 
             subjects: COUNT(DISTINCT f)
         }
     """, passThrough: true)
@@ -1112,7 +1112,7 @@ type QueryType {
             OR (f.file_id IN $file_ids)
             OR (f.file_name IN $file_names))
         RETURN {
-            group: file_types,
+            group: file_types, 
             subjects: COUNT(DISTINCT f)
         }
     """, passThrough: true)
@@ -1121,7 +1121,7 @@ type QueryType {
         OPTIONAL MATCH (p:program)<--(s:study)<--(ss:study_subject)<--(samp:sample)<--(f:file)-->(lp:laboratory_procedure)
             WHERE (ss.study_subject_id IN $subject_ids)
             OR (samp.sample_id IN $sample_ids)
-            OR (f.file_id IN $file_ids)
+            OR (f.file_id IN $file_ids) 
             OR (f.file_name IN $file_names)
         RETURN  {
             numberOfPrograms: COUNT(DISTINCT p),
@@ -1151,7 +1151,7 @@ type QueryType {
         RETURN {
             program: p.program_acronym,
             caseSize: caseSize,
-            children: COLLECT(studies)
+            children: COLLECT(studies) 
         }
     """, passThrough: true)
 
@@ -1159,9 +1159,9 @@ type QueryType {
         OPTIONAL MATCH (ss:study_subject)<--(samp:sample)<--(f:file)
             WHERE (ss.study_subject_id IN $subject_ids)
             OR (samp.sample_id IN $sample_ids)
-            OR (f.file_id IN $file_ids)
+            OR (f.file_id IN $file_ids) 
             OR (f.file_name IN $file_names)
-        WITH
+        WITH 
             COLLECT(DISTINCT ss.study_subject_id) AS subject_ids,
             COLLECT(DISTINCT samp.sample_id) AS sample_ids,
             COLLECT(DISTINCT f.file_id) AS file_ids,
@@ -1171,7 +1171,7 @@ type QueryType {
             sampleIds: sample_ids,
             fileIds: file_ids,
             fileNames: file_names
-        }
+        } 
     """, passThrough: true)
 
     subjectsInList(subject_ids: [String]=[]): [SubjectInfo] @cypher(statement: """
