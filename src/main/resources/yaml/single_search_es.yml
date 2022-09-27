@@ -9,3 +9,15 @@ queries:
         - subject_ids
     result:
       type: object_array
+  - name: fileIDsFromList
+    index:
+      - files
+    filter:
+      type: default
+      selectedField: file_ids
+      ignoreIfEmpty:
+        - subject_ids
+        - sample_ids
+        - file_names
+    result:
+      type: str_array
