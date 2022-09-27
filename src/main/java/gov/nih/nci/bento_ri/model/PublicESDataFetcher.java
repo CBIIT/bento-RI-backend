@@ -10,7 +10,7 @@ import java.util.Map;
 
 import static graphql.schema.idl.TypeRuntimeWiring.newTypeWiring;
 
-@Component("AbstractPublicESDataFetcher")
+@Component
 public class PublicESDataFetcher extends AbstractPublicESDataFetcher {
     private static final Logger logger = LogManager.getLogger(PublicESDataFetcher.class);
 
