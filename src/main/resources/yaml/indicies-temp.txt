@@ -1,0 +1,30 @@
+Subject Index
+    subject_id: keyword
+    subject_id_gs: search_as_you_type
+    race: keyword
+    disease_term: keyword
+    stageAtEntry: keyword
+    causeOfDeath: keyword
+    sitesOfDiseaseAtAutopsy: keyword
+    sourceOfTheLabData: keyword
+    labTest: keyword
+    systemOrganClass: keyword
+    serious: keyword
+    outcome: keyword
+
+File Index
+    file_name: keyword
+    file_name_gs: search_as_you_type
+    file_id: keyword
+    subject_id: keyword
+    description: keyword
+    fileFormat: keyword
+    size: keyword
+    fileType: keyword
+
+Trial Index
+    clinical_trial_id: keyword
+    clinical_trial_id_gs: search_as_you_type
+    clinical_trial_short_name: search_as_you_type
+    clinical_trial_long_name: search_as_you_type
+

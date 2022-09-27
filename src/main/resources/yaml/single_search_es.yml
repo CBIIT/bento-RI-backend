@@ -1,0 +1,11 @@
+queries:
+  - name: findSubjectIdsInList
+    index:
+      - subjects
+    filter:
+      type: default
+      caseInsensitive: true
+      ignoreIfEmpty:
+        - subject_ids
+    result:
+      type: object_array
