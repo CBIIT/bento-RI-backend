@@ -21,3 +21,23 @@ queries:
         - file_names
     result:
       type: str_array
+#  - name: filesInList
+#    index:
+#      - files
+#    filter:
+#      type: pagination
+#      defaultSortField: file_name
+#      ignoreIfEmpty:
+#        - file_ids
+#    result:
+#      type: object_array
+#  - name: subjectOverview
+#    index:
+#      - subjects
+#    filter:
+#      type: pagination
+#      defaultSortField: subject_id_num
+#      alternativeSortField:
+#        subject_id: subject_id_num
+#    result:
+#      type: object_array
