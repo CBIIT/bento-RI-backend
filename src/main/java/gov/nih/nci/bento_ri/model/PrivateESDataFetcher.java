@@ -58,10 +58,6 @@ public class PrivateESDataFetcher extends AbstractPrivateESDataFetcher {
                             Map<String, Object> args = env.getArguments();
                             return globalSearch(args);
                         })
-                        .dataFetcher("fileIDsFromList", env -> {
-                            Map<String, Object> args = env.getArguments();
-                            return fileIDsFromList(args);
-                        })
                         .dataFetcher("filesInList", env -> {
                             Map<String, Object> args = env.getArguments();
                             return filesInList(args);
@@ -814,20 +810,5 @@ public class PrivateESDataFetcher extends AbstractPrivateESDataFetcher {
         Request request = new Request("GET", FILES_END_POINT);
 
         return esService.collectPage(request, query, properties, pageSize, offset);
-    }
-
-    private List<String> fileIDsFromList(Map<String, Object> params) throws IOException {
-        return collectFieldFromList(params, "file_ids", FILES_END_POINT);
-    }
-
-    // This function search values in parameters and return a given collectField's unique values in a list
-    private List<String> collectFieldFromList(Map<String, Object> params, String collectField, String endpoint) throws IOException {
-        String[] idFieldArray = new String[]{collectField};
-        Map<String, Object> query = esService.buildListQuery(params, Set.of());
-        query = esService.addAggregations(query, idFieldArray);
-        Request request = new Request("GET", endpoint);
-        request.setJsonEntity(gson.toJson(query));
-        JsonObject jsonObject = esService.send(request);
-        return esService.collectTerms(jsonObject, collectField);
     }
 }
