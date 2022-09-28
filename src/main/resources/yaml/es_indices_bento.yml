@@ -8,6 +8,8 @@ Indices:
     mapping:
       type:
         type: keyword
+      program:
+        type: keyword
       programs:
         type: keyword
       program_code:
