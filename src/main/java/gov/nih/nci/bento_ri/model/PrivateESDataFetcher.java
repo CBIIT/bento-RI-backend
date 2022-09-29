@@ -46,14 +46,6 @@ public class PrivateESDataFetcher extends AbstractPrivateESDataFetcher {
                             Map<String, Object> args = env.getArguments();
                             return subjectOverview(args);
                         })
-                        .dataFetcher("sampleOverview", env -> {
-                            Map<String, Object> args = env.getArguments();
-                            return sampleOverview(args);
-                        })
-                        .dataFetcher("fileOverview", env -> {
-                            Map<String, Object> args = env.getArguments();
-                            return fileOverview(args);
-                        })
                         .dataFetcher("globalSearch", env -> {
                             Map<String, Object> args = env.getArguments();
                             return globalSearch(args);
@@ -551,119 +543,6 @@ public class PrivateESDataFetcher extends AbstractPrivateESDataFetcher {
         );
 
         return overview(SUBJECTS_END_POINT, params, PROPERTIES, defaultSort, mapping);
-    }
-
-    private List<Map<String, Object>> sampleOverview(Map<String, Object> params) throws IOException {
-        final String[][] PROPERTIES = new String[][]{
-                new String[]{"program", "programs"},
-                new String[]{"program_id", "program_id"},
-                new String[]{"arm", "study_acronym"},
-                new String[]{"subject_id", "subject_ids"},
-                new String[]{"sample_id", "sample_ids"},
-                new String[]{"diagnosis", "diagnoses"},
-                new String[]{"tissue_type", "tissue_type"},
-                new String[]{"tissue_composition", "composition"},
-                new String[]{"sample_anatomic_site", "sample_anatomic_site"},
-                new String[]{"sample_procurement_method", "sample_procurement_method"},
-                new String[]{"platform", "platform"},
-                new String[]{"files", "files"}
-        };
-
-        String defaultSort = "sample_id_num"; // Default sort order
-
-        Map<String, String> mapping = Map.ofEntries(
-                Map.entry("program", "programs"),
-                Map.entry("arm", "study_acronym"),
-                Map.entry("subject_id", "subject_id_num"),
-                Map.entry("sample_id", "sample_id_num"),
-                Map.entry("diagnosis", "diagnoses"),
-                Map.entry("tissue_type", "tissue_type"),
-                Map.entry("tissue_composition", "composition"),
-                Map.entry("sample_anatomic_site", "sample_anatomic_site"),
-                Map.entry("sample_procurement_method", "sample_procurement_method"),
-                Map.entry("platform", "platform")
-        );
-
-        return overview(SAMPLES_END_POINT, params, PROPERTIES, defaultSort, mapping);
-    }
-
-    private List<Map<String, Object>> fileOverview(Map<String, Object> params) throws IOException {
-        // Following String array of arrays should be in form of "GraphQL_field_name", "ES_field_name"
-        final String[][] PROPERTIES = new String[][]{
-                new String[]{"program", "programs"},
-                new String[]{"program_id", "program_id"},
-                new String[]{"arm", "study_acronym"},
-                new String[]{"subject_id", "subject_ids"},
-                new String[]{"sample_id", "sample_ids"},
-                new String[]{"file_id", "file_ids"},
-                new String[]{"file_name", "file_names"},
-                new String[]{"association", "association"},
-                new String[]{"file_description", "file_description"},
-                new String[]{"file_format", "file_format"},
-                new String[]{"file_size", "file_size"},
-                new String[]{"diagnosis", "diagnoses"},
-                new String[]{"acl", "acl"}
-        };
-
-        String defaultSort = "file_name"; // Default sort order
-
-        Map<String, String> mapping = Map.ofEntries(
-                Map.entry("program", "programs"),
-                Map.entry("arm", "study_acronym"),
-                Map.entry("subject_id", "subject_id_num"),
-                Map.entry("sample_id", "sample_id_num"),
-                Map.entry("file_id", "file_id_num"),
-                Map.entry("file_name", "file_names"),
-                Map.entry("association", "association"),
-                Map.entry("file_description", "file_description"),
-                Map.entry("file_format", "file_format"),
-                Map.entry("file_size", "file_size"),
-                Map.entry("diagnosis", "diagnoses"),
-                Map.entry("acl", "acl")
-        );
-
-        List<Map<String, Object>> result = overview(FILES_END_POINT, params, PROPERTIES, defaultSort, mapping);
-        final String ACL_KEY = "acl";
-        try{
-            for(Map<String, Object> resultElement: result){
-                String acl = (String) resultElement.get(ACL_KEY);
-                String[] acls = acl.replaceAll("\\]|\\[|'|\"", "").split(",");
-                resultElement.put(ACL_KEY, acls);
-            }
-        }
-        catch(ClassCastException | NullPointerException ex){
-            logger.error("Error occurred when splitting acl into String array");
-        }
-
-        return result;
-    }
-
-    private List<Map<String, Object>> overview(String endpoint, Map<String, Object> params, String[][] properties, String defaultSort, Map<String, String> mapping) throws IOException {
-
-        Request request = new Request("GET", endpoint);
-        Map<String, Object> query = esService.buildFacetFilterQuery(params, RANGE_PARAMS, Set.of(PAGE_SIZE, OFFSET, ORDER_BY, SORT_DIRECTION));
-        String order_by = (String)params.get(ORDER_BY);
-        String direction = ((String)params.get(SORT_DIRECTION)).toLowerCase();
-        query.put("sort", mapSortOrder(order_by, direction, defaultSort, mapping));
-        int pageSize = (int) params.get(PAGE_SIZE);
-        int offset = (int) params.get(OFFSET);
-        List<Map<String, Object>> page = esService.collectPage(request, query, properties, pageSize, offset);
-        return page;
-    }
-
-    private Map<String, String> mapSortOrder(String order_by, String direction, String defaultSort, Map<String, String> mapping) {
-        String sortDirection = direction;
-        if (!sortDirection.equalsIgnoreCase("asc") && !sortDirection.equalsIgnoreCase("desc")) {
-            sortDirection = "asc";
-        }
-
-        String sortOrder = defaultSort; // Default sort order
-        if (mapping.containsKey(order_by)) {
-            sortOrder = mapping.get(order_by);
-        } else {
-            logger.info("Order: \"" + order_by + "\" not recognized, use default order");
-        }
-        return Map.of(sortOrder, sortDirection);
     }
 
     private List<Map<String, Object>> armsByPrograms(Map<String, Object> params) throws IOException {
