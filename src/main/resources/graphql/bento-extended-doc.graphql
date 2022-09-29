@@ -821,11 +821,7 @@ type QueryType {
 
     filesOfSubjects(subject_ids: [String]=[]): [FileInfo] 
 
-    samplesForSubjectId(subject_id: String!): [sample] 
-
-    fileIdsFromFileName(file_name: [String], order_by: String ="file_name"): [FileOverview] 
-
-    fileIdsFromFileNameDesc(file_name: [String], order_by: String ="file_name"): [FileOverview] 
+    samplesForSubjectId(subject_id: String!): [sample]
 
     subjectList: [GroupList] 
 
