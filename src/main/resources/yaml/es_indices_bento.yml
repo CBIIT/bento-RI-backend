@@ -384,7 +384,8 @@ Indices:
       samp.composition AS composition,
       COLLECT(DISTINCT f.file_id) AS files,
       COLLECT(DISTINCT head(labels(parent))) AS association,
-      samp.sample_type AS sample_type
+      samp.sample_type AS sample_type,
+      COLLECT(DISTINCT f.file_type) AS file_type
       "
   - index_name: files
     type: neo4j
