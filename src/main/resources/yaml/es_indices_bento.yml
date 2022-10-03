@@ -325,6 +325,8 @@ Indices:
         type: keyword
       association:
         type: keyword
+      file_type:
+        type: keyword
       age_at_index:
         type: integer
       sample_type:
