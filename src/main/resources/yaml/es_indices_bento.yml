@@ -8,6 +8,8 @@ Indices:
     mapping:
       type:
         type: keyword
+      program:
+        type: keyword
       programs:
         type: keyword
       program_code:
@@ -198,7 +200,7 @@ Indices:
       d.tumor_largest_dimension_diameter AS tumor_largest_dimension_diameter,
       ss.disease_type AS disease_type,
       d.nuclear_grade  AS nuclear_grade,
-      d.recurrence_score AS recurrence_score,
+      sf.grouped_recurrence_score AS recurrence_score,
       tp.primary_surgical_procedure AS primary_surgical_procedure,
       tp.chemotherapy_regimen_group AS chemotherapy_regimen_group,
       tp.chemotherapy_regimen AS chemotherapy_regimen,
