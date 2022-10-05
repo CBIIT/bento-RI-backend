@@ -245,6 +245,10 @@ Indices:
     type: neo4j
     # type mapping for each property of the index
     mapping:
+      type:
+        type: keyword
+      program:
+        type: keyword
       programs:
         type: keyword
       program_id:
@@ -253,9 +257,17 @@ Indices:
         type: keyword
       studies:
         type: keyword
+      arm:
+        type: keyword
+      study_info:
+        type: keyword
+      subject_id:
+        type: keyword
       subject_ids:
         type: keyword
       subject_id_num:
+        type: keyword
+      sample_id:
         type: keyword
       sample_ids:
         type: keyword
@@ -263,7 +275,11 @@ Indices:
         type: search_as_you_type
       sample_id_num:
         type: integer
+      diagnosis:
+        type: keyword
       diagnoses:
+        type: keyword
+      recurrence_score:
         type: keyword
       rc_scores:
         type: keyword
@@ -271,13 +287,21 @@ Indices:
         type: keyword
       chemo_regimen:
         type: keyword
+      chemotherapy:
+        type: keyword
+      tumor_grade:
+        type: keyword
       tumor_grades:
         type: keyword
       er_status:
         type: keyword
       pr_status:
         type: keyword
+      endocrine_therapy:
+        type: keyword
       endo_therapies:
+        type: keyword
+      menopause_status:
         type: keyword
       meno_status:
         type: keyword
@@ -285,6 +309,8 @@ Indices:
         type: keyword
       tissue_type_gs:
         type: search_as_you_type
+      tissue_composition:
+        type: keyword
       composition:
         type: keyword
       sample_anatomic_site:
@@ -316,10 +342,15 @@ Indices:
       MATCH (parent)<--(f)
       OPTIONAL MATCH (f)-[:file_of_laboratory_procedure]->(lp)
       RETURN DISTINCT
+      'sample' as type,
+      p.program_acronym AS program,
       p.program_acronym AS programs,
       p.program_id AS program_id,
+      (s.study_acronym + ': ' + s.study_short_description) AS study_info,
       (s.study_acronym + ': ' + s.study_short_description) AS studies,
+      s.study_acronym AS arm,
       s.study_acronym AS study_acronym,
+      samp.sample_id AS sample_id,
       samp.sample_id AS sample_ids,
       samp.sample_id AS sample_id_gs,
       samp.sample_anatomic_site AS sample_anatomic_site,
@@ -327,24 +358,34 @@ Indices:
       samp.method_of_sample_procurement AS sample_procurement_method,
       lp.test_name AS platform,
       toInteger(split(samp.sample_id,'-')[2]) AS sample_id_num,
+      ss.study_subject_id AS subject_id,
       ss.study_subject_id AS subject_ids,
       toInteger(split(ss.study_subject_id,'-')[2]) AS subject_id_num,
+      ss.disease_subtype AS diagnosis,
       ss.disease_subtype AS diagnoses,
+      sf.grouped_recurrence_score AS recurrence_score,
       sf.grouped_recurrence_score AS rc_scores,
+      d.tumor_size_group AS tumor_size,
       d.tumor_size_group AS tumor_sizes,
+      tp.chemotherapy_regimen AS chemotherapy,
       tp.chemotherapy_regimen AS chemo_regimen,
+      d.tumor_grade AS tumor_grade,
       d.tumor_grade AS tumor_grades,
       d.er_status AS er_status,
       d.pr_status AS pr_status,
+      tp.endocrine_therapy_type AS endocrine_therapy,
       tp.endocrine_therapy_type AS endo_therapies,
-      demo.menopause_status AS  meno_status,
+      demo.menopause_status AS menopause_status,
+      demo.menopause_status AS meno_status,
       demo.age_at_index AS age_at_index,
       samp.tissue_type AS tissue_type,
       samp.tissue_type AS tissue_type_gs,
+      samp.composition AS tissue_composition,
       samp.composition AS composition,
       COLLECT(DISTINCT f.file_id) AS files,
       COLLECT(DISTINCT head(labels(parent))) AS association,
-      samp.sample_type AS sample_type
+      samp.sample_type AS sample_type,
+      COLLECT(DISTINCT f.file_type) AS file_type
       "
   - index_name: files
     type: neo4j
@@ -480,7 +521,7 @@ Indices:
       f.file_format AS file_format_gs,
       f.file_size AS file_size,
       f.md5sum AS md5sum,
-      f.acl AS acl,
+      apoc.convert.fromJsonList(f.acl) AS acl,
       toInteger(split(f.file_id,'-')[2]) AS file_id_num,
       ss.disease_subtype AS diagnosis,
       ss.disease_subtype AS diagnoses,

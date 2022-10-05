@@ -19,6 +19,32 @@ queries:
         - file_ids
     result:
       type: object_array
+  - name: sampleOverview
+    index:
+      - samples
+    filter:
+      type: pagination
+      defaultSortField: sample_id_num
+      alternativeSortField:
+        sample_id: sample_id_num
+        subject_id: subject_id_num
+      rangeFilterFields:
+        - age_at_index
+    result:
+      type: object_array
+  - name: fileOverview
+    index:
+      - files
+    filter:
+      type: pagination
+      defaultSortField: file_name
+      alternativeSortField:
+        sample_id: sample_id_num
+        subject_id: subject_id_num
+      rangeFilterFields:
+        - age_at_index
+    result:
+      type: object_array
   - name: subjectOverview
     index:
       - subjects
