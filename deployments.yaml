@@ -2,9 +2,9 @@ Notes: Jenkins pipeline
 project: bento
 services:
   backend:
-    version: 4.8.0.167
-    image: 4.8.0.167
-    buildNumber: '167'
+    version: 4.8.0.168
+    image: 4.8.0.168
+    buildNumber: '168'
   frontend:
     version: 3.9.0.68
     image: 3.9.0.68
