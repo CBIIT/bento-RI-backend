@@ -2,9 +2,9 @@ Notes: Jenkins pipeline
 project: bento
 services:
   backend:
-    version: fix-opensearch.176
-    image: fix-opensearch.176
-    buildNumber: '176'
+    version: fix-opensearch.177
+    image: fix-opensearch.177
+    buildNumber: '177'
   frontend:
     version: 3.9.0.68
     image: 3.9.0.68
