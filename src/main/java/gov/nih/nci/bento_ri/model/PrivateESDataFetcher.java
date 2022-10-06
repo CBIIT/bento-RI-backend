@@ -60,10 +60,6 @@ public class PrivateESDataFetcher extends AbstractPrivateESDataFetcher {
                             Map<String, Object> args = env.getArguments();
                             return armDetail(args);
                         })
-                        .dataFetcher("subjectOverview", env -> {
-                            Map<String, Object> args = env.getArguments();
-                            return subjectOverview(args);
-                        })
                 )
                 .build();
     }
