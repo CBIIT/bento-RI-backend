@@ -60,9 +60,94 @@ public class PrivateESDataFetcher extends AbstractPrivateESDataFetcher {
                             Map<String, Object> args = env.getArguments();
                             return armDetail(args);
                         })
+                        .dataFetcher("subjectOverview", env -> {
+                            Map<String, Object> args = env.getArguments();
+                            return subjectOverview(args);
+                        })
                 )
                 .build();
     }
+
+
+    private List<Map<String, Object>> subjectOverview(Map<String, Object> params) throws IOException {
+        final String[][] PROPERTIES = new String[][]{
+                new String[]{"subject_id", "subject_ids"},
+                new String[]{"program", "programs"},
+                new String[]{"program_id", "program_id"},
+                new String[]{"study_acronym", "study_acronym"},
+                new String[]{"study_short_description", "study_short_description"},
+                new String[]{"study_info", "studies"},
+                new String[]{"diagnosis", "diagnoses"},
+                new String[]{"recurrence_score", "rc_scores"},
+                new String[]{"tumor_size", "tumor_sizes"},
+                new String[]{"tumor_grade", "tumor_grades"},
+                new String[]{"er_status", "er_status"},
+                new String[]{"pr_status", "pr_status"},
+                new String[]{"chemotherapy", "chemo_regimen"},
+                new String[]{"endocrine_therapy", "endo_therapies"},
+                new String[]{"menopause_status", "meno_status"},
+                new String[]{"age_at_index", "age_at_index"},
+                new String[]{"survival_time", "survival_time"},
+                new String[]{"survival_time_unit", "survival_time_unit"},
+                new String[]{"files", "files"},
+                new String[]{"samples", "samples"},
+                new String[]{"lab_procedures", "lab_procedures"},
+        };
+
+        String defaultSort = "subject_id_num"; // Default sort order
+
+        Map<String, String> mapping = Map.ofEntries(
+                Map.entry("subject_id", "subject_id_num"),
+                Map.entry("program", "programs"),
+                Map.entry("program_id", "program_id"),
+                Map.entry("study_acronym", "study_acronym"),
+                Map.entry("study_short_description", "study_short_description"),
+                Map.entry("study_info", "studies"),
+                Map.entry("diagnosis", "diagnoses"),
+                Map.entry("recurrence_score", "rc_scores"),
+                Map.entry("tumor_size", "tumor_sizes"),
+                Map.entry("tumor_grade", "tumor_grades"),
+                Map.entry("er_status", "er_status"),
+                Map.entry("pr_status", "pr_status"),
+                Map.entry("chemotherapy", "chemo_regimen"),
+                Map.entry("endocrine_therapy", "endo_therapies"),
+                Map.entry("menopause_status", "meno_status"),
+                Map.entry("age_at_index", "age_at_index"),
+                Map.entry("survival_time", "survival_time")
+        );
+
+        return overview(SUBJECTS_END_POINT, params, PROPERTIES, defaultSort, mapping);
+    }
+
+
+    private List<Map<String, Object>> overview(String endpoint, Map<String, Object> params, String[][] properties, String defaultSort, Map<String, String> mapping) throws IOException {
+
+        Request request = new Request("GET", endpoint);
+        Map<String, Object> query = esService.buildFacetFilterQuery(params, RANGE_PARAMS, Set.of(PAGE_SIZE, OFFSET, ORDER_BY, SORT_DIRECTION));
+        String order_by = (String)params.get(ORDER_BY);
+        String direction = ((String)params.get(SORT_DIRECTION)).toLowerCase();
+        query.put("sort", mapSortOrder(order_by, direction, defaultSort, mapping));
+        int pageSize = (int) params.get(PAGE_SIZE);
+        int offset = (int) params.get(OFFSET);
+        List<Map<String, Object>> page = esService.collectPage(request, query, properties, pageSize, offset);
+        return page;
+    }
+
+    private Map<String, String> mapSortOrder(String order_by, String direction, String defaultSort, Map<String, String> mapping) {
+        String sortDirection = direction;
+        if (!sortDirection.equalsIgnoreCase("asc") && !sortDirection.equalsIgnoreCase("desc")) {
+            sortDirection = "asc";
+        }
+
+        String sortOrder = defaultSort; // Default sort order
+        if (mapping.containsKey(order_by)) {
+            sortOrder = mapping.get(order_by);
+        } else {
+            logger.info("Order: \"" + order_by + "\" not recognized, use default order");
+        }
+        return Map.of(sortOrder, sortDirection);
+    }
+
 
     private Map<String, Object> programDetail(Map<String, Object> params) throws IOException {
         // Get filter parameter as a String
