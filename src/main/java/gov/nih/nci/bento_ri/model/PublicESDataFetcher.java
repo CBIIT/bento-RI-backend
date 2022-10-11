@@ -26,6 +26,7 @@ public class PublicESDataFetcher extends AbstractPublicESDataFetcher {
     public RuntimeWiring buildRuntimeWiring() {
         return RuntimeWiring.newRuntimeWiring()
                 .type(newTypeWiring("QueryType")
+                        .dataFetcher("esVersion", env -> esVersion())
                         .dataFetcher("publicGlobalSearch", env -> {
                             Map<String, Object> args = env.getArguments();
                             return globalSearch(args);
