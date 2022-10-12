@@ -381,6 +381,14 @@ schema {
 }
 
 type QueryType {
+    esVersion: String
+    numberOfPrograms: Int
+    numberOfStudies: Int
+    numberOfSubjects: Int
+    numberOfSamples: Int
+    numberOfLabProcedures: Int
+    numberOfFiles: Int
+
     searchSubjects (
         subject_ids: [String] = [],
         programs: [String] = [],

@@ -1,15 +1,12 @@
 package gov.nih.nci.bento_ri.model;
 
-import com.google.gson.JsonObject;
 import gov.nih.nci.bento.model.AbstractPublicESDataFetcher;
 import gov.nih.nci.bento.service.ESService;
 import graphql.schema.idl.RuntimeWiring;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Component;
-import org.opensearch.client.Request;
 
-import java.io.IOException;
 import java.util.Map;
 
 import static graphql.schema.idl.TypeRuntimeWiring.newTypeWiring;
@@ -41,9 +38,4 @@ public class PublicESDataFetcher extends AbstractPublicESDataFetcher {
                 .build();
     }
 
-    private int getNodeCount(String countEndpoint) throws IOException {
-        Request countRequest = new Request("GET", countEndpoint);
-        JsonObject countResult = esService.send(countRequest);
-        return countResult.get("count").getAsInt();
-    }
 }
