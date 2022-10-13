@@ -70,7 +70,7 @@ queries:
         - file_names
     result:
       type: str_array
-  - name: numberOfProgramsTest
+  - name: numberOfPrograms
     index:
       - subjects
     filter:
@@ -79,7 +79,7 @@ queries:
     result:
       type: int
       method: count_bucket_keys
-  - name: numberOfStudiesTest
+  - name: numberOfStudies
     index:
       - subjects
     filter:
@@ -88,7 +88,7 @@ queries:
     result:
       type: int
       method: count_bucket_keys
-  - name: numberOfSubjectsTest
+  - name: numberOfSubjects
     index:
       - subjects
     filter:
@@ -97,7 +97,7 @@ queries:
     result:
       type: int
       method: count_bucket_keys
-  - name: numberOfSamplesTest
+  - name: numberOfSamples
     index:
       - samples
     filter:
@@ -106,7 +106,7 @@ queries:
     result:
       type: int
       method: count_bucket_keys
-  - name: numberOfLabProceduresTest
+  - name: numberOfLabProcedures
     index:
       - lab_procedures
     filter:
@@ -115,7 +115,7 @@ queries:
     result:
       type: int
       method: count_bucket_keys
-  - name: numberOfFilesTest
+  - name: numberOfFiles
     index:
       - files
     filter:
