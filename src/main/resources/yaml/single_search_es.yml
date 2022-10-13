@@ -70,3 +70,58 @@ queries:
         - file_names
     result:
       type: str_array
+  - name: numberOfProgramsTest
+    index:
+      - subjects
+    filter:
+      type: aggregation
+      selectedField: programs
+    result:
+      type: int
+      method: count_bucket_keys
+  - name: numberOfStudiesTest
+    index:
+      - subjects
+    filter:
+      type: aggregation
+      selectedField: studies
+    result:
+      type: int
+      method: count_bucket_keys
+  - name: numberOfSubjectsTest
+    index:
+      - subjects
+    filter:
+      type: aggregation
+      selectedField: subject_id
+    result:
+      type: int
+      method: count_bucket_keys
+  - name: numberOfSamplesTest
+    index:
+      - samples
+    filter:
+      type: aggregation
+      selectedField: sample_id
+    result:
+      type: int
+      method: count_bucket_keys
+  - name: numberOfLabProceduresTest
+    index:
+      - lab_procedures
+    filter:
+      type: aggregation
+      selectedField: laboratory_procedure_id
+    result:
+      type: int
+      method: count_bucket_keys
+  - name: numberOfFilesTest
+    index:
+      - files
+    filter:
+      type: aggregation
+      selectedField: file_id
+    result:
+      type: int
+      method: count_bucket_keys
+
