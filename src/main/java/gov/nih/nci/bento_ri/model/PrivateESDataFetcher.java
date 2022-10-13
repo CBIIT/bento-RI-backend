@@ -3,6 +3,7 @@ package gov.nih.nci.bento_ri.model;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import gov.nih.nci.bento.constants.Const;
 import gov.nih.nci.bento.model.AbstractPrivateESDataFetcher;
 import gov.nih.nci.bento.model.search.yaml.YamlQueryFactory;
 import gov.nih.nci.bento.service.ESService;
@@ -37,7 +38,7 @@ public class PrivateESDataFetcher extends AbstractPrivateESDataFetcher {
     public RuntimeWiring buildRuntimeWiring() throws IOException {
         return RuntimeWiring.newRuntimeWiring()
                 .type(newTypeWiring("QueryType")
-                        .dataFetchers(yamlQueryFactory.createYamlQueries())
+                        .dataFetchers(yamlQueryFactory.createYamlQueries(Const.ES_ACCESS_TYPE.PRIVATE))
                         .dataFetcher("searchSubjects", env -> {
                             Map<String, Object> args = env.getArguments();
                             return searchSubjects(args);
