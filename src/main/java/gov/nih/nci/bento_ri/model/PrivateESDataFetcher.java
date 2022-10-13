@@ -48,10 +48,10 @@ public class PrivateESDataFetcher extends AbstractPrivateESDataFetcher {
                             Map<String, Object> args = env.getArguments();
                             return searchSubjects(args);
                         })
-                        .dataFetcher("globalSearch", env -> {
-                            Map<String, Object> args = env.getArguments();
-                            return globalSearch(args);
-                        })
+//                        .dataFetcher("globalSearch", env -> {
+//                            Map<String, Object> args = env.getArguments();
+//                            return globalSearch(args);
+//                        })
                         .dataFetcher("idsLists", env -> idsLists())
                         .dataFetcher("programInfo", env -> programInfo())
                         .dataFetcher("programDetail", env -> {
