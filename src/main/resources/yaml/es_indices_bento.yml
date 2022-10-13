@@ -138,6 +138,32 @@ Indices:
         type: keyword
       tumor_largest_dimension_diameter:
         type: keyword
+      file_info:
+        type: nested
+        properties:
+          file_id:
+            type: keyword
+          file_ids:
+            type: keyword
+          file_type:
+            type: keyword
+          file_name:
+            type: keyword
+          file_names:
+            type: keyword
+          association:
+            type: keyword
+      sample_info:
+        type: nested
+        properties:
+          sample_id:
+            type: keyword
+          sample_ids:
+            type: keyword
+          composition:
+            type: keyword
+          tissue_type:
+            type: keyword
     # Cypher query will be used to retrieve data from Neo4j, and index into Elasticsearch
     cypher_query: "
       MATCH (ss:study_subject)-[:study_subject_of_study]->(s)-[:study_of_program]->(p)
@@ -214,7 +240,9 @@ Indices:
       fu.days_to_recurrence AS days_to_recurrence,
       lp.test_name AS test_name,
       COUNT(DISTINCT samp) AS num_samples,
-      COUNT(DISTINCT lp) AS num_lab_procedures
+      COUNT(DISTINCT lp) AS num_lab_procedures,
+      COLLECT(DISTINCT {file_id: f.file_id, file_ids: f.file_id, file_name: f.file_name, file_names: f.file_name, file_type: f.file_type, association: head(labels(parent))}) as file_info,
+      COLLECT(DISTINCT {sample_id: samp.sample_id, sample_ids: samp.sample_id, composition: samp.composition, tissue_type: samp.tissue_type}) AS sample_info
       "
 
   - index_name: subject_ids
