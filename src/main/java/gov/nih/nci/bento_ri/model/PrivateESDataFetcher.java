@@ -1,8 +1,5 @@
 package gov.nih.nci.bento_ri.model;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 import gov.nih.nci.bento.model.AbstractPrivateESDataFetcher;
 import gov.nih.nci.bento.model.search.yaml.YamlQueryFactory;
 import gov.nih.nci.bento.service.ESService;
@@ -13,13 +10,7 @@ import org.opensearch.client.Request;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import static graphql.schema.idl.TypeRuntimeWiring.newTypeWiring;
 
@@ -44,10 +35,6 @@ public class PrivateESDataFetcher extends AbstractPrivateESDataFetcher {
                         .dataFetcher("numberOfSamples", env -> getNodeCount(SAMPLES_COUNT_END_POINT))
                         .dataFetcher("numberOfLabProcedures", env -> getNodeCount(LAB_PROCEDURE_COUNT_END_POINT))
                         .dataFetcher("numberOfFiles", env -> getNodeCount(FILES_COUNT_END_POINT))
-                        .dataFetcher("globalSearch", env -> {
-                            Map<String, Object> args = env.getArguments();
-                            return globalSearch(args);
-                        })
                         .dataFetcher("idsLists", env -> idsLists())
                         .dataFetcher("programInfo", env -> programInfo())
                         .dataFetcher("programDetail", env -> {
