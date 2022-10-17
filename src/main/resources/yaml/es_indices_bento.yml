@@ -582,6 +582,8 @@ Indices:
     type: neo4j
     # type mapping for each property of the index
     mapping:
+      type:
+        type: keyword
       program_code:
         type: keyword
       program_id:
