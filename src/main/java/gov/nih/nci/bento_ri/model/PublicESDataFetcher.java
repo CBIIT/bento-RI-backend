@@ -10,7 +10,6 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
-import java.util.Map;
 
 import static graphql.schema.idl.TypeRuntimeWiring.newTypeWiring;
 
@@ -27,12 +26,8 @@ public class PublicESDataFetcher extends AbstractPublicESDataFetcher {
     public RuntimeWiring buildRuntimeWiring() throws IOException {
         return RuntimeWiring.newRuntimeWiring()
                 .type(newTypeWiring("QueryType")
-                        .dataFetchers(yamlQueryFactory.createYamlQueries(Const.ES_ACCESS_TYPE.PUBLIC))
                         .dataFetcher("esVersion", env -> esVersion())
-                        .dataFetcher("publicGlobalSearch", env -> {
-                            Map<String, Object> args = env.getArguments();
-                            return globalSearch(args);
-                        })
+                        .dataFetchers(yamlQueryFactory.createYamlQueries(Const.ES_ACCESS_TYPE.PUBLIC))
                 )
                 .build();
     }
