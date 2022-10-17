@@ -1,0 +1,186 @@
+queries:
+  - name: publicGlobalSearch
+    returnFields:
+      - name: subject_count
+        index:
+          - subjects
+        filter:
+          type: global
+          defaultSortField: subject_id_num
+          searches:
+            - field: subject_id
+              type: wildcard
+              caseInsensitive: true
+            - field: diagnosis_gs
+              type: wildcard
+              caseInsensitive: true
+          typedSearch:
+            - field: age_at_index
+              type: term
+              option: integer
+        result:
+          type: int_total_count
+      - name: sample_count
+        index:
+          - samples
+        filter:
+          type: global
+          defaultSortField: subject_id_num
+          searches:
+            - field: sample_id_gs
+              type: wildcard
+            - field: sample_anatomic_site_gs
+              type: wildcard
+            - field: tissue_type_gs
+              type: wildcard
+        result:
+          type: int_total_count
+
+      - name: programs
+        index:
+          - programs
+        filter:
+          type: global
+          defaultSortField: program_id_kw
+          searches:
+            - field: program_id
+              type: wildcard
+            - field: program_code
+              type: wildcard
+            - field: program_name
+              type: wildcard
+        result:
+          type: global
+      - name: program_count
+        index:
+          - programs
+        filter:
+          type: global
+          defaultSortField: program_id_kw
+          searches:
+            - field: program_id
+              type: wildcard
+            - field: program_code
+              type: wildcard
+            - field: program_name
+              type: wildcard
+        result:
+          type: int_total_count
+      - name: study_count
+        index:
+          - studies
+        filter:
+          type: global
+          defaultSortField: study_id_kw
+          searches:
+            - field: study_id
+              type: wildcard
+            - field: study_name
+              type: wildcard
+            - field: study_type
+              type: wildcard
+        result:
+          type: int_total_count
+      # About Page
+      # Always Set offset= 0 and default-size=10000
+      - name: about_page
+        index:
+          - about_page
+        filter:
+          type: global
+          selectedField: content.paragraph
+          searches:
+            - field: content.paragraph
+              type: match
+        highlight:
+          fields:
+            - content.paragraph
+          preTag: $
+          postTag: $
+        result:
+          type: global_about
+      - name: about_count
+        index:
+          - about_page
+        filter:
+          type: global
+          selectedField: content.paragraph
+          searches:
+            - field: content.paragraph
+              type: match
+        highlight:
+          fields:
+            - content.paragraph
+          preTag: $
+          postTag: $
+        result:
+          type: int_total_count
+
+      # Multiple ES Index Search
+      # Always Set offset= 0 and default-size=10000
+      - name: model
+        index:
+          - model_properties
+          - model_values
+          - model_nodes
+        filter:
+          type: global
+          searches:
+            - field: value.keyword
+              type: wildcard
+            - field: property_name
+              type: term
+            - field: property_type
+              type: term
+            - field: property_description.keyword
+              type: term
+            - field: node_name
+              type: term
+          typedSearch:
+            - field: property_required
+              type: match
+              option: boolean
+        highlight:
+          fields:
+            - property_name
+            - property_description
+            - property_type
+            - property_required
+            - value
+            - node_name
+          fragmentSize: 1
+        result:
+          type: global_multi_models
+      - name: model_count
+        index:
+          - model_properties
+          - model_values
+          - model_nodes
+        filter:
+          type: global
+          searches:
+            - field: value.keyword
+              type: wildcard
+            - field: property_name
+              type: term
+            - field: property_type
+              type: term
+            - field: property_description.keyword
+              type: term
+            - field: node_name
+              type: term
+          typedSearch:
+            - field: property_required
+              type: match
+              option: boolean
+        highlight:
+          fields:
+            - property_name
+            - property_description
+            - property_type
+            - property_required
+            - value
+            - node_name
+          fragmentSize: 1
+        result:
+          type: int_total_count
