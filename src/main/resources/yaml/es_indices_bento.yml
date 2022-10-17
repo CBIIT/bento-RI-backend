@@ -37,13 +37,13 @@ Indices:
       subject_id_num:
         type: integer
       subject_id_gs:
-        type: search_as_you_type
+        type: keyword
       diagnosis:
         type: keyword
       diagnoses:
         type: keyword
       diagnosis_gs:
-        type: search_as_you_type
+        type: keyword
       rc_scores:
         type: keyword
       tumor_size:
@@ -75,7 +75,7 @@ Indices:
       age_at_index:
         type: integer
       age_at_index_gs:
-        type: search_as_you_type
+        type: keyword
       survival_time:
         type: integer
       survival_time_unit:
@@ -138,6 +138,32 @@ Indices:
         type: keyword
       tumor_largest_dimension_diameter:
         type: keyword
+      file_info:
+        type: nested
+        properties:
+          file_id:
+            type: keyword
+          file_ids:
+            type: keyword
+          file_type:
+            type: keyword
+          file_name:
+            type: keyword
+          file_names:
+            type: keyword
+          association:
+            type: keyword
+      sample_info:
+        type: nested
+        properties:
+          sample_id:
+            type: keyword
+          sample_ids:
+            type: keyword
+          composition:
+            type: keyword
+          tissue_type:
+            type: keyword
     # Cypher query will be used to retrieve data from Neo4j, and index into Elasticsearch
     cypher_query: "
       MATCH (ss:study_subject)-[:study_subject_of_study]->(s)-[:study_of_program]->(p)
@@ -214,7 +240,9 @@ Indices:
       fu.days_to_recurrence AS days_to_recurrence,
       lp.test_name AS test_name,
       COUNT(DISTINCT samp) AS num_samples,
-      COUNT(DISTINCT lp) AS num_lab_procedures
+      COUNT(DISTINCT lp) AS num_lab_procedures,
+      COLLECT(DISTINCT {file_id: f.file_id, file_ids: f.file_id, file_name: f.file_name, file_names: f.file_name, file_type: f.file_type, association: head(labels(parent))}) as file_info,
+      COLLECT(DISTINCT {sample_id: samp.sample_id, sample_ids: samp.sample_id, composition: samp.composition, tissue_type: samp.tissue_type}) AS sample_info
       "
 
   - index_name: subject_ids
@@ -272,7 +300,7 @@ Indices:
       sample_ids:
         type: keyword
       sample_id_gs:
-        type: search_as_you_type
+        type: keyword
       sample_id_num:
         type: integer
       diagnosis:
@@ -308,7 +336,7 @@ Indices:
       tissue_type:
         type: keyword
       tissue_type_gs:
-        type: search_as_you_type
+        type: keyword
       tissue_composition:
         type: keyword
       composition:
@@ -316,7 +344,7 @@ Indices:
       sample_anatomic_site:
         type: keyword
       sample_anatomic_site_gs:
-        type: search_as_you_type
+        type: keyword
       sample_procurement_method:
         type: keyword
       files:
@@ -428,19 +456,19 @@ Indices:
       file_id_num:
         type: integer
       file_id_gs:
-        type: search_as_you_type
+        type: keyword
       file_name:
         type: keyword
       file_names:
         type: keyword
       file_name_gs:
-        type: search_as_you_type
+        type: keyword
       file_description:
         type: keyword
       file_format:
         type: keyword
       file_format_gs:
-        type: search_as_you_type
+        type: keyword
       file_size:
         type: double
       md5sum:
@@ -555,13 +583,13 @@ Indices:
     # type mapping for each property of the index
     mapping:
       program_code:
-        type: search_as_you_type
+        type: keyword
       program_id:
-        type: search_as_you_type
+        type: keyword
       program_file_names:
-        type: search_as_you_type
+        type: keyword
       program_name:
-        type: search_as_you_type
+        type: keyword
       program_code_kw:
         type: keyword
       program_id_kw:
@@ -602,6 +630,7 @@ Indices:
       OPTIONAL MATCH (s)<--(study_file:file)
       OPTIONAL MATCH (samp)<--(sample_file:file)
       RETURN DISTINCT
+        'program' AS type,
         p.program_acronym AS program_code,
         p.program_acronym AS program_code_kw,
         p.program_id AS program_id,
@@ -625,24 +654,26 @@ Indices:
     type: neo4j
     # type mapping for each property of the index
     mapping:
+      type:
+        type: keyword
       program_id:
-        type: search_as_you_type
+        type: keyword
       program_id_kw:
         type: keyword
       study_code:
-        type: search_as_you_type
+        type: keyword
       study_code_kw:
         type: keyword
       study_id:
-        type: search_as_you_type
+        type: keyword
       study_id_kw:
         type: keyword
       study_name:
-        type: search_as_you_type
+        type: keyword
       study_type:
-        type: search_as_you_type
+        type: keyword
       study_file_names:
-        type: search_as_you_type
+        type: keyword
       study_full_description:
         type: keyword
       study_info:
@@ -664,6 +695,7 @@ Indices:
       OPTIONAL MATCH (s)<-[:file_of_study]-(studyFile:file)
       OPTIONAL MATCH (samp)<-[:file_of_sample]-(sampleFile:file)-[:file_of_laboratory_procedure]->(lp:laboratory_procedure)
       RETURN DISTINCT
+        'study' AS type,
         p.program_id AS program_id,
         p.program_id AS program_id_kw,
         s.study_id AS study_id,
@@ -725,9 +757,9 @@ Indices:
     # type mapping for each property of the index
     mapping:
       page:
-        type: search_as_you_type
+        type: keyword
       title:
-        type: search_as_you_type
+        type: keyword
       primaryContentImage:
         type: text
       content:
@@ -739,7 +771,7 @@ Indices:
     # type mapping for each property of the index
     mapping:
       node:
-        type: search_as_you_type
+        type: keyword
       node_kw:
         type: keyword
 
@@ -749,17 +781,17 @@ Indices:
     # type mapping for each property of the index
     mapping:
       node:
-        type: search_as_you_type
+        type: keyword
       property:
-        type: search_as_you_type
+        type: keyword
       property_kw:
         type: keyword
       property_description:
-        type: search_as_you_type
+        type: keyword
       property_required:
-        type: search_as_you_type
+        type: keyword
       property_type:
-        type: search_as_you_type
+        type: keyword
 
   - index_name: model_values
     type: model
@@ -767,16 +799,16 @@ Indices:
     # type mapping for each property of the index
     mapping:
       node:
-        type: search_as_you_type
+        type: keyword
       property:
-        type: search_as_you_type
+        type: keyword
       property_description:
-        type: search_as_you_type
+        type: keyword
       property_required:
-        type: search_as_you_type
+        type: keyword
       property_type:
-        type: search_as_you_type
+        type: keyword
       value:
-        type: search_as_you_type
+        type: keyword
       value_kw:
         type: keyword
