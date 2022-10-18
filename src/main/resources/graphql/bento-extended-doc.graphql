@@ -823,10 +823,6 @@ type QueryType {
 
     samplesForSubjectId(subject_id: String!): [sample] 
 
-    fileIdsFromFileName(file_name: [String], order_by: String ="file_name"): [FileOverview] 
-
-    fileIdsFromFileNameDesc(file_name: [String], order_by: String ="file_name"): [FileOverview] 
-
     subjectList: [GroupList] 
 
     subjectListByProgram: [GroupList] 
