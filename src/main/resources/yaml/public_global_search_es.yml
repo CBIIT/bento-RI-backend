@@ -81,6 +81,22 @@ queries:
               type: wildcard
         result:
           type: int_total_count
+      - name: file_count
+        index:
+          - files
+        filter:
+          type: global
+          defaultSortField: file_id_num
+          searches:
+            - field: file_id_gs
+              type: wildcard
+            - field: file_name
+              type: wildcard
+              caseInsensitive: true
+            - field: file_format_gs
+              type: wildcard
+        result:
+          type: int_total_count
       # About Page
       # Always Set offset= 0 and default-size=10000
       - name: about_page
