@@ -70,3 +70,19 @@ queries:
         - file_names
     result:
       type: str_array
+  - name: fileIdsFromFileName
+    index:
+      - files
+    filter:
+      type: default
+      caseInsensitive: true
+    result:
+      type: object_array
+  - name: fileIdsFromFileNameDesc
+    index:
+      - files
+    filter:
+      type: default
+      caseInsensitive: true
+    result:
+      type: object_array

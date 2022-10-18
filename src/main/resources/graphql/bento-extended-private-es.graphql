@@ -508,4 +508,6 @@ type QueryType {
     programDetail(program_id: String):  ProgramDetail
     subjectDetail(subject_id: String): SubjectDetail
     armDetail(study_acronym: String): ArmDetail
+    fileIdsFromFileName(file_name: [String], order_by: String ="file_name", sort_direction: String = "asc"): [FileOverview2]
+    fileIdsFromFileNameDesc(file_name: [String], order_by: String ="file_name", sort_direction: String = "desc"): [FileOverview2]
 }
