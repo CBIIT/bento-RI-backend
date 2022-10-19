@@ -233,7 +233,7 @@ public class PrivateESDataFetcher extends AbstractPrivateESDataFetcher {
         */
         Map<String, String[][]> indexProperties = Map.of(
             SUBJECT_IDS_END_POINT, new String[][]{
-                    new String[]{"subjectIds", "subject_ids"}
+                    new String[]{"subjectIds", "subject_id"}
             },
             SAMPLES_END_POINT, new String[][]{
                     new String[]{"sampleIds", "sample_ids"}
