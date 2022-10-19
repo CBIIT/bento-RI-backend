@@ -2,11 +2,18 @@ package gov.nih.nci.bento_ri.model;
 
 import gov.nih.nci.bento.constants.Const;
 import gov.nih.nci.bento.model.AbstractPrivateESDataFetcher;
+import gov.nih.nci.bento.model.search.MultipleRequests;
+import gov.nih.nci.bento.model.search.filter.DefaultFilter;
+import gov.nih.nci.bento.model.search.filter.FilterParam;
+import gov.nih.nci.bento.model.search.mapper.TypeMapperImpl;
+import gov.nih.nci.bento.model.search.mapper.TypeMapperService;
+import gov.nih.nci.bento.model.search.query.QueryParam;
 import gov.nih.nci.bento.model.search.yaml.YamlQueryFactory;
 import gov.nih.nci.bento.service.ESService;
 import graphql.schema.idl.RuntimeWiring;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.opensearch.action.search.SearchRequest;
 import org.opensearch.client.Request;
 import org.springframework.stereotype.Component;
 
@@ -19,6 +26,7 @@ import static graphql.schema.idl.TypeRuntimeWiring.newTypeWiring;
 public class PrivateESDataFetcher extends AbstractPrivateESDataFetcher {
     private static final Logger logger = LogManager.getLogger(PrivateESDataFetcher.class);
     private final YamlQueryFactory yamlQueryFactory;
+    private final TypeMapperService typeMapper = new TypeMapperImpl();
 
     public PrivateESDataFetcher(ESService esService) {
         super(esService);
@@ -50,6 +58,8 @@ public class PrivateESDataFetcher extends AbstractPrivateESDataFetcher {
                             Map<String, Object> args = env.getArguments();
                             return armDetail(args);
                         })
+                        .dataFetcher("samplesForSubjectId", env ->
+                                samplesForSubjectId(createQueryParam(env)))
                 )
                 .build();
     }
@@ -291,4 +301,43 @@ public class PrivateESDataFetcher extends AbstractPrivateESDataFetcher {
         return esService.collectPage(request, query, properties, ESService.MAX_ES_SIZE, 0);
     }
 
+
+    private List<Map<String, Object>> samplesForSubjectId(QueryParam queryParam) throws IOException {
+        logger.info("Private SamplesForSubjectId API requested");
+        Set<String> returnTypes = queryParam.getReturnTypes();
+        returnTypes.add(BENTO_FIELDS.SAMPLE_NESTED_FILE_INFO);
+
+        List<MultipleRequests> requests = List.of(
+                MultipleRequests.builder()
+                        .name("samplesForSubjectId")
+                        .request(new SearchRequest()
+                                .indices(BENTO_INDEX.SAMPLES)
+                                .source(new DefaultFilter(
+                                        FilterParam.builder()
+                                                .args(queryParam.getArgs())
+                                                .selectedField("subject_id")
+                                                .caseInsensitive(true)
+                                                .build())
+                                        .getSourceFilter()
+                                ))
+                        .typeMapper(typeMapper.getList(returnTypes)).build());
+
+        Map<String, List<Map<String, Object>>> response = esService.elasticMultiSend(requests);
+        List<Map<String, Object>> result = response.get("samplesForSubjectId");
+        // Store customized sub-fields 'files'
+        result.forEach(r-> {
+            Object files = r.get(BENTO_FIELDS.SAMPLE_NESTED_FILE_INFO);
+            r.put(BENTO_FIELDS.FILES, files);
+        });
+        return result;
+    }
+
+    private final static class BENTO_INDEX {
+        private static final String SAMPLES = "samples";
+    }
+
+    private final static class BENTO_FIELDS {
+        private static final String SAMPLE_NESTED_FILE_INFO = "file_info";
+        private static final String FILES = "files";
+    }
 }

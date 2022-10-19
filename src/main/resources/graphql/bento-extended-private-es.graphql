@@ -380,6 +380,17 @@ schema {
     query: QueryType
 }
 
+
+type SampleDetail {
+    sample_id: String
+    tissue_type: String
+    sample_type: String
+    composition: String
+    method_of_sample_procurement: String
+    sample_anatomic_site: String
+    files: [FileDetail]
+}
+
 type QueryType {
     esVersion: String
     numberOfPrograms: Int
@@ -510,4 +521,7 @@ type QueryType {
     armDetail(study_acronym: String): ArmDetail
     fileIdsFromFileName(file_name: [String], order_by: String ="file_name", sort_direction: String = "asc"): [FileOverview2]
     fileIdsFromFileNameDesc(file_name: [String], order_by: String ="file_name", sort_direction: String = "desc"): [FileOverview2]
+    samplesForSubjectId(subject_id: String): [SampleDetail]
+    subjectsInList(subject_ids: [String] = []): [SubjectOverview]
+    filesOfSubjects(subject_ids: [String]=[]): [FileDetail]
 }
