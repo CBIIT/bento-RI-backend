@@ -311,7 +311,7 @@ type SubjectDetail {
     er_status: String
     pr_status: String
     nuclear_grade: String
-    recurrence_score: Int
+    recurrence_score: String
     primary_surgical_procedure: String
     chemotherapy_regimen_group: String
     chemotherapy_regimen: String
