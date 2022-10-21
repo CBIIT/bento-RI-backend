@@ -388,7 +388,12 @@ type SampleDetail {
     composition: String
     method_of_sample_procurement: String
     sample_anatomic_site: String
-    files: [FileDetail]
+    files: [SampleDetailFile]
+}
+
+type SampleDetailFile {
+    file_name: String
+    file_id: String
 }
 
 type QueryType {
