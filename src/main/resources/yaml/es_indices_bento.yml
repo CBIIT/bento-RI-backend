@@ -347,6 +347,8 @@ Indices:
         type: keyword
       sample_procurement_method:
         type: keyword
+      method_of_sample_procurement:
+        type: keyword
       files:
         type: keyword
       platform:
@@ -359,6 +361,21 @@ Indices:
         type: integer
       sample_type:
         type: keyword
+      file_info:
+        type: nested
+        properties:
+          file_id:
+            type: keyword
+          file_ids:
+            type: keyword
+          file_type:
+            type: keyword
+          file_name:
+            type: keyword
+          file_names:
+            type: keyword
+          association:
+            type: keyword
     # Cypher query will be used to retrieve data from Neo4j, and index into Elasticsearch
     cypher_query: "
       MATCH (ss:study_subject)-[:study_subject_of_study]->(s:study)-[:study_of_program]->(p:program)
@@ -384,6 +401,7 @@ Indices:
       samp.sample_anatomic_site AS sample_anatomic_site,
       samp.sample_anatomic_site AS sample_anatomic_site_gs,
       samp.method_of_sample_procurement AS sample_procurement_method,
+      samp.method_of_sample_procurement AS method_of_sample_procurement,
       lp.test_name AS platform,
       toInteger(split(samp.sample_id,'-')[2]) AS sample_id_num,
       ss.study_subject_id AS subject_id,
@@ -413,7 +431,8 @@ Indices:
       COLLECT(DISTINCT f.file_id) AS files,
       COLLECT(DISTINCT head(labels(parent))) AS association,
       samp.sample_type AS sample_type,
-      COLLECT(DISTINCT f.file_type) AS file_type
+      COLLECT(DISTINCT f.file_type) AS file_type,
+      COLLECT(DISTINCT {file_id: f.file_id, file_ids: f.file_id, file_name: f.file_name, file_names: f.file_name, file_type: f.file_type}) as file_info      
       "
   - index_name: files
     type: neo4j

@@ -70,6 +70,24 @@ queries:
         - file_names
     result:
       type: str_array
+  - name: subjectsInList
+    index:
+      - subjects
+    filter:
+      type: default
+      caseInsensitive: true
+      selectedField: subject_ids
+    result:
+      type: object_array
+  - name: filesOfSubjects
+    index:
+      - files
+    filter:
+      type: default
+      caseInsensitive: true
+      selectedField: subject_id
+    result:
+      type: object_array
   - name: fileIdsFromFileName
     index:
       - files
