@@ -1,7 +1,7 @@
 package gov.nih.nci.bento_ri.model;
 
 import gov.nih.nci.bento.constants.Const;
-import gov.nih.nci.bento.model.AbstractPrivateESDataFetcher;
+import gov.nih.nci.bento.model.AbstractESDataFetcher;
 import gov.nih.nci.bento.model.search.MultipleRequests;
 import gov.nih.nci.bento.model.search.filter.DefaultFilter;
 import gov.nih.nci.bento.model.search.filter.FilterParam;
@@ -23,7 +23,7 @@ import java.util.*;
 import static graphql.schema.idl.TypeRuntimeWiring.newTypeWiring;
 
 @Component
-public class PrivateESDataFetcher extends AbstractPrivateESDataFetcher {
+public class PrivateESDataFetcher extends AbstractESDataFetcher {
     private static final Logger logger = LogManager.getLogger(PrivateESDataFetcher.class);
     private final YamlQueryFactory yamlQueryFactory;
     private final TypeMapperService typeMapper = new TypeMapperImpl();
