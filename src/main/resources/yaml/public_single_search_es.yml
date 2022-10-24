@@ -1,0 +1,55 @@
+queries:
+  - name: numberOfPrograms
+    index:
+      - subjects
+    filter:
+      type: aggregation
+      selectedField: programs
+    result:
+      type: int
+      method: count_bucket_keys
+  - name: numberOfStudies
+    index:
+      - subjects
+    filter:
+      type: aggregation
+      selectedField: studies
+    result:
+      type: int
+      method: count_bucket_keys
+  - name: numberOfSubjects
+    index:
+      - subjects
+    filter:
+      type: aggregation
+      selectedField: subject_id
+    result:
+      type: int
+      method: count_bucket_keys
+  - name: numberOfSamples
+    index:
+      - samples
+    filter:
+      type: aggregation
+      selectedField: sample_id
+    result:
+      type: int
+      method: count_bucket_keys
+  - name: numberOfLabProcedures
+    index:
+      - lab_procedures
+    filter:
+      type: aggregation
+      selectedField: laboratory_procedure_id
+    result:
+      type: int
+      method: count_bucket_keys
+  - name: numberOfFiles
+    index:
+      - files
+    filter:
+      type: aggregation
+      selectedField: file_id
+    result:
+      type: int
+      method: count_bucket_keys
