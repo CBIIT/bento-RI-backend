@@ -6,9 +6,9 @@ services:
     image: 4.8.0.224
     buildNumber: '224'
   frontend:
-    version: 3.9.0.84
-    image: 3.9.0.84
-    buildNumber: '84'
+    version: 3.9.0.85
+    image: 3.9.0.85
+    buildNumber: '85'
   auth:
     version: 2.1.0.21
     image: 2.1.0.21
