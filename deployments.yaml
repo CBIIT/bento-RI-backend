@@ -6,9 +6,9 @@ services:
     image: 4.7.0.144
     buildNumber: '144'
   frontend:
-    version: 3.9.0_GMB.83
-    image: 3.9.0_GMB.83
-    buildNumber: '83'
+    version: 3.9.0_GMB.95
+    image: 3.9.0_GMB.95
+    buildNumber: '95'
   auth:
     version: 2.0.0.20
     image: 2.0.0.20
