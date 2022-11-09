@@ -1,0 +1,539 @@
+type ADVERSE_EVENTS {
+  NOTE_DT_AE: String
+  RSCH_COMMENTS_TXT_AE: String
+  SUBJECT: SUBJECT @relation(name:"of_subject", direction:OUT)
+}
+
+type BASELINE_MEDICAL_HISTORY_2 {
+  NOTE_DT_MED: String
+  RSCH_COMMENTS_TXT_MED: String
+  SUBJECT: SUBJECT @relation(name:"of_subject", direction:OUT)
+}
+
+type CANCER_HISTORY {
+  NOTE_DT_CH: String
+  RSCH_COMMENTS_TXT_CH: String
+  SUBJECT: SUBJECT @relation(name:"of_subject", direction:OUT)
+}
+
+type CLINICALTRIAL {
+  subjects: [SUBJECT] @relation(name:"of_clinicaltrials", direction:IN)
+  sites: [SITE] @relation(name:"of_clinicaltrials", direction:IN)
+}
+
+type CONCOMITANT_MEASURES_MEDICATIONS {
+  NOTE_DT_CONCOM: String
+  RSCH_COMMENTS_TXT_CONCOM: String
+  SUBJECT: SUBJECT @relation(name:"of_subject", direction:OUT)
+}
+
+type ENROLLMENT {
+  NOTE_DT_ENRL: String
+  RSCH_COMMENTS_TXT_ENRL: String
+  SUBJECT: SUBJECT @relation(name:"of_subject", direction:OUT)
+}
+
+type FILE {
+  FILE_NAME: String
+  FILE_TYPE: String
+  FILE_DESCRIPTION: String
+  FILE_FORMAT: String
+  FILE_SIZE: Int
+  MD5SUM: String
+  FILE_STATUS: String
+  UUID: String
+  FILE_LOCATION: String
+  SUBJECT: SUBJECT @relation(name:"of_subject", direction:OUT)
+}
+
+type FOLLOW_UP {
+  NOTE_DT_FLWUP: String
+  RSCH_COMMENTS_TXT_FLWUP: String
+  SUBJECT: SUBJECT @relation(name:"of_subject", direction:OUT)
+}
+
+type FOLLOW_UP_THERAPY {
+  NOTE_DT_FLWUP_THERAPY: String
+  RSCH_COMMENTS_TXT_FLWUP_THERAPY: String
+  SUBJECT: SUBJECT @relation(name:"of_subject", direction:OUT)
+}
+
+type FormOID {
+  FieldOID: String
+}
+
+type GERMLINE_VARIANT {
+  NOTE_DT_GRMLN: String
+  RSCH_COMMENTS_TXT_GRMLN: String
+  SUBJECT: SUBJECT @relation(name:"of_subject", direction:OUT)
+}
+
+type LABORATORY {
+  NOTE_DT_LAB: String
+  RSCH_COMMENTS_TXT_LAB: String
+  SUBJECT: SUBJECT @relation(name:"of_subject", direction:OUT)
+}
+
+type MEDICAL_HISTORY {
+  NOTE_DT_MH: String
+  RSCH_COMMENTS_TXT_MH: String
+  SUBJECT: SUBJECT @relation(name:"of_subject", direction:OUT)
+}
+
+type OFF_STUDY {
+  NOTE_DT_OSSM: String
+  RSCH_COMMENTS_TXT_OSSM: String
+  SUBJECT: SUBJECT @relation(name:"of_subject", direction:OUT)
+}
+
+type PHYSICAL_EXAM_SCREENING {
+  NOTE_DT_SCRPE: String
+  RSCH_COMMENTS_TXT_SCRPE: String
+  SUBJECT: SUBJECT @relation(name:"of_subject", direction:OUT)
+}
+
+type PI_SIGNOFF {
+  NOTE_DT_SIGNOFF: String
+  RSCH_COMMENTS_TXT_SIGNOFF: String
+  SUBJECT: SUBJECT @relation(name:"of_subject", direction:OUT)
+}
+
+type PRIOR_RADIATION_SUPPLEMENT {
+  NOTE_DT_RAD: String
+  RSCH_COMMENTS_TXT_RAD: String
+  SUBJECT: SUBJECT @relation(name:"of_subject", direction:OUT)
+}
+
+type PRIOR_SURGERY_SUPPLEMENT {
+  NOTE_DT_SURG: String
+  RSCH_COMMENTS_TXT_SURG: String
+  SUBJECT: SUBJECT @relation(name:"of_subject", direction:OUT)
+}
+
+type PRIOR_THERAPY_SUPPLEMENT {
+  NOTE_DT_THER: String
+  RSCH_COMMENTS_TXT_THER: String
+  SUBJECT: SUBJECT @relation(name:"of_subject", direction:OUT)
+}
+
+type RADIATION_SUPPLEMENT {
+  NOTE_DT_RAD_SUPP: String
+  RSCH_COMMENTS_TXT_RAD_SUPP: String
+  SUBJECT: SUBJECT @relation(name:"of_subject", direction:OUT)
+}
+
+type SITE {
+  ADDRESS: String
+  CLINICALTRIAL: CLINICALTRIAL @relation(name:"of_clinicaltrials", direction:OUT)
+  subjects: [SUBJECT] @relation(name:"participate_at_site", direction:IN)
+}
+
+type SOMATIC_VARIANT {
+  NOTE_DT_SV: String
+  RSCH_COMMENTS_TXT_SV: String
+  SUBJECT: SUBJECT @relation(name:"of_subject", direction:OUT)
+}
+
+type STORAGE {
+  NOTE_DT_SCRRSC: String
+  RSCH_COMMENTS_TXT_SCRRSC: String
+  SUBJECT: SUBJECT @relation(name:"of_subject", direction:OUT)
+}
+
+type STORAGE_2 {
+  NOTE_DT_FLWUPRSC: String
+  RSCH_COMMENTS_TXT_FLWUPRSC: String
+  SUBJECT: SUBJECT @relation(name:"of_subject", direction:OUT)
+}
+
+type SUBJECT {
+  CLINICALTRIAL: CLINICALTRIAL @relation(name:"of_clinicaltrials", direction:OUT)
+  SITE: SITE @relation(name:"participate_at_site", direction:OUT)
+  storages: [STORAGE] @relation(name:"of_subject", direction:IN)
+  survivals: [SURVIVAL] @relation(name:"of_subject", direction:IN)
+  laboratories: [LABORATORY] @relation(name:"of_subject", direction:IN)
+  surgery_supplements: [SURGERY_SUPPLEMENT] @relation(name:"of_subject", direction:IN)
+  off_studies: [OFF_STUDY] @relation(name:"of_subject", direction:IN)
+  prior_therapy_supplements: [PRIOR_THERAPY_SUPPLEMENT] @relation(name:"of_subject", direction:IN)
+  pi_signoffs: [PI_SIGNOFF] @relation(name:"of_subject", direction:IN)
+  adverse_events: [ADVERSE_EVENTS] @relation(name:"of_subject", direction:IN)
+  concomitant_measures_medications: [CONCOMITANT_MEASURES_MEDICATIONS] @relation(name:"of_subject", direction:IN)
+  cancer_histories: [CANCER_HISTORY] @relation(name:"of_subject", direction:IN)
+  medical_histories: [MEDICAL_HISTORY] @relation(name:"of_subject", direction:IN)
+  radiation_supplements: [RADIATION_SUPPLEMENT] @relation(name:"of_subject", direction:IN)
+  storages_2: [STORAGE_2] @relation(name:"of_subject", direction:IN)
+  enrollments: [ENROLLMENT] @relation(name:"of_subject", direction:IN)
+  somatic_variants: [SOMATIC_VARIANT] @relation(name:"of_subject", direction:IN)
+  follow_ups: [FOLLOW_UP] @relation(name:"of_subject", direction:IN)
+  physical_exam_screenings: [PHYSICAL_EXAM_SCREENING] @relation(name:"of_subject", direction:IN)
+  germline_variants: [GERMLINE_VARIANT] @relation(name:"of_subject", direction:IN)
+  baseline_medical_histories_2: [BASELINE_MEDICAL_HISTORY_2] @relation(name:"of_subject", direction:IN)
+  files: [FILE] @relation(name:"of_subject", direction:IN)
+  follow_up_therapies: [FOLLOW_UP_THERAPY] @relation(name:"of_subject", direction:IN)
+  prior_radiation_supplements: [PRIOR_RADIATION_SUPPLEMENT] @relation(name:"of_subject", direction:IN)
+  prior_surgery_supplements: [PRIOR_SURGERY_SUPPLEMENT] @relation(name:"of_subject", direction:IN)
+}
+
+type SURGERY_SUPPLEMENT {
+  NOTE_DT_SURG_SUPP: String
+  RSCH_COMMENTS_TXT_SURG_SUPP: String
+  SUBJECT: SUBJECT @relation(name:"of_subject", direction:OUT)
+}
+
+type SURVIVAL {
+  NOTE_DT_SR: String
+  RSCH_COMMENTS_TXT_SR: String
+  SUBJECT: SUBJECT @relation(name:"of_subject", direction:OUT)
+}
+
+type GroupCount {
+    group: String
+    subjects: Int
+}
+
+type FileUUID {
+    file_id: String
+}
+
+type SubjectOverview {
+    subject_id: String
+    race: String
+    diseaseTerm: String
+    registeringInstitution: String
+    patientSubgroup: String
+    stageAtEntry: String
+    causeOfDeath: String
+    sitesOfDiseaseAtAutopsy: String
+    sourceOfTheLabData: String
+    labTest: String
+    systemOrganClass: String
+    serious: String
+    outcome: String
+    pathogenicity: String
+    germlinePathogenicity: String
+    files: [FileUUID]
+}
+
+type FileOverview {
+    file_id: String
+    file_name: String
+    file_description: String
+    file_format: String
+    file_size: Int
+    trial_id: String
+    trial_short_name: String
+    arm: String
+    subject_id: String
+    file_type: String
+    md5sum: String
+}
+
+type SearchResult {
+    numberOfTrials: Int
+    numberOfSubjects: Int
+    numberOfFiles: Int
+    fileIds: [String]
+    subject_ids: [String]
+}
+
+type SubjectDetail {
+    subject_id: String
+    gender: String
+    ageAtEntry: Int
+    race: String
+    registeringInstitution: String
+    diseaseTerm: String
+    patientSubgroup: String
+    files: [FileOverview]
+    enrollments: [Enrollment]
+    adverseEvents: [AdverseEvent]
+    somaticVariant: [SomaticVariant]
+    germlineVariant: [GermlineVariant]
+}
+
+type Enrollment {
+    dateOfDiagnosis: String
+    histology: String
+    eligibility: String
+    gleasonScore: String
+    consentSignedDate: String
+    consentVersionDate: String
+    stageAtEntry: String
+    labsInclusionStartDate: String
+}
+
+type AdverseEvent {
+    course: String
+    courseDay: String
+    onsetDate: String
+    resolvedDate: String
+    term: String
+    organClass: String
+    eventDescription: String
+    grade: String
+    researchAttribution: String
+    diseaseAttriibution: String
+    otherAttribution: String
+    otherExtra: String
+    unexpectedAdverseEvents: String
+    serious: String
+    action: String
+    therapy: String
+    outcome: String
+    expeditedReportToIRB: String
+    expeditedReportToCCR: String
+}
+
+type SomaticVariant {
+    genePanel500: String
+    genePathogenicVariant: String
+    somaticPathogenicity: String
+}
+
+type GermlineVariant {
+    panelCode: String
+    genePathogenicVariant: String
+    germlinePathogenicity: String
+}
+
+type TrialInfo {
+    trialName: String
+    trial_id: String
+    trialDescription: String
+    trialType: String
+    num_subjects: Int
+}
+
+type SiteSubjectCount{
+    site_id: String
+    siteName: String
+    siteAddress: String
+    siteStatus: String
+    subjectCount: Int
+}
+
+type TrialDetail{
+    trial_id: String
+    trialName: String
+    trialLongName: String
+    trialDesription: String
+    leadOrganization: String
+    trialType: String
+    trialPrincipalInvestigator: String
+    num_subjects: Int,
+    num_files: Int,
+    sites: [SiteSubjectCount]
+}
+
+type SiteDetail{
+    site_id: String
+    siteName: String
+    siteAddress: String
+    siteContact: String
+    sitePhone: String
+    siteEmail: String
+    siteStatus: String
+    num_subjects: Int
+    num_files: Int
+    subjects: [SubjectDetail]
+    files: [FileOverview]
+}
+
+schema {
+    query: QueryType
+}
+
+type QueryType {
+    schemaVersion: String @cypher(statement: "RETURN '0.8.0'")
+
+    subjectDetail(subject_id: String): SubjectDetail @cypher(statement: """
+        MATCH (s:SUBJECT {PT_ID: $subject_id})
+        OPTIONAL MATCH (s)<--(f:FILE)
+        OPTIONAL MATCH (s)<--(e:ENROLLMENT)
+        OPTIONAL MATCH (s)<--(ae:ADVERSE_EVENTS)
+        OPTIONAL MATCH (s)<--(sv:SOMATIC_VARIANT)
+        OPTIONAL MATCH (s)<--(gv:GERMLINE_VARIANT)
+        WITH s,
+            COLLECT(DISTINCT f {
+                subject_id: s.PT_ID,
+                file_name: f.FILE_NAME,
+                file_type: f.FILE_TYPE,
+                file_description: f.FILE_DESCRIPTION,
+                file_format: f.FILE_FORMAT,
+                file_size: f.FILE_SIZE,
+                file_id: f.UUID,
+                md5sum: f.MD5SUM
+            }) AS files,
+            COLLECT(DISTINCT e {
+                dateOfDiagnosis: e.DX_DT,
+                histology: e.HIST_CYTPATH_DESC,
+                eligibility: e.PT_ELIG_IND,
+                gleasonScore: e.GLESNSC_GD_PRSCA_VAL,
+                consentSignedDate: e.ICF_SIG_DT,
+                consentVersionDate: e.PROT_AMDT_DT,
+                stageAtEntry: e.DISEAS_STG,
+                labsInclusionStartDate: e.PRESTUDY_LAB_DT
+            }) AS enrollments,
+            COLLECT(DISTINCT ae {
+                course: ae.CRSE_NUM,
+                courseDay: ae.CRSE_DAY_NUM,
+                onsetDate: ae.AE_ONSET_DT,
+                resolvedDate: ae.RESOLV_DT,
+                term: ae.CTCAE5_LLT_NM,
+                organClass: ae.MEDDRA_SOC_TRM_NM,
+                eventDescription: ae.AE_DESC_TXT,
+                grade: ae.AE_SEV_GD,
+                researchAttribution: ae.AE_RESRCH_ATRB_CAT,
+                diseaseAttriibution: ae.AE_DZ_ATRB_CAT,
+                otherAttribution: ae.AE_OTH_COND_ATRB_CAT,
+                otherExtra: ae.OTX_AE_SHORT_TXT,
+                unexpectedAdverseEvents: ae.UNEXP_AE_OCC_CD_IND,
+                serious: ae.SAE_RSN,
+                action: ae.AE_ACTION,
+                therapy: ae.AE_THERAPY,
+                outcome: ae.AE_OUTCOME,
+                expeditedReportToIRB: ae.AER_IND,
+                expeditedReportToCCR: ae.CCR_EP_AE_SUBM_IND
+            }) AS adverseEvents,
+            COLLECT(DISTINCT sv {
+                genePanel500: sv.TUMR_GENE_SEQ_TSO_CD,
+                genePathogenicVariant: sv.GENE_PATH_VAR_NM,
+                somaticPathogenicity: sv.SOMATIC_VAR_PTHGNC_CAT
+            }) AS somaticVariant,
+            COLLECT(DISTINCT gv {
+                panelCode: gv.HERED_GENE_PANL_CD,
+                genePathogenicVariant: gv.GENE_PATH_VAR_NM,
+                germlinePathogenicity: gv.GRMLN_VAR_PTHGNC_CAT
+            }) AS germlineVariant
+        RETURN {
+            subject_id: s.PT_ID,
+            gender: s.PRSN_GENDER_TXT_TP,
+            ageAtEntry: s.PT_AGE_VAL,
+            race: s.PT_RACE_CD_1,
+            registeringInstitution: s.REG_INST_ID_CD,
+            diseaseTerm: s.DZ_DX_NM,
+            patientSubgroup: s.PT_SUBGRP_ASSIGN_TP,
+            files: files,
+            enrollments: enrollments,
+            adverseEvents: adverseEvents,
+            somaticVariant: somaticVariant,
+            germlineVariant: germlineVariant
+        }
+    """, passThrough: true)
+
+    trialsInfo: [TrialInfo] @cypher(statement: """
+        MATCH (ct:CLINICALTRIAL)
+        OPTIONAL MATCH (ct)<--(s:SUBJECT)
+        RETURN {
+            trialName: ct.CLINICAL_TRIAL_SHORT_NAME,
+            trial_id: ct.CLINICAL_TRIAL_ID,
+            trialDescription: ct.CLINICAL_TRIAL_DESCRIPTION,
+            trialType: ct.CLINICAL_TRIAL_TYPE,
+            num_subjects: COUNT(s.PT_ID)
+        }
+    """, passThrough: true)
+
+    trialDetail(trial_id: String): TrialDetail @cypher(statement: """
+        MATCH (ct:CLINICALTRIAL {CLINICAL_TRIAL_ID: $trial_id}) 
+        OPTIONAL MATCH (ct)<--(site:SITE)
+        OPTIONAL MATCH (site)<--(s:SUBJECT)
+        OPTIONAL MATCH (s)<--(f:FILE)
+        WITH 
+            COUNT(DISTINCT s) AS num_subjects, 
+            COUNT(DISTINCT f) as num_files
+        MATCH (ct:CLINICALTRIAL {CLINICAL_TRIAL_ID: $trial_id}) 
+        OPTIONAL MATCH (ct)<--(site:SITE)
+        OPTIONAL MATCH (site)<--(s:SUBJECT)
+        WITH num_subjects, num_files, ct, site, 
+            COUNT(DISTINCT s) AS num_site_subjects
+        WITH num_subjects, num_files, ct,
+            COLLECT(DISTINCT site {
+                site_id: site.REG_INST_ID,
+                siteName: site.REG_INST_ID_CD,
+                siteAddress: site.LOCATION,
+                siteStatus: site.STATUS,
+                subjectCount: num_site_subjects
+            }) AS sites
+        RETURN {
+            trial_id: ct.CLINICAL_TRIAL_ID,
+            trialName: ct.CLINICAL_TRIAL_SHORT_NAME,
+            trialLongName: ct.CLINICAL_TRIAL_LONG_NAME,
+            trialDesription: ct.CLINICAL_TRIAL_DESCRIPTION,
+            leadOrganization: ct.LEAD_ORGANIZATION,
+            trialType: ct.CLINICAL_TRIAL_TYPE,
+            trialPrincipalInvestigator: ct.PRINCIPAL_INVESTIGATOR,
+            num_subjects: num_subjects,
+            num_files: num_files,
+            sites: sites
+        }
+    """, passThrough: true)
+
+    trialSubjectCountByStageAtEntry(trial_id: String): [GroupCount] @cypher(statement: """
+        MATCH (ct:CLINICALTRIAL {CLINICAL_TRIAL_ID: $trial_id})<--(s:SUBJECT)<--(e:ENROLLMENT)
+        RETURN{
+            group: e.DISEAS_STG,
+            subjects: COUNT(*)
+        } 
+    """, passThrough: true)
+
+    siteSubjectCountByStageAtEntry(site_id: String): [GroupCount] @cypher(statement: """
+        MATCH (st:SITE {REG_INST_ID: $site_id})<--(s:SUBJECT)<--(e:ENROLLMENT)
+        RETURN{
+            group: e.DISEAS_STG,
+            subjects: COUNT(*)
+        }
+    """, passThrough: true)
+
+    siteDetail(site_id: String): SiteDetail @cypher(statement: """
+        MATCH (site:SITE {REG_INST_ID: $site_id})
+        OPTIONAL MATCH (site)<--(s:SUBJECT)
+        OPTIONAL MATCH (s)<--(f:FILE)
+        WITH 
+            COUNT(DISTINCT s) AS num_subjects, 
+            COUNT(DISTINCT f) AS num_files
+        MATCH (site:SITE {REG_INST_ID: $site_id})
+        OPTIONAL MATCH (site)<--(s:SUBJECT)
+        OPTIONAL MATCH (s)<--(f:FILE)
+        WITH site, num_subjects, num_files,
+            COLLECT(DISTINCT s{
+                    subject_id: s.PT_ID,
+                    race: s.PT_RACE_CD_1,
+                    diseaseTerm: s.DZ_DX_NM
+            }) AS subjects,
+            COLLECT(DISTINCT f{
+                subject_id: s.PT_ID,
+                file_name: f.FILE_NAME,
+                file_type: f.FILE_TYPE,
+                file_description: f.FILE_DESCRIPTION,
+                file_format: f.FILE_FORMAT,
+                file_size: f.FILE_SIZE,
+                file_id: f.UUID,
+                file_md5sum: f.MD5SUM
+            }) AS files
+        RETURN{
+            site_id: site.REG_INST_ID,
+            siteName: site.REG_INST_ID_CD,
+            siteAddress: site.LOCATION,
+            siteContact: site.CONTACT,
+            sitePhone: site.PHONE,
+            siteEmail: site.EMAIL,
+            siteStatus: site.STATUS,
+            subjects: subjects,
+            num_subjects: num_subjects,
+            num_files: num_files,
+            files: files
+        }
+    """, passThrough: true)
+
+    sitesInfo: [SiteDetail] @cypher(statement: """
+        MATCH (site:SITE)
+        OPTIONAL MATCH (site)<--(s:SUBJECT)
+        RETURN {
+            site_id: site.REG_INST_ID,
+            siteName: site.REG_INST_ID_CD,
+            siteAddress: site.LOCATION,
+            siteStatus: site.STATUS,
+            num_subjects: COUNT(DISTINCT s)
+        }
+    """, passThrough: true)
+}
