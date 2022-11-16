@@ -6,17 +6,17 @@ services:
     image: 4.8.0.224
     buildNumber: '224'
   frontend:
-    version: 3.9.0.96
-    image: 3.9.0.96
-    buildNumber: '96'
+    version: 3.9.0.100
+    image: 3.9.0.100
+    buildNumber: '100'
   auth:
     version: 2.1.0.22
     image: 2.1.0.22
     buildNumber: '22'
   files:
-    version: 2.0.0.36
-    image: 2.0.0.36
-    buildNumber: '36'
+    version: 2.1.0.39
+    image: 2.1.0.39
+    buildNumber: '39'
   users:
     version: 1.1.0.31
     image: 1.1.0.31
