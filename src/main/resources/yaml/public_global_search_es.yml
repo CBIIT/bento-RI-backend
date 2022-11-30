@@ -148,8 +148,8 @@ queries:
               type: term
             - field: property_type
               type: term
-            - field: property_description.keyword
-              type: term
+            - field: property_description
+              type: wildcard
             - field: node_name
               type: term
           typedSearch:
@@ -181,8 +181,8 @@ queries:
               type: term
             - field: property_type
               type: term
-            - field: property_description.keyword
-              type: term
+            - field: property_description
+              type: wildcard
             - field: node_name
               type: term
           typedSearch:
