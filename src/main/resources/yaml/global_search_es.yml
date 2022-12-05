@@ -176,7 +176,7 @@ queries:
           selectedField: content.paragraph
           searches:
             - field: content.paragraph
-              type: match
+              type: wildcard
         highlight:
           fields:
             - content.paragraph
@@ -192,7 +192,7 @@ queries:
           selectedField: content.paragraph
           searches:
             - field: content.paragraph
-              type: match
+              type: wildcard
         highlight:
           fields:
             - content.paragraph
