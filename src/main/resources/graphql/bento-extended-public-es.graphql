@@ -20,7 +20,7 @@ type GS_About {
     page: String
     title: String
     type: String
-    text: String
+    text: [String]
 }
 
 type PublicGlobalSearchResult {
