@@ -176,7 +176,7 @@ queries:
           selectedField: content.paragraph
           searches:
             - field: content.paragraph
-              type: match
+              type: wildcard
         highlight:
           fields:
             - content.paragraph
@@ -192,7 +192,7 @@ queries:
           selectedField: content.paragraph
           searches:
             - field: content.paragraph
-              type: match
+              type: wildcard
         highlight:
           fields:
             - content.paragraph
@@ -217,8 +217,8 @@ queries:
               type: term
             - field: property_type
               type: term
-            - field: property_description.keyword
-              type: term
+            - field: property_description
+              type: wildcard
             - field: node_name
               type: term
           typedSearch:
@@ -251,8 +251,8 @@ queries:
               type: term
             - field: property_type
               type: term
-            - field: property_description.keyword
-              type: term
+            - field: property_description
+              type: wildcard
             - field: node_name
               type: term
           typedSearch:
