@@ -10,9 +10,9 @@ services:
     image: GMB_3.10.0.118
     buildNumber: '118'
   auth:
-    version: 2.1.0.22
-    image: 2.1.0.22
-    buildNumber: '22'
+    version: 2.2.0-develop.33
+    image: 2.2.0-develop.33
+    buildNumber: '33'
   files:
     version: 2.1.0.39
     image: 2.1.0.39
