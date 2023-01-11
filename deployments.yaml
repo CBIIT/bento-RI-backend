@@ -6,9 +6,9 @@ services:
     image: 4.9.0-develop.234
     buildNumber: '234'
   frontend:
-    version: GMB_3.10.0.118
-    image: GMB_3.10.0.118
-    buildNumber: '118'
+    version: 3.10.0.120
+    image: 3.10.0.120
+    buildNumber: '120'
   auth:
     version: 2.2.0-develop.33
     image: 2.2.0-develop.33
