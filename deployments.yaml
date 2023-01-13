@@ -6,9 +6,9 @@ services:
     image: 4.9.0-develop.240
     buildNumber: '240'
   frontend:
-    version: 3.10.0.124
-    image: 3.10.0.124
-    buildNumber: '124'
+    version: 3.10.0.125
+    image: 3.10.0.125
+    buildNumber: '125'
   auth:
     version: 2.2.0-develop.33
     image: 2.2.0-develop.33
