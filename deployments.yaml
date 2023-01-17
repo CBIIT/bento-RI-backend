@@ -14,9 +14,9 @@ services:
     image: 2.2.0-develop.33
     buildNumber: '33'
   files:
-    version: 2.2.0-develop.44
-    image: 2.2.0-develop.44
-    buildNumber: '44'
+    version: 2.2.0-develop.45
+    image: 2.2.0-develop.45
+    buildNumber: '45'
   users:
     version: 1.2.0-develop.34
     image: 1.2.0-develop.34
