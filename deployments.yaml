@@ -10,9 +10,9 @@ services:
     image: 3.10.0.126
     buildNumber: '126'
   auth:
-    version: 2.2.0-develop.33
-    image: 2.2.0-develop.33
-    buildNumber: '33'
+    version: 2.2.0.35
+    image: 2.2.0.35
+    buildNumber: '35'
   files:
     version: 2.2.0.48
     image: 2.2.0.48
