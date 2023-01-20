@@ -3,6 +3,13 @@ queries:
     index:
       - subjects
     filter:
+      extraFilters:
+        diagnosis:
+          - Adenocarcinoma
+        tumor_size:
+          - (1,2]
+        study:
+          - A
       type: default
       caseInsensitive: true
       ignoreIfEmpty:
@@ -13,6 +20,13 @@ queries:
     index:
       - files
     filter:
+      extraFilters:
+        diagnosis:
+          - Adenocarcinoma
+        tumor_sizes:
+          - (1,2]
+        arm:
+          - A
       type: pagination
       defaultSortField: file_name
       ignoreIfEmpty:
@@ -23,6 +37,13 @@ queries:
     index:
       - samples
     filter:
+      extraFilters:
+        diagnosis:
+          - Adenocarcinoma
+        tumor_sizes:
+          - (1,2]
+        arm:
+          - A
       type: pagination
       defaultSortField: sample_id_num
       alternativeSortField:
@@ -36,6 +57,13 @@ queries:
     index:
       - files
     filter:
+      extraFilters:
+        diagnosis:
+          - Adenocarcinoma
+        tumor_sizes:
+          - (1,2]
+        arm:
+          - A
       type: pagination
       defaultSortField: file_name
       alternativeSortField:
@@ -49,6 +77,13 @@ queries:
     index:
       - subjects
     filter:
+      extraFilters:
+        diagnosis:
+          - Adenocarcinoma
+        tumor_size:
+          - (1,2]
+        study:
+          - A
       type: pagination
       defaultSortField: subject_id_num
       alternativeSortField:
@@ -61,6 +96,13 @@ queries:
     index:
       - files
     filter:
+      extraFilters:
+        diagnosis:
+          - Adenocarcinoma
+        tumor_sizes:
+          - (1,2]
+        arm:
+          - A
       type: default
       caseInsensitive: true
       selectedField: file_ids
@@ -74,6 +116,13 @@ queries:
     index:
       - subjects
     filter:
+      extraFilters:
+        diagnosis:
+          - Adenocarcinoma
+        tumor_size:
+          - (1,2]
+        study:
+          - A
       type: default
       caseInsensitive: true
       selectedField: subject_ids
@@ -83,6 +132,13 @@ queries:
     index:
       - files
     filter:
+      extraFilters:
+        diagnosis:
+          - Adenocarcinoma
+        tumor_sizes:
+          - (1,2]
+        arm:
+          - A
       type: default
       caseInsensitive: true
       selectedField: subject_id
@@ -92,6 +148,13 @@ queries:
     index:
       - files
     filter:
+      extraFilters:
+        diagnosis:
+          - Adenocarcinoma
+        tumor_sizes:
+          - (1,2]
+        arm:
+          - A
       type: default
       caseInsensitive: true
     result:
@@ -100,6 +163,13 @@ queries:
     index:
       - files
     filter:
+      extraFilters:
+        diagnosis:
+          - Adenocarcinoma
+        tumor_sizes:
+          - (1,2]
+        arm:
+          - A
       type: default
       caseInsensitive: true
     result:

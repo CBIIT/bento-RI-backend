@@ -5,6 +5,13 @@ queries:
         index:
           - subjects
         filter:
+          extraFilters:
+            diagnosis:
+              - Adenocarcinoma
+            tumor_size:
+              - (1,2]
+            study:
+              - A
           type: aggregation
           selectedField: programs
         result:
@@ -14,6 +21,13 @@ queries:
         index:
           - subjects
         filter:
+          extraFilters:
+            diagnosis:
+              - Adenocarcinoma
+            tumor_size:
+              - (1,2]
+            study:
+              - A
           type: aggregation
           selectedField: studies
         result:
@@ -23,6 +37,13 @@ queries:
         index:
           - subjects
         filter:
+          extraFilters:
+            diagnosis:
+              - Adenocarcinoma
+            tumor_size:
+              - (1,2]
+            study:
+              - A
           type: aggregation
           selectedField: subject_id
         result:
@@ -32,6 +53,13 @@ queries:
         index:
           - subjects
         filter:
+          extraFilters:
+            diagnosis:
+              - Adenocarcinoma
+            tumor_size:
+              - (1,2]
+            study:
+              - A
           type: nested
           selectedField: sample_ids
           nestedPath: sample_info
@@ -45,6 +73,13 @@ queries:
         index:
           - subjects
         filter:
+          extraFilters:
+            diagnosis:
+              - Adenocarcinoma
+            tumor_size:
+              - (1,2]
+            study:
+              - A
           type: aggregation
           selectedField: lab_procedures
         result:
@@ -54,6 +89,13 @@ queries:
         index:
           - subjects
         filter:
+          extraFilters:
+            diagnosis:
+              - Adenocarcinoma
+            tumor_size:
+              - (1,2]
+            study:
+              - A
           type: nested
           selectedField: file_ids
           nestedPath: file_info
@@ -66,6 +108,13 @@ queries:
         index:
           - subjects
         filter:
+          extraFilters:
+            diagnosis:
+              - Adenocarcinoma
+            tumor_size:
+              - (1,2]
+            study:
+              - A
           type: aggregation
           selectedField: programs
         result:
@@ -74,6 +123,13 @@ queries:
         index:
           - subjects
         filter:
+          extraFilters:
+            diagnosis:
+              - Adenocarcinoma
+            tumor_size:
+              - (1,2]
+            study:
+              - A
           type: aggregation
           selectedField: programs
           ignoreSelectedField: true
@@ -83,6 +139,13 @@ queries:
         index:
           - subjects
         filter:
+          extraFilters:
+            diagnosis:
+              - Adenocarcinoma
+            tumor_size:
+              - (1,2]
+            study:
+              - A
           type: aggregation
           selectedField: studies
         result:
@@ -91,6 +154,13 @@ queries:
         index:
           - subjects
         filter:
+          extraFilters:
+            diagnosis:
+              - Adenocarcinoma
+            tumor_size:
+              - (1,2]
+            study:
+              - A
           type: aggregation
           selectedField: studies
           ignoreSelectedField: true
@@ -100,6 +170,13 @@ queries:
         index:
           - subjects
         filter:
+          extraFilters:
+            diagnosis:
+              - Adenocarcinoma
+            tumor_size:
+              - (1,2]
+            study:
+              - A
           type: aggregation
           selectedField: diagnoses
         result:
@@ -108,6 +185,13 @@ queries:
         index:
           - subjects
         filter:
+          extraFilters:
+            diagnosis:
+              - Adenocarcinoma
+            tumor_size:
+              - (1,2]
+            study:
+              - A
           type: aggregation
           selectedField: diagnoses
           ignoreSelectedField: true
@@ -117,6 +201,13 @@ queries:
         index:
           - subjects
         filter:
+          extraFilters:
+            diagnosis:
+              - Adenocarcinoma
+            tumor_size:
+              - (1,2]
+            study:
+              - A
           type: aggregation
           selectedField: rc_scores
         result:
@@ -125,6 +216,13 @@ queries:
         index:
           - subjects
         filter:
+          extraFilters:
+            diagnosis:
+              - Adenocarcinoma
+            tumor_size:
+              - (1,2]
+            study:
+              - A
           type: aggregation
           selectedField: rc_scores
           ignoreSelectedField: true
@@ -134,6 +232,13 @@ queries:
         index:
           - subjects
         filter:
+          extraFilters:
+            diagnosis:
+              - Adenocarcinoma
+            tumor_size:
+              - (1,2]
+            study:
+              - A
           type: aggregation
           selectedField: tumor_sizes
         result:
@@ -142,6 +247,13 @@ queries:
         index:
           - subjects
         filter:
+          extraFilters:
+            diagnosis:
+              - Adenocarcinoma
+            tumor_size:
+              - (1,2]
+            study:
+              - A
           type: aggregation
           selectedField: tumor_sizes
           ignoreSelectedField: true
@@ -151,6 +263,13 @@ queries:
         index:
           - subjects
         filter:
+          extraFilters:
+            diagnosis:
+              - Adenocarcinoma
+            tumor_size:
+              - (1,2]
+            study:
+              - A
           type: aggregation
           selectedField: tumor_grade
         result:
@@ -159,6 +278,13 @@ queries:
         index:
           - subjects
         filter:
+          extraFilters:
+            diagnosis:
+              - Adenocarcinoma
+            tumor_size:
+              - (1,2]
+            study:
+              - A
           type: aggregation
           selectedField: tumor_grade
           ignoreSelectedField: true
@@ -168,6 +294,13 @@ queries:
         index:
           - subjects
         filter:
+          extraFilters:
+            diagnosis:
+              - Adenocarcinoma
+            tumor_size:
+              - (1,2]
+            study:
+              - A
           type: aggregation
           selectedField: er_status
         result:
@@ -176,6 +309,13 @@ queries:
         index:
           - subjects
         filter:
+          extraFilters:
+            diagnosis:
+              - Adenocarcinoma
+            tumor_size:
+              - (1,2]
+            study:
+              - A
           type: aggregation
           selectedField: er_status
           ignoreSelectedField: true
@@ -185,6 +325,13 @@ queries:
         index:
           - subjects
         filter:
+          extraFilters:
+            diagnosis:
+              - Adenocarcinoma
+            tumor_size:
+              - (1,2]
+            study:
+              - A
           type: aggregation
           selectedField: pr_status
         result:
@@ -193,6 +340,13 @@ queries:
         index:
           - subjects
         filter:
+          extraFilters:
+            diagnosis:
+              - Adenocarcinoma
+            tumor_size:
+              - (1,2]
+            study:
+              - A
           type: aggregation
           selectedField: pr_status
           ignoreSelectedField: true
@@ -202,6 +356,13 @@ queries:
         index:
           - subjects
         filter:
+          extraFilters:
+            diagnosis:
+              - Adenocarcinoma
+            tumor_size:
+              - (1,2]
+            study:
+              - A
           type: aggregation
           selectedField: chemo_regimen
         result:
@@ -210,6 +371,13 @@ queries:
         index:
           - subjects
         filter:
+          extraFilters:
+            diagnosis:
+              - Adenocarcinoma
+            tumor_size:
+              - (1,2]
+            study:
+              - A
           type: aggregation
           selectedField: chemo_regimen
           ignoreSelectedField: true
@@ -219,6 +387,13 @@ queries:
         index:
           - subjects
         filter:
+          extraFilters:
+            diagnosis:
+              - Adenocarcinoma
+            tumor_size:
+              - (1,2]
+            study:
+              - A
           type: aggregation
           selectedField: endo_therapies
         result:
@@ -227,6 +402,13 @@ queries:
         index:
           - subjects
         filter:
+          extraFilters:
+            diagnosis:
+              - Adenocarcinoma
+            tumor_size:
+              - (1,2]
+            study:
+              - A
           type: aggregation
           selectedField: endo_therapies
           ignoreSelectedField: true
@@ -236,6 +418,13 @@ queries:
         index:
           - subjects
         filter:
+          extraFilters:
+            diagnosis:
+              - Adenocarcinoma
+            tumor_size:
+              - (1,2]
+            study:
+              - A
           type: aggregation
           selectedField: meno_status
         result:
@@ -244,6 +433,13 @@ queries:
         index:
           - subjects
         filter:
+          extraFilters:
+            diagnosis:
+              - Adenocarcinoma
+            tumor_size:
+              - (1,2]
+            study:
+              - A
           type: aggregation
           selectedField: meno_status
           ignoreSelectedField: true
@@ -253,6 +449,13 @@ queries:
         index:
           - subjects
         filter:
+          extraFilters:
+            diagnosis:
+              - Adenocarcinoma
+            tumor_size:
+              - (1,2]
+            study:
+              - A
           type: nested
           selectedField: tissue_type
           nestedPath: sample_info
@@ -262,6 +465,13 @@ queries:
         index:
           - subjects
         filter:
+          extraFilters:
+            diagnosis:
+              - Adenocarcinoma
+            tumor_size:
+              - (1,2]
+            study:
+              - A
           type: nested
           ignoreSelectedField: true
           selectedField: tissue_type
@@ -275,6 +485,13 @@ queries:
         index:
           - subjects
         filter:
+          extraFilters:
+            diagnosis:
+              - Adenocarcinoma
+            tumor_size:
+              - (1,2]
+            study:
+              - A
           type: nested
           selectedField: composition
           nestedPath: sample_info
@@ -284,6 +501,13 @@ queries:
         index:
           - subjects
         filter:
+          extraFilters:
+            diagnosis:
+              - Adenocarcinoma
+            tumor_size:
+              - (1,2]
+            study:
+              - A
           type: nested
           ignoreSelectedField: true
           selectedField: composition
@@ -297,6 +521,13 @@ queries:
         index:
           - subjects
         filter:
+          extraFilters:
+            diagnosis:
+              - Adenocarcinoma
+            tumor_size:
+              - (1,2]
+            study:
+              - A
           type: nested
           selectedField: association
           nestedPath: file_info
@@ -306,6 +537,13 @@ queries:
         index:
           - subjects
         filter:
+          extraFilters:
+            diagnosis:
+              - Adenocarcinoma
+            tumor_size:
+              - (1,2]
+            study:
+              - A
           type: nested
           selectedField: association
           ignoreSelectedField: true
@@ -319,6 +557,13 @@ queries:
         index:
           - subjects
         filter:
+          extraFilters:
+            diagnosis:
+              - Adenocarcinoma
+            tumor_size:
+              - (1,2]
+            study:
+              - A
           type: nested
           selectedField: file_type
           nestedPath: file_info
@@ -328,6 +573,13 @@ queries:
         index:
           - subjects
         filter:
+          extraFilters:
+            diagnosis:
+              - Adenocarcinoma
+            tumor_size:
+              - (1,2]
+            study:
+              - A
           type: nested
           selectedField: file_type
           ignoreSelectedField: true
@@ -341,6 +593,13 @@ queries:
         index:
           - subjects
         filter:
+          extraFilters:
+            diagnosis:
+              - Adenocarcinoma
+            tumor_size:
+              - (1,2]
+            study:
+              - A
           type: sub_aggregation
           selectedField: programs
           subAggSelectedField: study_acronym
@@ -350,6 +609,13 @@ queries:
         index:
           - subjects
         filter:
+          extraFilters:
+            diagnosis:
+              - Adenocarcinoma
+            tumor_size:
+              - (1,2]
+            study:
+              - A
           type: aggregation
           selectedField: lab_procedures
         result:
@@ -358,6 +624,13 @@ queries:
         index:
           - subjects
         filter:
+          extraFilters:
+            diagnosis:
+              - Adenocarcinoma
+            tumor_size:
+              - (1,2]
+            study:
+              - A
           type: aggregation
           selectedField: lab_procedures
           ignoreSelectedField: true
@@ -367,6 +640,13 @@ queries:
         index:
           - subjects
         filter:
+          extraFilters:
+            diagnosis:
+              - Adenocarcinoma
+            tumor_size:
+              - (1,2]
+            study:
+              - A
           type: range
           selectedField: age_at_index
           ignoreSelectedField: true
