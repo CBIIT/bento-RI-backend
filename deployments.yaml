@@ -6,9 +6,9 @@ services:
     image: extra-filter-QA.253
     buildNumber: '253'
   frontend:
-    version: 3.10.0.127
-    image: 3.10.0.127
-    buildNumber: '127'
+    version: 3.9.0.129
+    image: 3.9.0.129
+    buildNumber: '129'
   auth:
     version: 2.2.0.35
     image: 2.2.0.35
