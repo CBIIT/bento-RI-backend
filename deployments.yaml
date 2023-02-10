@@ -18,6 +18,6 @@ services:
     image: 2.2.0.48
     buildNumber: '48'
   users:
-    version: 1.2.0.43
-    image: 1.2.0.43
-    buildNumber: '43'
+    version: 1.2.0.45
+    image: 1.2.0.45
+    buildNumber: '45'
