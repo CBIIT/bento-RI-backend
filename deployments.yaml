@@ -21,4 +21,3 @@ services:
     version: 1.2.0.45
     image: 1.2.0.45
     buildNumber: '45'
-    
