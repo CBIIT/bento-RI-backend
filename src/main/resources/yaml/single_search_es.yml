@@ -74,6 +74,11 @@ queries:
     index:
       - subjects
     filter:
+#      extraFilters:
+#        diagnosis:
+#          - Medullary Carcinoma
+#        tumor_size:
+#          - (2,3]
       type: default
       caseInsensitive: true
       selectedField: subject_ids
