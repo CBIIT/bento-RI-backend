@@ -2,8 +2,8 @@ package gov.nih.nci.bento.utility;
 
 import org.junit.Test;
 
-import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertThat;
 
 public class StrUtilTest {
 
@@ -32,4 +32,20 @@ public class StrUtilTest {
         assertThat(StrUtil.getIntText("98 "), is("98"));
         assertThat(StrUtil.getIntText(" 5 "), is("5"));
     }
+
+    @Test
+    public void getToken_Test() {
+        assertThat(StrUtil.getToken(null), is(""));
+        assertThat(StrUtil.getToken("Bearer "), is(""));
+        assertThat(StrUtil.getToken("Bearer    ssss   "), is(""));
+        assertThat(StrUtil.getToken("Bearer"), is(""));
+        assertThat(StrUtil.getToken("Bearer xxxx"), is("xxxx"));
+        assertThat(StrUtil.getToken("XXBearer xxxx"), is(""));
+        assertThat(StrUtil.getToken("XXX xxxx"), is(""));
+        assertThat(StrUtil.getToken("Bearerxxxx"), is(""));
+        assertThat(StrUtil.getToken("Bearer 1234"), is("1234"));
+        assertThat(StrUtil.getToken("Bearer 1*23/4"), is("1*23/4"));
+        assertThat(StrUtil.getToken("bearer 1*23/4"), is(""));
+    }
+
 }
