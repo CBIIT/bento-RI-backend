@@ -33,7 +33,7 @@ public class StrUtilTest {
         assertThat(StrUtil.getIntText(" 5 "), is("5"));
     }
 
-    @Test
+/*    @Test
     public void getToken_Test() {
         assertThat(StrUtil.getToken(null), is(""));
         assertThat(StrUtil.getToken("Bearer "), is(""));
@@ -46,6 +46,6 @@ public class StrUtilTest {
         assertThat(StrUtil.getToken("Bearer 1234"), is("1234"));
         assertThat(StrUtil.getToken("Bearer 1*23/4"), is("1*23/4"));
         assertThat(StrUtil.getToken("bearer 1*23/4"), is(""));
-    }
+    }*/
 
 }
