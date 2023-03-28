@@ -6,9 +6,9 @@ services:
     image: 4.10.0-develop.270
     buildNumber: '270'
   frontend:
-    version: 4.0.0.137
-    image: 4.0.0.137
-    buildNumber: '137'
+    version: monorepov2.151
+    image: monorepov2.151
+    buildNumber: '151'
   auth:
     version: 2.2.0.35
     image: 2.2.0.35
