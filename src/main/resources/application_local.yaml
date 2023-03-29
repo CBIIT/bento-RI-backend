@@ -1,0 +1,49 @@
+#API Version
+bento.api.version: 4.7.0
+
+#Authentication
+auth.enabled: false
+auth.endpoint:
+
+#Spring
+spring.mvc.throw-exception-if-no-handler-found: true
+spring.mvc.view.prefix: /WEB-INF/
+spring.mvc.view.suffix: .jsp
+error.redirect_url: http://localhost/error.html
+
+#Neo4j
+neo4j.url: bolt://localhost:7687
+neo4j.user: neo4j
+neo4j.password:
+
+#GraphQL
+graphql.schema: graphql/bento-extended.graphql
+graphql.es_schema: graphql/bento-extended-private-es.graphql
+
+#Public GraphQL
+graphql.public.schema: graphql/bento-extended-public.graphql
+graphql.public.es_schema: graphql/bento-extended-public-es.graphql
+
+#Query Restrictions
+allow_graphql_query : true
+allow_graphql_mutation: false
+
+#Redis Caching
+redis.enable: false
+redis.use_cluster: false
+redis.host: localhost
+redis.port: 6379
+redis.ttl: -1
+
+# Elasticsearch Filtering
+es.host: localhost
+es.port: 9200
+es.scheme: http
+es.filter.enabled: true
+# use es.sign.requests : true if running AWS OpenSearch
+es.sign.requests: false
+es.service_name: es
+es.region: us-east-1
+
+#Testing
+test.queries_file: placeholder
