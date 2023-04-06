@@ -6,9 +6,9 @@ services:
     image: 4.10.0.271
     buildNumber: '271'
   frontend:
-    version: BENTO-2284.162
-    image: BENTO-2284.162
-    buildNumber: '162'
+    version: 4.0.0.163
+    image: 4.0.0.163
+    buildNumber: '163'
   auth:
     version: 2.2.0.35
     image: 2.2.0.35
