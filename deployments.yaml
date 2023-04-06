@@ -6,9 +6,9 @@ services:
     image: 4.10.0.271
     buildNumber: '271'
   frontend:
-    version: Monorepo_migration.159
-    image: Monorepo_migration.159
-    buildNumber: '159'
+    version: BENTO-2284.162
+    image: BENTO-2284.162
+    buildNumber: '162'
   auth:
     version: 2.2.0.35
     image: 2.2.0.35
