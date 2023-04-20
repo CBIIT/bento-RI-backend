@@ -1,5 +1,8 @@
 queries:
   - name: searchSubjects
+    globalRangeFields:
+      - age_at_index
+      - survival_time
     returnFields:
       - name: numberOfPrograms
         index:
@@ -7,8 +10,6 @@ queries:
         filter:
           type: aggregation
           selectedField: programs
-          rangeFilterFields:
-            - age_at_index
         result:
           type: int
           method: count_bucket_keys
@@ -18,8 +19,6 @@ queries:
         filter:
           type: aggregation
           selectedField: studies
-          rangeFilterFields:
-            - age_at_index
         result:
           type: int
           method: count_bucket_keys
@@ -29,8 +28,6 @@ queries:
         filter:
           type: aggregation
           selectedField: subject_id
-          rangeFilterFields:
-            - age_at_index
         result:
           type: int
           method: count_bucket_keys
@@ -44,8 +41,6 @@ queries:
           nestedParameters:
             - composition
             - tissue_type
-          rangeFilterFields:
-            - age_at_index
         result:
           type: int
           method: nested_count
@@ -55,8 +50,6 @@ queries:
         filter:
           type: aggregation
           selectedField: lab_procedures
-          rangeFilterFields:
-            - age_at_index
         result:
           type: int
           method: count_bucket_keys
@@ -69,8 +62,6 @@ queries:
           nestedPath: file_info
           nestedParameters:
             - file_type
-          rangeFilterFields:
-            - age_at_index
         result:
           type: int
           method: nested_count
@@ -80,8 +71,6 @@ queries:
         filter:
           type: aggregation
           selectedField: programs
-          rangeFilterFields:
-            - age_at_index
         result:
           type: group_count
       - name: filterSubjectCountByProgram
@@ -91,8 +80,6 @@ queries:
           type: aggregation
           selectedField: programs
           ignoreSelectedField: true
-          rangeFilterFields:
-            - age_at_index
         result:
           type: group_count
       - name: subjectCountByStudy
@@ -101,8 +88,6 @@ queries:
         filter:
           type: aggregation
           selectedField: studies
-          rangeFilterFields:
-            - age_at_index
         result:
           type: group_count
       - name: filterSubjectCountByStudy
@@ -112,8 +97,6 @@ queries:
           type: aggregation
           selectedField: studies
           ignoreSelectedField: true
-          rangeFilterFields:
-            - age_at_index
         result:
           type: group_count
       - name: subjectCountByDiagnoses
@@ -122,8 +105,6 @@ queries:
         filter:
           type: aggregation
           selectedField: diagnoses
-          rangeFilterFields:
-            - age_at_index
         result:
           type: group_count
       - name: filterSubjectCountByDiagnoses
@@ -133,8 +114,6 @@ queries:
           type: aggregation
           selectedField: diagnoses
           ignoreSelectedField: true
-          rangeFilterFields:
-            - age_at_index
         result:
           type: group_count
       - name: subjectCountByRecurrenceScore
@@ -143,8 +122,6 @@ queries:
         filter:
           type: aggregation
           selectedField: rc_scores
-          rangeFilterFields:
-            - age_at_index
         result:
           type: group_count
       - name: filterSubjectCountByRecurrenceScore
@@ -154,8 +131,6 @@ queries:
           type: aggregation
           selectedField: rc_scores
           ignoreSelectedField: true
-          rangeFilterFields:
-            - age_at_index
         result:
           type: group_count
       - name: subjectCountByTumorSize
@@ -164,8 +139,6 @@ queries:
         filter:
           type: aggregation
           selectedField: tumor_sizes
-          rangeFilterFields:
-            - age_at_index
         result:
           type: group_count
       - name: filterSubjectCountByTumorSize
@@ -175,8 +148,6 @@ queries:
           type: aggregation
           selectedField: tumor_sizes
           ignoreSelectedField: true
-          rangeFilterFields:
-            - age_at_index
         result:
           type: group_count
       - name: subjectCountByTumorGrade
@@ -185,8 +156,6 @@ queries:
         filter:
           type: aggregation
           selectedField: tumor_grade
-          rangeFilterFields:
-            - age_at_index
         result:
           type: group_count
       - name: filterSubjectCountByTumorGrade
@@ -196,8 +165,6 @@ queries:
           type: aggregation
           selectedField: tumor_grade
           ignoreSelectedField: true
-          rangeFilterFields:
-            - age_at_index
         result:
           type: group_count
       - name: subjectCountByErStatus
@@ -206,8 +173,6 @@ queries:
         filter:
           type: aggregation
           selectedField: er_status
-          rangeFilterFields:
-            - age_at_index
         result:
           type: group_count
       - name: filterSubjectCountByErStatus
@@ -217,8 +182,6 @@ queries:
           type: aggregation
           selectedField: er_status
           ignoreSelectedField: true
-          rangeFilterFields:
-            - age_at_index
         result:
           type: group_count
       - name: subjectCountByPrStatus
@@ -227,8 +190,6 @@ queries:
         filter:
           type: aggregation
           selectedField: pr_status
-          rangeFilterFields:
-            - age_at_index
         result:
           type: group_count
       - name: filterSubjectCountByPrStatus
@@ -238,8 +199,6 @@ queries:
           type: aggregation
           selectedField: pr_status
           ignoreSelectedField: true
-          rangeFilterFields:
-            - age_at_index
         result:
           type: group_count
       - name: subjectCountByChemotherapyRegimen
@@ -248,8 +207,6 @@ queries:
         filter:
           type: aggregation
           selectedField: chemo_regimen
-          rangeFilterFields:
-            - age_at_index
         result:
           type: group_count
       - name: filterSubjectCountByChemotherapyRegimen
@@ -259,8 +216,6 @@ queries:
           type: aggregation
           selectedField: chemo_regimen
           ignoreSelectedField: true
-          rangeFilterFields:
-            - age_at_index
         result:
           type: group_count
       - name: subjectCountByEndocrineTherapy
@@ -278,8 +233,6 @@ queries:
           type: aggregation
           selectedField: endo_therapies
           ignoreSelectedField: true
-          rangeFilterFields:
-            - age_at_index
         result:
           type: group_count
       - name: subjectCountByMenopauseStatus
@@ -288,8 +241,6 @@ queries:
         filter:
           type: aggregation
           selectedField: meno_status
-          rangeFilterFields:
-            - age_at_index
         result:
           type: group_count
       - name: filterSubjectCountByMenopauseStatus
@@ -299,8 +250,6 @@ queries:
           type: aggregation
           selectedField: meno_status
           ignoreSelectedField: true
-          rangeFilterFields:
-            - age_at_index
         result:
           type: group_count
       - name: subjectCountByTissueType
@@ -310,8 +259,6 @@ queries:
           type: nested
           selectedField: tissue_type
           nestedPath: sample_info
-          rangeFilterFields:
-            - age_at_index
         result:
           type: nested_list
       - name: filterSubjectCountByTissueType
@@ -325,8 +272,6 @@ queries:
           nestedParameters:
             - composition
             - tissue_type
-          rangeFilterFields:
-            - age_at_index
         result:
           type: nested_list
       - name: subjectCountByTissueComposition
@@ -336,8 +281,6 @@ queries:
           type: nested
           selectedField: composition
           nestedPath: sample_info
-          rangeFilterFields:
-            - age_at_index
         result:
           type: nested_list
       - name: filterSubjectCountByTissueComposition
@@ -351,8 +294,6 @@ queries:
           nestedParameters:
             - composition
             - tissue_type
-          rangeFilterFields:
-            - age_at_index
         result:
           type: nested_list
       - name: subjectCountByFileAssociation
@@ -362,8 +303,6 @@ queries:
           type: nested
           selectedField: association
           nestedPath: file_info
-          rangeFilterFields:
-            - age_at_index
         result:
           type: nested_list
       - name: filterSubjectCountByFileAssociation
@@ -377,8 +316,6 @@ queries:
           nestedParameters:
             - file_type
             - association
-          rangeFilterFields:
-            - age_at_index
         result:
           type: nested_list
       - name: subjectCountByFileType
@@ -401,8 +338,6 @@ queries:
           nestedParameters:
             - file_type
             - association
-          rangeFilterFields:
-            - age_at_index
         result:
           type: nested_list
       - name: armsByPrograms
@@ -412,8 +347,6 @@ queries:
           type: sub_aggregation
           selectedField: programs
           subAggSelectedField: study_acronym
-          rangeFilterFields:
-            - age_at_index
         result:
           type: arm_program
       - name: subjectCountByLabProcedures
@@ -422,8 +355,6 @@ queries:
         filter:
           type: aggregation
           selectedField: lab_procedures
-          rangeFilterFields:
-            - age_at_index
         result:
           type: group_count
       - name: filterSubjectCountByLabProcedures
@@ -433,8 +364,6 @@ queries:
           type: aggregation
           selectedField: lab_procedures
           ignoreSelectedField: true
-          rangeFilterFields:
-            - age_at_index
         result:
           type: group_count
       - name: filterSubjectCountByAge
