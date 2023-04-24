@@ -10,9 +10,9 @@ services:
     image: 4.0.0.177
     buildNumber: '177'
   auth:
-    version: 2.2.0.35
-    image: 2.2.0.35
-    buildNumber: '35'
+    version: 2.3.0-develop.40
+    image: 2.3.0-develop.40
+    buildNumber: '40'
   files:
     version: 2.2.0.48
     image: 2.2.0.48
