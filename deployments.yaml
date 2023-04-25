@@ -6,13 +6,13 @@ services:
     image: 4.10.0.275
     buildNumber: '275'
   frontend:
-    version: 4.0.0.177
-    image: 4.0.0.177
-    buildNumber: '177'
+    version: 4.0.0.179
+    image: 4.0.0.179
+    buildNumber: '179'
   auth:
-    version: 2.2.0.35
-    image: 2.2.0.35
-    buildNumber: '35'
+    version: 2.3.0-develop.40
+    image: 2.3.0-develop.40
+    buildNumber: '40'
   files:
     version: 2.2.0.48
     image: 2.2.0.48
