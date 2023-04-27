@@ -6,9 +6,9 @@ services:
     image: 4.10.0.277
     buildNumber: '277'
   frontend:
-    version: 4.0.0.181
-    image: 4.0.0.181
-    buildNumber: '181'
+    version: 4.0.0.182
+    image: 4.0.0.182
+    buildNumber: '182'
   auth:
     version: 2.3.0.42
     image: 2.3.0.42
