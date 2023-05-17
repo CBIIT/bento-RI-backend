@@ -14,9 +14,9 @@ services:
     image: 2.3.0.50
     buildNumber: '50'
   files:
-    version: file_download_acl.55
-    image: file_download_acl.55
-    buildNumber: '55'
+    version: 2.2.0.48
+    image: 2.2.0.48
+    buildNumber: '48'
   users:
     version: 1.3.0.70
     image: 1.3.0.70
