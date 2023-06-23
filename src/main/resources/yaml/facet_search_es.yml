@@ -1,5 +1,8 @@
 queries:
   - name: searchSubjects
+    globalRangeFields:
+      - age_at_index
+      - survival_time
     returnFields:
       - name: numberOfPrograms
         index:
@@ -370,5 +373,7 @@ queries:
           type: range
           selectedField: age_at_index
           ignoreSelectedField: true
+          rangeFilterFields:
+            - age_at_index
         result:
           type: range
