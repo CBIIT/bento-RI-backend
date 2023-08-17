@@ -6,7 +6,7 @@ WORKDIR /usr/src/app
 COPY . .
 
 # update application.properties file
-RUN rm -y src/main/resources/application.properties \
+RUN rm -f src/main/resources/application.properties \
  && cp src/main/resources/application.properties.j2 src/main/resources/application.properties \
  && sed -i "s/{{bento_api_version}}/${BENTO_API_VERSION}/g" src/main/resources/application.properties
 
