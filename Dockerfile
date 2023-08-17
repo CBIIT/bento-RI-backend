@@ -1,7 +1,7 @@
 # Build stage
 ARG ECR_REPO
-ARG BENTO_API_VERSION
 FROM maven:3.8.5-openjdk-17 as build
+ARG BENTO_API_VERSION
 WORKDIR /usr/src/app
 COPY . .
 
@@ -13,6 +13,7 @@ RUN rm -f src/main/resources/application.properties \
 RUN mvn package -DskipTests
 
 # Production stage
-FROM ${ECR_REPO}/base-images:backend-jdk17
+#FROM ${ECR_REPO}/base-images:backend-jdk17
+FROM tomcat:10.1.12-jdk17
 RUN rm -rf /usr/local/tomcat/webapps/ROOT
 COPY --from=build /usr/src/app/target/Bento-0.0.1.war /usr/local/tomcat/webapps/ROOT.war
