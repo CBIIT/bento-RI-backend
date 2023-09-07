@@ -1,0 +1,379 @@
+queries:
+  - name: searchSubjects
+    globalRangeFields:
+      - age_at_index
+      - survival_time
+    returnFields:
+      - name: numberOfPrograms
+        index:
+          - subjects
+        filter:
+          type: aggregation
+          selectedField: programs
+        result:
+          type: int
+          method: count_bucket_keys
+      - name: numberOfStudies
+        index:
+          - subjects
+        filter:
+          type: aggregation
+          selectedField: studies
+        result:
+          type: int
+          method: count_bucket_keys
+      - name: numberOfSubjects
+        index:
+          - subjects
+        filter:
+          type: aggregation
+          selectedField: subject_id
+        result:
+          type: int
+          method: count_bucket_keys
+      - name: numberOfSamples
+        index:
+          - subjects
+        filter:
+          type: nested
+          selectedField: sample_ids
+          nestedPath: sample_info
+          nestedParameters:
+            - composition
+            - tissue_type
+        result:
+          type: int
+          method: nested_count
+      - name: numberOfLabProcedures
+        index:
+          - subjects
+        filter:
+          type: aggregation
+          selectedField: lab_procedures
+        result:
+          type: int
+          method: count_bucket_keys
+      - name: numberOfFiles
+        index:
+          - subjects
+        filter:
+          type: nested
+          selectedField: file_ids
+          nestedPath: file_info
+          nestedParameters:
+            - file_type
+        result:
+          type: int
+          method: nested_count
+      - name: subjectCountByProgram
+        index:
+          - subjects
+        filter:
+          type: aggregation
+          selectedField: programs
+        result:
+          type: group_count
+      - name: filterSubjectCountByProgram
+        index:
+          - subjects
+        filter:
+          type: aggregation
+          selectedField: programs
+          ignoreSelectedField: true
+        result:
+          type: group_count
+      - name: subjectCountByStudy
+        index:
+          - subjects
+        filter:
+          type: aggregation
+          selectedField: studies
+        result:
+          type: group_count
+      - name: filterSubjectCountByStudy
+        index:
+          - subjects
+        filter:
+          type: aggregation
+          selectedField: studies
+          ignoreSelectedField: true
+        result:
+          type: group_count
+      - name: subjectCountByDiagnoses
+        index:
+          - subjects
+        filter:
+          type: aggregation
+          selectedField: diagnoses
+        result:
+          type: group_count
+      - name: filterSubjectCountByDiagnoses
+        index:
+          - subjects
+        filter:
+          type: aggregation
+          selectedField: diagnoses
+          ignoreSelectedField: true
+        result:
+          type: group_count
+      - name: subjectCountByRecurrenceScore
+        index:
+          - subjects
+        filter:
+          type: aggregation
+          selectedField: rc_scores
+        result:
+          type: group_count
+      - name: filterSubjectCountByRecurrenceScore
+        index:
+          - subjects
+        filter:
+          type: aggregation
+          selectedField: rc_scores
+          ignoreSelectedField: true
+        result:
+          type: group_count
+      - name: subjectCountByTumorSize
+        index:
+          - subjects
+        filter:
+          type: aggregation
+          selectedField: tumor_sizes
+        result:
+          type: group_count
+      - name: filterSubjectCountByTumorSize
+        index:
+          - subjects
+        filter:
+          type: aggregation
+          selectedField: tumor_sizes
+          ignoreSelectedField: true
+        result:
+          type: group_count
+      - name: subjectCountByTumorGrade
+        index:
+          - subjects
+        filter:
+          type: aggregation
+          selectedField: tumor_grade
+        result:
+          type: group_count
+      - name: filterSubjectCountByTumorGrade
+        index:
+          - subjects
+        filter:
+          type: aggregation
+          selectedField: tumor_grade
+          ignoreSelectedField: true
+        result:
+          type: group_count
+      - name: subjectCountByErStatus
+        index:
+          - subjects
+        filter:
+          type: aggregation
+          selectedField: er_status
+        result:
+          type: group_count
+      - name: filterSubjectCountByErStatus
+        index:
+          - subjects
+        filter:
+          type: aggregation
+          selectedField: er_status
+          ignoreSelectedField: true
+        result:
+          type: group_count
+      - name: subjectCountByPrStatus
+        index:
+          - subjects
+        filter:
+          type: aggregation
+          selectedField: pr_status
+        result:
+          type: group_count
+      - name: filterSubjectCountByPrStatus
+        index:
+          - subjects
+        filter:
+          type: aggregation
+          selectedField: pr_status
+          ignoreSelectedField: true
+        result:
+          type: group_count
+      - name: subjectCountByChemotherapyRegimen
+        index:
+          - subjects
+        filter:
+          type: aggregation
+          selectedField: chemo_regimen
+        result:
+          type: group_count
+      - name: filterSubjectCountByChemotherapyRegimen
+        index:
+          - subjects
+        filter:
+          type: aggregation
+          selectedField: chemo_regimen
+          ignoreSelectedField: true
+        result:
+          type: group_count
+      - name: subjectCountByEndocrineTherapy
+        index:
+          - subjects
+        filter:
+          type: aggregation
+          selectedField: endo_therapies
+        result:
+          type: group_count
+      - name: filterSubjectCountByEndocrineTherapy
+        index:
+          - subjects
+        filter:
+          type: aggregation
+          selectedField: endo_therapies
+          ignoreSelectedField: true
+        result:
+          type: group_count
+      - name: subjectCountByMenopauseStatus
+        index:
+          - subjects
+        filter:
+          type: aggregation
+          selectedField: meno_status
+        result:
+          type: group_count
+      - name: filterSubjectCountByMenopauseStatus
+        index:
+          - subjects
+        filter:
+          type: aggregation
+          selectedField: meno_status
+          ignoreSelectedField: true
+        result:
+          type: group_count
+      - name: subjectCountByTissueType
+        index:
+          - subjects
+        filter:
+          type: nested
+          selectedField: tissue_type
+          nestedPath: sample_info
+        result:
+          type: nested_list
+      - name: filterSubjectCountByTissueType
+        index:
+          - subjects
+        filter:
+          type: nested
+          ignoreSelectedField: true
+          selectedField: tissue_type
+          nestedPath: sample_info
+          nestedParameters:
+            - composition
+            - tissue_type
+        result:
+          type: nested_list
+      - name: subjectCountByTissueComposition
+        index:
+          - subjects
+        filter:
+          type: nested
+          selectedField: composition
+          nestedPath: sample_info
+        result:
+          type: nested_list
+      - name: filterSubjectCountByTissueComposition
+        index:
+          - subjects
+        filter:
+          type: nested
+          ignoreSelectedField: true
+          selectedField: composition
+          nestedPath: sample_info
+          nestedParameters:
+            - composition
+            - tissue_type
+        result:
+          type: nested_list
+      - name: subjectCountByFileAssociation
+        index:
+          - subjects
+        filter:
+          type: nested
+          selectedField: association
+          nestedPath: file_info
+        result:
+          type: nested_list
+      - name: filterSubjectCountByFileAssociation
+        index:
+          - subjects
+        filter:
+          type: nested
+          selectedField: association
+          ignoreSelectedField: true
+          nestedPath: file_info
+          nestedParameters:
+            - file_type
+            - association
+        result:
+          type: nested_list
+      - name: subjectCountByFileType
+        index:
+          - subjects
+        filter:
+          type: nested
+          selectedField: file_type
+          nestedPath: file_info
+        result:
+          type: nested_list
+      - name: filterSubjectCountByFileType
+        index:
+          - subjects
+        filter:
+          type: nested
+          selectedField: file_type
+          ignoreSelectedField: true
+          nestedPath: file_info
+          nestedParameters:
+            - file_type
+            - association
+        result:
+          type: nested_list
+      - name: armsByPrograms
+        index:
+          - subjects
+        filter:
+          type: sub_aggregation
+          selectedField: programs
+          subAggSelectedField: study_acronym
+        result:
+          type: arm_program
+      - name: subjectCountByLabProcedures
+        index:
+          - subjects
+        filter:
+          type: aggregation
+          selectedField: lab_procedures
+        result:
+          type: group_count
+      - name: filterSubjectCountByLabProcedures
+        index:
+          - subjects
+        filter:
+          type: aggregation
+          selectedField: lab_procedures
+          ignoreSelectedField: true
+        result:
+          type: group_count
+      - name: filterSubjectCountByAge
+        index:
+          - subjects
+        filter:
+          type: range
+          selectedField: age_at_index
+          ignoreSelectedField: true
+          rangeFilterFields:
+            - age_at_index
+        result:
+          type: range

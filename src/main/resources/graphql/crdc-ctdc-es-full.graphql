@@ -1,0 +1,209 @@
+type study {
+    study_name: String
+    study_short_name: String
+    study_id: String
+    study_description: String
+    study_type: String
+    dates_of_conduct: String
+    associated_links: [associated_link]
+    diagnoses: [diagnosis]
+    data_files: [data_file]
+}
+
+type associated_link{
+    associated_link_name : String
+    associated_link_url : String
+}
+type image_collection{
+    image_collection_name: String
+    image_type_included: String
+    image_collection_url: String
+    repository_name: String
+    collection_access: String
+}
+
+type diagnosis {
+    ctep_disease_code : String
+    diagnosis_id :String
+    icd_10_disease_code : String
+    meddra_disease_code: String
+    snomed_disease_code: String
+    diagnosis_date: [String]
+    icd_o_primary_site: String
+    primary_disease_site: String
+    tumor_grade :String
+    subject_age_at_diagnosis: [String]
+}   
+
+
+type program {
+    program_name: String
+    program_short_name: String
+}
+
+type project {
+    project_name: String
+    project_short_name: String
+}
+
+type principal_investigator{
+    principal_investigator_first_name: String
+    principal_investigator_last_name: String
+    principal_investigator_middle_name: String
+    principal_investigator_orcid_id: String
+}
+
+
+type diagnosis {
+    ctep_disease_code : String
+    diagnosis_id :String
+    icd_10_disease_code : String
+    meddra_disease_code: String
+    snomed_disease_code: String
+    diagnosis_date: [String]
+    icd_o_primary_site: String
+    primary_disease_site: String
+    tumor_grade :String
+    subject_age_at_diagnosis: [String]
+}   
+
+
+
+type associated_link{
+    associated_link_name : String
+    associated_link_url : String
+}
+
+type Iimage_collection{
+    image_collection_name: String
+    image_type_included: String
+    image_collection_url: String
+    repository_name: String
+    collection_access: String
+}
+
+type subject{
+    subject_id: String
+    biomarker_results_available: String
+    radiology_report_available: String
+    radiology_images_available: String
+    histology_images_available: String
+}
+
+type demographic {
+     demographic_id: String
+     sex: String
+     reported_gender: String
+     race: String
+     ethnicity: String
+     ncbi_taxonomy_id: Int
+     ncbi_taxonomy_name: String
+}
+
+type exposure {
+    exposure_id: String
+    environmental_exposure_type: String
+    carcinogen_exposure: String
+}
+
+type treatment{
+    treatment_id: String
+    x_targeted_therapy: String
+    x_therapy: String
+    x_surgical_procedure_name: String
+    x_radiological_procedure_name : String
+}
+
+type targeted_therapy {
+    targeted_therapy_id: String
+    targeted_therapy: String
+}
+
+type therapy {
+    therapy_id: String
+    therapy: String
+}
+
+type surgical_procedure{
+    surgical_procedure_id: String
+    surgical_procedure_name: String
+}
+
+type radiological_procedure{
+    radiological_procedure_id: String
+    radiological_procedure_name: String
+}
+
+
+type subject_status{
+    subject_status_id: String
+    survival_status : String
+    primary_cause_of_death : String
+    off_study: String
+    off_study_reason : String
+}
+
+type specimen {
+    specimen_id: String
+    parent_specimen_id: String
+    collection_date: [String]
+    icd_o_3_tissue_morphology: String
+    obi_specimen_type : Int
+    specimen_category : String
+    type_of_tissue : String
+    anatomical_collection_site : String
+    parent_specimen_type : String
+    specimen_type : String
+    tissue_category : String
+    assessment_timepoint : String
+}
+
+type data_file {
+    data_file_name : String
+    data_file_type: String
+    data_file_description : String
+    data_file_format : String
+    data_file_size : String
+    data_file_checksum_value : String
+    data_file_checksum_type : String
+    data_file_compression_status : String
+    data_file_uuid: String
+    data_file_location: String
+}
+
+
+type search_result {
+  numberOfParticipants: Int
+  numberOfDiagnoses: Int
+  numberOfTherapies: Int
+  numberOfTargeted: Int
+  numberofNonTargeted: Int
+  numberOfBiomarker: Int
+  numberOfHistologyImages: Int
+  numberOfRadiologyImages: Int
+  specimenCountbySnomedDiseaseCode : [group_count]
+}
+
+type group_count {
+    group: String
+    subjects: Int
+}
+
+schema {
+    query: QueryType
+}
+
+type QueryType {
+
+    searchParticipant(study_short_name: String):[group_count]
+    studySpecimenTypeCount(study_short_name: [String]):[group_count]
+    studySpecimenTimePointCount(study_short_name: [String]):[group_count]
+    studyByStudyShortName(study_short_name: String):study
+    specimenCountbySnomedDiseaseCode():[GroupCount]
+}
+
+schema {
+    query: QueryType
+}
+
+
