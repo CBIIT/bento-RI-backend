@@ -27,8 +27,6 @@ type group_count {
     subjects: Int
 }
 
-
-
 schema {
     query: QueryType
 }
