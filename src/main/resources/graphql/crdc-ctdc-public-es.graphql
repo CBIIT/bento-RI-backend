@@ -1,42 +1,7 @@
-type study {
-    study_name: String
-    study_short_name: String
-    study_id: String
-    study_description: String
-    study_type: String
-    dates_of_conduct: String
-    associated_links: [associated_link]
-    images:[image_collection]
-}
-
-type associated_link{
-    associated_link_name : String
-    associated_link_url : String
-}
-
-type image_collection{
-    image_collection_name: String
-    image_type_included: String
-    image_collection_url: String
-    repository_name: String
-    collection_access: String
-}
-
-type group_count {
-    group: String
-    subjects: Int
-}
-
 schema {
     query: QueryType
 }
 
 type QueryType {
-    
-    studyByStudyShortName(study_short_name: String):[study]
-    searchParticipant(study_short_name: String):[group_count]
-    studySpecimenTypeCount(study_short_name: [String]):[group_count]
-    studySpecimenTimePointCount(study_short_name: [String]):[group_count]
-    specimenCountbySnomedDiseaseCode:[group_count]
+    esVersion: String
 }
-

@@ -9,3 +9,33 @@ queries:
         - study_short_name
     result:
       type: object_array
+  - name: studyDiagnosisByStudyShortName
+    index:
+      - study_diagnosis
+    filter:
+      type: default
+      caseInsensitive: false
+      ignoreIfEmpty:
+        - study_short_name
+    result:
+      type: object_array
+  - name: StudySpecimenByStudyShortName
+    index:
+      - study_specimen
+    filter:
+      type: default
+      caseInsensitive: false
+      ignoreIfEmpty:
+        - study_short_name
+    result:
+      type: object_array
+  - name: StudyDataFileByStudyShortName
+    index:
+      - study_data_file
+    filter:
+      type: default
+      caseInsensitive: false
+      ignoreIfEmpty:
+        - study_short_name
+    result:
+      type: object_array
