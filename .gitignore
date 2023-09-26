@@ -16,3 +16,4 @@ src/main/resources/application.properties
 logs/
 .metadata
 bin/
+.metadata/*
