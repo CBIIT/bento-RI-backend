@@ -1,0 +1,297 @@
+# Indices settings
+Indices:
+  # First index
+  # Name of the index to be created, existing index with same name will be deleted
+  - index_name: study
+    type: neo4j
+    # type mapping for each property of the index
+    mapping:
+      study_short_name:
+        type: keyword
+      study_id:
+        type: keyword
+      study_name:
+        type: keyword
+      study_description:
+        type: keyword
+      study_type:
+        type: keyword
+      dates_of_conduct:
+        type: keyword
+      subjects:
+        type: nested
+        properties:
+          biomarker_results_available:
+            type: keyword
+          histology_images_available:
+            type: keyword
+          radiology_images_available:
+            type: keyword
+          radiology_report_available:
+            type: keyword
+          subject_id:
+            type: keyword
+      participant_count:
+        type: keyword
+      associated_links:
+        type: nested
+        properties:
+          associated_link_name:
+            type: keyword
+          associated_link_url:
+            type: keyword
+          associated_link_id:
+            type: keyword
+      image_collection:
+        type: nested
+        properties:
+          image_collection_name:
+            type: keyword
+          image_type_included:
+            type: keyword
+          image_collection_url:
+            type: keyword
+          repository_name:
+            type: keyword
+          collection_access:
+            type: keyword
+
+
+
+    # Cypher query will be used to retrieve data from Neo4j, and index into Elasticsearch
+    cypher_query: "
+      MATCH (s:study)
+      optional MATCH (s)<-[:associated_with]-(ic:image_collection)
+      optional MATCH (s)<-[:associated_with]-(al:associated_link)
+      optional MATCH (s)<-[:belongs_to]-(subject)
+       RETURN DISTINCT
+                s.study_name as study_name,
+                s.study_short_name as study_short_name,
+                s.study_id as study_id,
+                s.study_description as study_description,
+                s.study_type as study_type,
+                s.dates_of_conduct as dates_of_conduct,
+                COLLECT(DISTINCT{
+                    associated_link_name: al.associated_link_name,
+                    associated_link_url: al.associated_link_url,
+                    associated_link_id: al.associated_link_id
+                }) AS associated_links,
+                COLLECT(DISTINCT{
+                    image_collection_name: ic.image_collection_name,
+                    image_type_included: ic.image_type_included,
+                    image_collection_url: ic.image_collection_url,
+                    repository_name: ic.repository_name,
+                    collection_access: ic.collection_access
+                }) AS image_collection,
+                COLLECT(DISTINCT{
+                  biomarker_results_available: subject.biomarker_results_available,
+                  histology_images_available: subject.histology_images_available,
+                  radiology_images_available: subject.radiology_images_available,
+                  radiology_report_available: subject.radiology_report_available,
+                  subject_id: subject.subject_id
+                  })as subjects,
+                COUNT( DISTINCT subject) as participant_count
+      "
+  - index_name: study_data_file
+    type: neo4j
+    # type mapping for each property of the index
+    mapping:
+      study_short_name:
+        type: keyword
+      list_type:
+        type: keyword
+      data_files:
+        type: nested
+        properties:
+          data_file_uuid:
+            type: keyword
+          data_file_name:
+            type: keyword
+          data_file_type:
+            type: keyword
+          data_file_description:
+            type: keyword
+          data_file_format:
+            type: keyword
+          data_file_size:
+            type: keyword
+          data_file_checksum_value:
+            type: keyword
+          data_file_checksum_type:
+            type: keyword
+          data_file_compression_status:
+            type: keyword
+          data_file_location:
+            type: keyword
+
+    # Cypher query will be used to retrieve data from Neo4j, and index into Elasticsearch
+    cypher_query: "
+      MATCH (s:study)
+      optional MATCH (s)<-[:associated_with]-(df:data_file)
+      RETURN DISTINCT 
+        s.study_short_name as study_short_name,
+        COLLECT(DISTINCT{
+                    data_file_uuid: df.data_file_uuid,
+                    data_file_name: df.data_file_name,
+                    data_file_type: df.data_file_type,
+                    data_file_description: df.data_file_description,
+                    data_file_format: df.data_file_format,
+                    data_file_size: df.data_file_size,
+                    data_file_checksum_value: df.data_file_checksum_value,
+                    data_file_checksum_type: df.data_file_checksum_type,
+                    data_file_compression_status: df.data_file_compression_status,
+                    data_file_location: df.data_file_location
+                }) AS data_files,
+         COLLECT(DISTINCT df.data_file_type) as list_type
+      "
+
+  # Name of the index to be created, existing index with same name will be deleted
+  - index_name: study_specimen
+    type: neo4j
+    # type mapping for each property of the index
+    mapping:
+      study_short_name:
+        type: keyword
+      specimen_types:
+        type: nested
+        properties:
+          group:
+            type: keyword
+          count:
+            type: keyword
+      specimen_timepoints:
+        type: nested
+        properties:
+          group:
+            type: keyword
+          count:
+            type: keyword
+      sample_count:
+        type: keyword
+      specimen:
+        type: nested
+        properties:
+          specimen_id:
+            type: keyword
+          parent_specimen_id:
+            type: keyword
+          collection_date:
+            type: keyword
+          icd_o_3_tissue_morphology:
+            type: keyword
+          obi_specimen_type:
+            type: keyword
+          type_of_tissue:
+            type: keyword
+          anatomical_collection_site:
+            type: keyword
+          parent_specimen_type:
+            type: keyword
+          specimen_type:
+            type: keyword
+          tissue_category:
+            type: keyword
+          assessment_timepoint:
+            type: keyword
+    cypher_query: "
+      MATCH (s:study)<-[:belongs_to]-(subject)<-[:of_subject]-(sp:specimen)
+      WITH COUNT(sp) AS sample_count
+
+      MATCH (s:study)<-[:belongs_to]-(subject)<-[:of_subject]-(sp:specimen)
+      WITH DISTINCT sp.specimen_type AS biospecimen_type, COUNT(sp) AS count1, s ,sample_count
+
+      MATCH (s:study)<-[:belongs_to]-(subject)<-[:of_subject]-(sp:specimen)
+      WITH DISTINCT sp.assessment_timepoint AS assessment_timepoint, COUNT(sp) AS count2, s ,biospecimen_type,  count1,sp ,sample_count
+      RETURN DISTINCT
+          s.study_short_name AS study_short_name,
+          COLLECT(DISTINCT{group: sp.assessment_timepoint, count: count2}) AS specimen_timepoints,
+          COLLECT(DISTINCT{group: sp.specimen_type, count: count1}) AS specimen_types,
+          COLLECT(DISTINCT{
+            specimen_id:sp.specimen_id,
+            parent_specimen_id:sp.parent_specimen_id,
+            collection_date:sp.collection_date,
+            icd_o_3_tissue_morphology: sp.icd_o_3_tissue_morphology,
+            obi_specimen_type: sp.obi_specimen_type,
+            type_of_tissue:  sp.type_of_tissue,
+            anatomical_collection_site: sp.anatomical_collection_site,
+            parent_specimen_type: sp.parent_specimen_type,
+            specimen_type: sp.specimen_type,
+            tissue_category: sp.tissue_category,
+            assessment_timepoint: sp.assessment_timepoint
+            }) as specimen,
+            sample_count
+      "
+
+
+  - index_name: study_diagnosis
+    type: neo4j
+    # type mapping for each property of the index
+    mapping:
+      study_short_name:
+        type: keyword
+      diagnosis:
+        type: nested
+        properties:
+          ctep_disease_code:
+            type: keyword
+          diagnosis_date:
+            type: keyword
+          diagnosis_date_original:
+            type: keyword
+          diagnosis_date_original_unit:
+            type: keyword
+          diagnosis_date_unit:
+            type: keyword
+          diagnosis_id:
+            type: keyword
+          icd_10_disease_code:
+            type: keyword
+          icd_o_primary_site:
+            type: keyword
+          meddra_disease_code:
+            type: keyword
+          primary_disease_site:
+            type: keyword
+          snomed_disease_code:
+            type: keyword
+          stage_of_disease:
+            type: keyword
+          subject_age_at_diagnosis:
+            type: keyword
+          subject_age_at_diagnosis_original:
+            type: keyword
+          subject_age_at_diagnosis_original_unit:
+            type: keyword
+          subject_age_at_diagnosis_unit:
+            type: keyword
+          tumor_grade:
+            type: keyword
+      ctep_disease_codes:
+        type: keyword
+
+    # Cypher query will be used to retrieve data from Neo4j, and index into Elasticsearch
+    cypher_query: "
+        MATCH (s:study)
+        optional MATCH (s:study)<-[:belongs_to]-(subject)<-[:of_subject]-(sd:diagnosis)
+        RETURN DISTINCT
+            s.study_short_name AS study_short_name,
+            COLLECT(DISTINCT sd.ctep_disease_code) as ctep_disease_codes,
+            COLLECT(DISTINCT{ctep_disease_code: sd.ctep_disease_code,
+            diagnosis_date: sd.diagnosis_date,
+            diagnosis_date_original: sd.diagnosis_date_original,
+            diagnosis_date_original_unit: sd.diagnosis_date_original_unit,
+            diagnosis_date_unit: sd.diagnosis_date_unit,
+            diagnosis_id: sd.diagnosis_id,
+            icd_10_disease_code: sd.icd_10_disease_code,
+            icd_o_primary_site: sd.icd_o_primary_site,
+            meddra_disease_code: sd.meddra_disease_code,
+            primary_disease_site: sd.primary_disease_site,
+            snomed_disease_code: sd.snomed_disease_code,
+            stage_of_disease: sd.stage_of_disease,
+            subject_age_at_diagnosis: sd.subject_age_at_diagnosis,
+            subject_age_at_diagnosis_original: sd.subject_age_at_diagnosis_original,
+            subject_age_at_diagnosis_original_unit: sd.subject_age_at_diagnosis_original_unit,
+            subject_age_at_diagnosis_unit: sd.subject_age_at_diagnosis_unit,
+            tumor_grade: sd.tumor_grade}) as diagnosis
+      "
+

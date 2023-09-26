@@ -1,0 +1,132 @@
+type Subject {
+  biomarker_results_available: String
+  histology_images_available: String
+  radiology_images_available: String
+  radiology_report_available: String
+  subject_id: String
+}
+
+type AssociatedLink {
+  associated_link_name: String
+  associated_link_url: String
+  associated_link_id: String
+}
+
+type ImageCollection {
+  image_collection_name: String
+  image_type_included: String
+  image_collection_url: String
+  repository_name: String
+  collection_access: String
+}
+
+type Study {
+  study_short_name: String
+  study_id: String
+  study_name: String
+  study_description: String
+  study_type: String
+  dates_of_conduct: String
+  subjects: [Subject]
+  participant_count: Int
+  associated_links: [AssociatedLink]
+  image_collection: [ImageCollection]
+}
+
+
+type DataFile {
+  data_file_uuid: String
+  data_file_name: String
+  data_file_type: String
+  data_file_description: String
+  data_file_format: String
+  data_file_size: String
+  data_file_checksum_value: String
+  data_file_checksum_type: String
+  data_file_compression_status: String
+  data_file_location: String
+}
+
+type StudyDataFile {
+  study_short_name: String
+  list_type: [String]
+  data_files: [DataFile]
+}
+
+type SpecimenType {
+  group: String
+  count: Int
+}
+
+type SpecimenTimepoint {
+  group: String
+  count: Int
+}
+
+type Specimen {
+  specimen_id: String
+  parent_specimen_id: String
+  collection_date: String
+  icd_o_3_tissue_morphology: String
+  obi_specimen_type: String
+  type_of_tissue: String
+  anatomical_collection_site: String
+  parent_specimen_type: String
+  specimen_type: String
+  tissue_category: String
+  assessment_timepoint: String
+}
+
+type StudySpecimen {
+  study_short_name: String
+  specimen_types: [SpecimenType]
+  specimen_timepoints: [SpecimenTimepoint]
+  sample_count: String
+  specimen: [Specimen]
+}
+
+
+type Diagnosis {
+  ctep_disease_code: String
+  diagnosis_date: String
+  diagnosis_date_original: String
+  diagnosis_date_original_unit: String
+  diagnosis_date_unit: String
+  diagnosis_id: String
+  icd_10_disease_code: String
+  icd_o_primary_site: String
+  meddra_disease_code: String
+  primary_disease_site: String
+  snomed_disease_code: String
+  stage_of_disease: String
+  subject_age_at_diagnosis: String
+  subject_age_at_diagnosis_original: String
+  subject_age_at_diagnosis_original_unit: String
+  subject_age_at_diagnosis_unit: String
+  tumor_grade: String
+}
+
+type StudyDiagnosis {
+  study_short_name: String
+  diagnosis: [Diagnosis]
+  ctep_disease_codes: [String]
+}
+
+
+
+schema {
+    query: QueryType
+}
+
+type QueryType {
+
+     studyByStudyShortName(study_short_name: [String]= []):[Study]
+
+     studyDiagnosisByStudyShortName(study_short_name: [String]= []):[StudyDiagnosis]
+
+     StudySpecimenByStudyShortName(study_short_name: [String]= []):[StudySpecimen]
+
+     StudyDataFileByStudyShortName(study_short_name: [String]= []):[StudyDataFile]
+
+}
+

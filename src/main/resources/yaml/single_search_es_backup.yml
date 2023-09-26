@@ -1,0 +1,111 @@
+queries:
+  - name: findSubjectIdsInList
+    index:
+      - subjects
+    filter:
+      type: default
+      caseInsensitive: true
+      ignoreIfEmpty:
+        - subject_ids
+    result:
+      type: object_array
+  - name: filesInList
+    index:
+      - files
+    filter:
+      type: pagination
+      defaultSortField: file_name
+      ignoreIfEmpty:
+        - file_ids
+    result:
+      type: object_array
+  - name: sampleOverview
+    index:
+      - samples
+    filter:
+      type: pagination
+      defaultSortField: sample_id_num
+      alternativeSortField:
+        sample_id: sample_id_num
+        subject_id: subject_id_num
+      rangeFilterFields:
+        - age_at_index
+    result:
+      type: object_array
+  - name: fileOverview
+    index:
+      - files
+    filter:
+      type: pagination
+      defaultSortField: file_name
+      alternativeSortField:
+        sample_id: sample_id_num
+        subject_id: subject_id_num
+      rangeFilterFields:
+        - age_at_index
+    result:
+      type: object_array
+  - name: subjectOverview
+    index:
+      - subjects
+    filter:
+      type: pagination
+      defaultSortField: subject_id_num
+      alternativeSortField:
+        subject_id: subject_id_num
+      rangeFilterFields:
+        - age_at_index
+    result:
+      type: object_array
+  - name: fileIDsFromList
+    index:
+      - files
+    filter:
+      type: default
+      caseInsensitive: true
+      selectedField: file_ids
+      ignoreIfEmpty:
+        - subject_ids
+        - sample_ids
+        - file_names
+    result:
+      type: str_array
+  - name: subjectsInList
+    index:
+      - subjects
+    filter:
+#      extraFilters:
+#        diagnosis:
+#          - Medullary Carcinoma
+#        tumor_size:
+#          - (2,3]
+      type: default
+      caseInsensitive: true
+      selectedField: subject_ids
+    result:
+      type: object_array
+  - name: filesOfSubjects
+    index:
+      - files
+    filter:
+      type: default
+      caseInsensitive: true
+      selectedField: subject_id
+    result:
+      type: object_array
+  - name: fileIdsFromFileName
+    index:
+      - files
+    filter:
+      type: default
+      caseInsensitive: true
+    result:
+      type: object_array
+  - name: fileIdsFromFileNameDesc
+    index:
+      - files
+    filter:
+      type: default
+      caseInsensitive: true
+    result:
+      type: object_array
