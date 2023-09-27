@@ -39,3 +39,13 @@ queries:
         - study_short_name
     result:
       type: object_array
+  -name: HomePage
+    index:
+      - home_page
+    filter:
+    type: default
+    caseInsensitive: false
+    ignoreIfEmpty:
+      - home_page
+    result:
+      type: object_array
