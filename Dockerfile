@@ -6,6 +6,7 @@ COPY . .
 RUN mvn package -DskipTests
 
 # Production stage
-FROM ${ECR_REPO}/base-images:backend-jdk17
+# FROM ${ECR_REPO}/base-images:backend-jdk17
+FROM tomcat:10.1.13-jdk17
 RUN rm -rf /usr/local/tomcat/webapps/ROOT
 COPY --from=build /usr/src/app/target/Bento-0.0.1.war /usr/local/tomcat/webapps/ROOT.war
