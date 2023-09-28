@@ -45,7 +45,5 @@ queries:
     filter:
     type: default
     caseInsensitive: false
-    ignoreIfEmpty:
-      - home_page
     result:
       type: object_array
