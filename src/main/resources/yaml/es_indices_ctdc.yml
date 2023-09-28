@@ -295,7 +295,7 @@ Indices:
             tumor_grade: sd.tumor_grade}) as diagnosis
       "
 
-  - index_name: group_countdd
+  - index_name: home_page
     type: neo4j
     # type mapping for each property of the index
     mapping:
@@ -328,9 +328,9 @@ Indices:
         MATCH (sb:subject) WITH count(sb) as subjectcount
 
         MATCH (target:targeted_therapy) WITH count(DISTINCT(target)) as targetThreapyCount,subjectcount
-        MATCH (sb:subject) WHERE toLOWER(sb.histology_images_available) = \"yes\"  WITH count(sb) as histcount,targetThreapyCount,subjectcount
-        MATCH (sb:subject) WHERE toLOWER(sb.radiology_images_available) = \"yes\"  WITH count(sb) as radiocount,targetThreapyCount,subjectcount,histcount
-        MATCH (sb:subject) WHERE toLOWER(sb.biomarker_results_available) = \"yes\"  WITH count(sb) as biomarkercount,targetThreapyCount,subjectcount,histcount,radiocount
+        MATCH (sb:subject) WHERE toLOWER(sb.histology_images_available) = 'yes'  WITH count(sb) as histcount,targetThreapyCount,subjectcount
+        MATCH (sb:subject) WHERE toLOWER(sb.radiology_images_available) = 'yes'  WITH count(sb) as radiocount,targetThreapyCount,subjectcount,histcount
+        MATCH (sb:subject) WHERE toLOWER(sb.biomarker_results_available) = 'yes'  WITH count(sb) as biomarkercount,targetThreapyCount,subjectcount,histcount,radiocount
         MATCH (therapy:therapy) WITH count(DISTINCT(therapy)) as untargetedThreapyCount,radiocount,targetThreapyCount,subjectcount,histcount,biomarkercount
         MATCH (radiological:radiological_procedure) with untargetedThreapyCount,histcount,
         count(DISTINCT(radiological)) as radiologicalCount,targetThreapyCount,radiocount,subjectcount,biomarkercount
