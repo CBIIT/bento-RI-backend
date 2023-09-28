@@ -114,7 +114,7 @@ type StudyDiagnosis {
 }
 
 type HomePage {
-  numberOfParticipants
+  numberOfParticipants: Int,
   numberOfDiagnoses: Int,
   numberOfTherapies: Int,
   numberOfTargeted: Int,
