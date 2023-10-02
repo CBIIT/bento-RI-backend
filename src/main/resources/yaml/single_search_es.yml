@@ -39,11 +39,10 @@ queries:
         - study_short_name
     result:
       type: object_array
-  -name: HomePage
+  - name: getHomePage
     index:
       - home_page
     filter:
-    type: default
-    caseInsensitive: false
+      type: default
     result:
       type: object_array

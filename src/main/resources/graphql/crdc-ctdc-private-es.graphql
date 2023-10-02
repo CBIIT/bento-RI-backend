@@ -118,14 +118,14 @@ type HomePage {
   numberOfDiagnoses: Int,
   numberOfTherapies: Int,
   numberOfTargeted: Int,
-  numberofNonTargeted: Int,
+  numberOfNonTargeted: Int,
   numberOfBiomarker: Int,
   numberOfHistologyImages: Int,
   numberOfRadiologyImages: Int,
-  specimenCountbySnomedDiseaseCode: [specimenCountbySnomedDiseaseCode]
+  specimenCountbySnomedDiseaseCode: [GroupCount]
 }
 
-type SpecimenCountBySnomedDiseaseCode {
+type GroupCount {
   group: String,
   subjects: Int
 }
@@ -144,7 +144,6 @@ type QueryType {
 
      StudyDataFileByStudyShortName(study_short_name: [String]= []):[StudyDataFile]
 
-     HomePage(home_page: [String]= []):[HomePage]
-
+     getHomePage :[HomePage]
 }
 
