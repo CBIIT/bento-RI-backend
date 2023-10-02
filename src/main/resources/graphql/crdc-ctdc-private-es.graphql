@@ -122,7 +122,7 @@ type HomePage {
   numberOfBiomarker: Int,
   numberOfHistologyImages: Int,
   numberOfRadiologyImages: Int,
-  specimenCountbySnomedDiseaseCode: [GroupCount]
+  specimenCountByDiseaseStage: [GroupCount]
 }
 
 type GroupCount {

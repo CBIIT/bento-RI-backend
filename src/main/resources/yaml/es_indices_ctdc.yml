@@ -315,7 +315,7 @@ Indices:
         type: keyword
       numberOfRadiologyImages:
         type: keyword
-      specimenCountbySnomedDiseaseCode:
+      specimenCountByDiseaseStage:
         type: nested
         properties:
           group:
@@ -353,5 +353,5 @@ Indices:
               biomarkercount as numberOfBiomarker,
               histcount as numberOfHistologyImages,
               radiocount as numberOfRadiologyImages,
-              COLLECT(specimenCountbySnomedDiseaseCode) as specimenCountbySnomedDiseaseCode
+              COLLECT(specimenCountbySnomedDiseaseCode) as specimenCountByDiseaseStage
       "
