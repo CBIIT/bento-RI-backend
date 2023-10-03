@@ -34,6 +34,7 @@ type Study {
 }
 
 
+
 type DataFile {
   data_file_uuid: String
   data_file_name: String
@@ -112,7 +113,22 @@ type StudyDiagnosis {
   ctep_disease_codes: [String]
 }
 
+type HomePage {
+  numberOfParticipants: Int,
+  numberOfDiagnoses: Int,
+  numberOfTherapies: Int,
+  numberOfTargeted: Int,
+  numberOfNonTargeted: Int,
+  numberOfBiomarker: Int,
+  numberOfHistologyImages: Int,
+  numberOfRadiologyImages: Int,
+  specimenCountbySnomedDiseaseCode: [GroupCount]
+}
 
+type GroupCount {
+  group: String,
+  subjects: Int
+}
 
 schema {
     query: QueryType
@@ -128,5 +144,6 @@ type QueryType {
 
      StudyDataFileByStudyShortName(study_short_name: [String]= []):[StudyDataFile]
 
+     getHomePage :[HomePage]
 }
 

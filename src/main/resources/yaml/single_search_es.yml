@@ -39,3 +39,10 @@ queries:
         - study_short_name
     result:
       type: object_array
+  - name: getHomePage
+    index:
+      - home_page
+    filter:
+      type: default
+    result:
+      type: object_array
