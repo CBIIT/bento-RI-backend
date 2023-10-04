@@ -325,7 +325,7 @@ Indices:
   
     # Cypher query will be used to retrieve data from Neo4j, and index into Elasticsearch
     cypher_query: "
-        MATCH (sb:subject) WITH count(sb) as subjectcount
+         MATCH (sb:subject) WITH count(sb) as subjectcount
 
         MATCH (target:targeted_therapy) WITH count(DISTINCT(target)) as targetThreapyCount,subjectcount
         MATCH (sb:subject) WHERE toLOWER(sb.histology_images_available) = 'yes'  WITH count(sb) as histcount,targetThreapyCount,subjectcount
@@ -353,5 +353,5 @@ Indices:
               biomarkercount as numberOfBiomarker,
               histcount as numberOfHistologyImages,
               radiocount as numberOfRadiologyImages,
-              COLLECT(specimenCountbySnomedDiseaseCode) as specimenCountbySnomedDiseaseCode
+              COLLECT(specimenCountbyDiseaseStage) as specimenCountbySnomedDiseaseCode
       "
