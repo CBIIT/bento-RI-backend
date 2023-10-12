@@ -127,7 +127,7 @@ Indices:
     # Cypher query will be used to retrieve data from Neo4j, and index into Elasticsearch
     cypher_query: "
       MATCH (s:study)
-      optional MATCH (s)<-[:associated_with]-(df:data_file)
+      optional MATCH (s)<-[*]-(df:data_file)
       RETURN DISTINCT 
         s.study_short_name as study_short_name,
         COLLECT(DISTINCT{
