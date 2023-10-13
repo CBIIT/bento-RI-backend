@@ -355,3 +355,53 @@ Indices:
               radiocount as numberOfRadiologyImages,
               COLLECT(specimenCountbyDiseaseStage) as specimenCountbySnomedDiseaseCode
       "
+  - index_name: subjects
+    type: neo4j
+    # type mapping for each property of the index
+    mapping:
+      type:
+        type: keyword
+      diagnoses_uuid:
+        type: keyword
+      targeted_therapy_id:
+        type: keyword
+      specimen_uuid:
+        type: keyword
+      subject_uuid:
+        type: keyword
+      data_file_uuid:
+        type: keyword
+      stage_of_disease:
+        type: keyword
+      tumor_grade:
+        type: keyword
+      reported_gender:
+        type: keyword
+      sex:
+        type: keyword
+      race:
+        type: keyword
+    # Cypher query will be used to retrieve data from Neo4j, and index into Elasticsearch
+    cypher_query: "
+
+      MATCH (sb:subject)<-[:of_subject]-(demo:demographic)
+      MATCH (sb:subject)<-[:of_subject]-(diag:diagnosis)
+      MATCH (sb:subject)<-[:of_subject]-(target:targeted_therapy)
+      MATCH (sb:subject)<-[:of_subject]-(spec:specimen)
+      MATCH (sb:subject)<-[:associated_with]-(dat:data_file)
+      MATCH (sb:subject)<-[:of_subject]-(expose:exposure)
+      RETURN
+      'subject' as type,
+      target.targeted_therapy_id as targeted_therapy_id,
+      spec.specimen_id as specimen_uuid,
+      sb.subject_id as subject_uuid,
+      dat.data_file_uuid as data_file_uuid,
+      diag.stage_of_disease as stage_of_disease,
+      diag.diagnosis_id as diagnoses_uuid,
+      diag.tumor_grade as tumor_grade,
+      demo.sex as sex,
+      demo.reported_gender as reported_gender,
+      demo.race as race,
+      demo.ethnicity as ethnicity,
+      expose.exposure_id as exposure_id
+      "

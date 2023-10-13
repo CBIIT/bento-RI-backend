@@ -122,12 +122,35 @@ type HomePage {
   numberOfBiomarker: Int,
   numberOfHistologyImages: Int,
   numberOfRadiologyImages: Int,
-  specimenCountbySnomedDiseaseCode: [GroupCount]
+  specimenCountbySnomedDiseaseCode: [GroupCount2]
 }
 
-type GroupCount {
+type GroupCount2 {
   group: String,
   subjects: Int
+}
+type SearchResult {
+  numberOfDiagnoses: Int,
+  numberOfTargetedTherapies: Int,
+  numberOfBiospecimens: Int,
+  numberOfFiles: Int,
+  numberOfParticipants: Int,
+  participantCountByStageOfDisease: [GroupCount2],
+  filterParticipantCountByStageOfDisease: [GroupCount2],
+  participantCountByTumorGrade: [GroupCount2],
+  filterParticipantCountByTumorGrade: [GroupCount2],
+  participantCountBySex: [GroupCount2],
+  filterParticipantCountBySex: [GroupCount2],
+  participantCountByGender: [GroupCount2],
+  filterParticipantCountByGender: [GroupCount2],
+  participantCountByRace: [GroupCount2],
+  filterParticipantCountByRace: [GroupCount2],
+  participantCountByEthnicity: [GroupCount2],
+  filterParticipantCountByEthnicity: [GroupCount2],
+  participantCountByExposures: [GroupCount2],
+  filterParticipantCountByExposures: [GroupCount2],
+  participantCountByTargetedTherapy: [GroupCount2],
+  filterParticipantCountByTargetedTherapy: [GroupCount2]
 }
 
 schema {
@@ -144,6 +167,25 @@ type QueryType {
 
      StudyDataFileByStudyShortName(study_short_name: [String]= []):[StudyDataFile]
 
-     getHomePage :[HomePage]
+     getHomePage:[HomePage]
+
+     searchSubjects (
+      subject_ids: [String] = [],
+      ctep_disease_code: [String] = [],
+      snomed_disease_code: [String] = [],
+      tumor_grade: [String] = [], 
+      sex: [String] = [],
+      reported_gender: [String] = [],
+      race: [String] = [], 
+      ethnicity: [String] = [],
+      carcinogen_exposure: [String] = [],
+      targeted_therapy: [String] = [],
+      anatomical_collection_site: [String] = [],
+      specimen_type: [String] = [],
+      tissue_category: [String] = [],
+      assessment_timepoint: [String] = [],
+      data_file_type: [String] = [], 
+      data_file_format: [String] = []
+     ): SearchResult
 }
 
