@@ -377,3 +377,13 @@ queries:
             - age_at_index
         result:
           type: range
+      - name: diagnosesAndStageOfDiseases
+        index:
+          - subjects
+        filter:
+          type: sub_aggregation
+          selectedField: diagnoses
+          subAggSelectedField: stage_of_disease
+        result:
+          type: arm_program
+      

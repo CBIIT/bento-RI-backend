@@ -15,7 +15,7 @@ queries:
           - subjects
         filter:
           type: aggregation
-          selectedField: subject_uuid
+          selectedField: subject_id
         result:
           type: int
           method: count_bucket_keys
@@ -301,9 +301,34 @@ queries:
           ignoreSelectedField: true
         result:
           type: group_count
+      - name: diagnosesAndStageOfDiseases
+        index:
+          - subjects
+        filter:
+          type: sub_aggregation
+          selectedField: diagnoses_uuid
+          subAggSelectedField: stage_of_disease
+        result:
+          type: arm_program
       
       
       
+      # subject_ids: [String] = [],
+      # ctep_disease_code: [String] = [],
+      # snomed_disease_code: [String] = [],
+      # tumor_grade: [String] = [], 
+      # sex: [String] = [],
+      # reported_gender: [String] = [],
+      # race: [String] = [], 
+      # ethnicity: [String] = [],
+      # carcinogen_exposure: [String] = [],
+      # targeted_therapy: [String] = [],
+      # anatomical_collection_site: [String] = [],
+      # specimen_type: [String] = [],
+      # tissue_category: [String] = [],
+      # assessment_timepoint: [String] = [],
+      # data_file_type: [String] = [], 
+      # data_file_format: [String] = []
       
 
 
