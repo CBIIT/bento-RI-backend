@@ -150,7 +150,21 @@ type SearchResult {
   participantCountByExposures: [GroupCount2],
   filterParticipantCountByExposures: [GroupCount2],
   participantCountByTargetedTherapy: [GroupCount2],
-  filterParticipantCountByTargetedTherapy: [GroupCount2]
+  filterParticipantCountByTargetedTherapy: [GroupCount2],
+  participantCountByAnatomicalCollectionSite: [GroupCount2],
+  filterParticipantCountByAnatomicalCollectionSite: [GroupCount2],
+  participantCountByBiospecimenType: [GroupCount2],
+  filterParticipantCountByBiospecimenType: [GroupCount2],
+  participantCountByTissueCategory: [GroupCount2],
+  filterParticipantCountByTissueCategory: [GroupCount2],
+  participantCountByDataFileType: [GroupCount2],
+  filterParticipantCountByDataFileType: [GroupCount2],
+  participantCountByFileFormat: [GroupCount2],
+  filterParticipantCountByFileFormat: [GroupCount2],
+  participantCountByCollectionTimepoint: [GroupCount2],
+  filterParticipantCountByCollectionTimepoint: [GroupCount2],
+  participantCountByDiagnosis: [GroupCount2],
+  filterParticipantCountByDiagnosis: [GroupCount2]
 }
 
 schema {

@@ -353,7 +353,7 @@ Indices:
               biomarkercount as numberOfBiomarker,
               histcount as numberOfHistologyImages,
               radiocount as numberOfRadiologyImages,
-              COLLECT(specimenCountbyDiseaseStage) as specimenCountbySnomedDiseaseCode
+              COLLECT(specimenCountbySnomedDiseaseCode) as specimenCountbySnomedDiseaseCode
       "
   - index_name: subjects
     type: neo4j
@@ -381,27 +381,49 @@ Indices:
         type: keyword
       race:
         type: keyword
+      ethnicity:
+        type: keyword
+      exposure_id:
+        type: keyword
+      anatomical_collection_site:
+        type: keyword
+      specimen_type:
+        type: keyword
+      data_file_type:
+        type: keyword
+      assessment_timepoint:
+        type: keyword
+      data_file_format:
+        type: keyword
+      tissue_category:
+        type: keyword
+      
     # Cypher query will be used to retrieve data from Neo4j, and index into Elasticsearch
     cypher_query: "
-
       MATCH (sb:subject)<-[:of_subject]-(demo:demographic)
       MATCH (sb:subject)<-[:of_subject]-(diag:diagnosis)
       MATCH (sb:subject)<-[:of_subject]-(target:targeted_therapy)
       MATCH (sb:subject)<-[:of_subject]-(spec:specimen)
       MATCH (sb:subject)<-[:associated_with]-(dat:data_file)
       MATCH (sb:subject)<-[:of_subject]-(expose:exposure)
-      RETURN
+      RETURN DISTINCT
       'subject' as type,
-      target.targeted_therapy_id as targeted_therapy_id,
-      spec.specimen_id as specimen_uuid,
+      COLLECT(target.targeted_therapy_id) as targeted_therapy_id,
+      collect(spec.specimen_id) as specimen_uuid,
       sb.subject_id as subject_uuid,
-      dat.data_file_uuid as data_file_uuid,
-      diag.stage_of_disease as stage_of_disease,
-      diag.diagnosis_id as diagnoses_uuid,
-      diag.tumor_grade as tumor_grade,
+      collect(dat.data_file_uuid) as data_file_uuid,
+      collect(dat.data_file_type) as data_file_type,
+      COLLECT(diag.stage_of_disease) as stage_of_disease,
+      COLLECT(diag.diagnosis_id) as diagnoses_uuid,
+      COLLECT(diag.tumor_grade) as tumor_grade,
       demo.sex as sex,
       demo.reported_gender as reported_gender,
       demo.race as race,
       demo.ethnicity as ethnicity,
-      expose.exposure_id as exposure_id
+      COLLECT(expose.exposure_id) as exposure_id,
+      COLLECT(spec.anatomical_collection_site) as anatomical_collection_site,
+      COLLECT(spec.specimen_type) as specimen_type,
+      COLLECT(spec.tissue_category) as tissue_category,
+      COLLECT(spec.assessment_timepoint) as assessment_timepoint,
+      COLLECT(dat.data_file_format) as data_file_format
       "

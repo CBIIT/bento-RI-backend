@@ -182,6 +182,127 @@ queries:
           ignoreSelectedField: true
         result:
           type: group_count
+      - name: participantCountByAnatomicalCollectionSite
+        index:
+          - subjects
+        filter:
+          type: aggregation
+          selectedField: anatomical_collection_site
+        result:
+          type: group_count
+      - name: filterParticipantCountByAnatomicalCollectionSite
+        index:
+          - subjects
+        filter:
+          type: aggregation
+          selectedField: anatomical_collection_site
+          ignoreSelectedField: true
+        result:
+          type: group_count
+      - name: participantCountByBiospecimenType
+        index:
+          - subjects
+        filter:
+          type: aggregation
+          selectedField: specimen_type
+        result:
+          type: group_count
+      - name: filterParticipantCountByBiospecimenType
+        index:
+          - subjects
+        filter:
+          type: aggregation
+          selectedField: specimen_type
+          ignoreSelectedField: true
+        result:
+          type: group_count
+      - name: participantCountByTissueCategory
+        index:
+          - subjects
+        filter:
+          type: aggregation
+          selectedField: tissue_category
+        result:
+          type: group_count
+      - name: filterParticipantCountByTissueCategory
+        index:
+          - subjects
+        filter:
+          type: aggregation
+          selectedField: tissue_category
+          ignoreSelectedField: true
+        result:
+          type: group_count
+      - name: filterParticipantCountByFileFormat
+        index:
+          - subjects
+        filter:
+          type: aggregation
+          selectedField: data_file_format
+        result:
+          type: group_count
+      - name: participantCountByFileFormat
+        index:
+          - subjects
+        filter:
+          type: aggregation
+          selectedField: data_file_format
+          ignoreSelectedField: true
+        result:
+          type: group_count
+      - name: participantCountByDataFileType
+        index:
+          - subjects
+        filter:
+          type: aggregation
+          selectedField: data_file_type
+        result:
+          type: group_count
+      - name: filterParticipantCountByDataFileType
+        index:
+          - subjects
+        filter:
+          type: aggregation
+          selectedField: data_file_type
+          ignoreSelectedField: true
+        result:
+          type: group_count
+      - name: participantCountByCollectionTimepoint
+        index:
+          - subjects
+        filter:
+          type: aggregation
+          selectedField: assessment_timepoint
+        result:
+          type: group_count
+      - name: filterParticipantCountByCollectionTimepoint
+        index:
+          - subjects
+        filter:
+          type: aggregation
+          selectedField: assessment_timepoint
+          ignoreSelectedField: true
+        result:
+          type: group_count
+      - name: participantCountByDiagnosis
+        index:
+          - subjects
+        filter:
+          type: aggregation
+          selectedField: diagnoses_uuid
+        result:
+          type: group_count
+      - name: filterParticipantCountByDiagnosis
+        index:
+          - subjects
+        filter:
+          type: aggregation
+          selectedField: diagnoses_uuid
+          ignoreSelectedField: true
+        result:
+          type: group_count
+      
+      
       
       
 
