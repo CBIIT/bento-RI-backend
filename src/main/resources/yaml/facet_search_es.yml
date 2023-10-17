@@ -310,6 +310,33 @@ queries:
           subAggSelectedField: stage_of_diseases
         result:
           type: arm_program
+      - name: racesAndEthnicities
+        index:
+          - subjects
+        filter:
+          type: sub_aggregation
+          selectedField: race
+          subAggSelectedField: ethnicity
+        result:
+          type: arm_program
+      - name: timepointsAndBiospecimensTypes
+        index:
+          - subjects
+        filter:
+          type: sub_aggregation
+          selectedField: assessment_timepoint
+          subAggSelectedField: specimen_type
+        result:
+          type: arm_program
+      - name: sexesAndGenders
+        index:
+          - subjects
+        filter:
+          type: sub_aggregation
+          selectedField: sex
+          subAggSelectedField: reported_gender
+        result:
+          type: arm_program
       
       
       
