@@ -129,6 +129,7 @@ type GroupCount2 {
   group: String,
   subjects: Int
 }
+
 type SearchResult {
   numberOfDiagnoses: Int,
   numberOfTargetedTherapies: Int,
@@ -164,7 +165,20 @@ type SearchResult {
   participantCountByCollectionTimepoint: [GroupCount2],
   filterParticipantCountByCollectionTimepoint: [GroupCount2],
   participantCountByDiagnosis: [GroupCount2],
-  filterParticipantCountByDiagnosis: [GroupCount2]
+  filterParticipantCountByDiagnosis: [GroupCount2],
+  diagnosesAndStageOfDiseases: [ProgramArms2]
+}
+
+type ProgramArms2 {
+    program: String
+    caseSize: Int
+    children: [ArmInfo2]
+}
+
+type ArmInfo2 {
+    arm: String
+    size: Int
+    caseSize: Int
 }
 
 schema {

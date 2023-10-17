@@ -6,7 +6,7 @@ queries:
           - subjects
         filter:
           type: aggregation
-          selectedField: diagnoses_uuid
+          selectedField: diagnosis_id
         result:
           type: int
           method: count_bucket_keys
@@ -289,7 +289,7 @@ queries:
           - subjects
         filter:
           type: aggregation
-          selectedField: diagnoses_uuid
+          selectedField: diagnosis_id
         result:
           type: group_count
       - name: filterParticipantCountByDiagnosis
@@ -297,7 +297,7 @@ queries:
           - subjects
         filter:
           type: aggregation
-          selectedField: diagnoses_uuid
+          selectedField: diagnosis_id
           ignoreSelectedField: true
         result:
           type: group_count
@@ -306,8 +306,8 @@ queries:
           - subjects
         filter:
           type: sub_aggregation
-          selectedField: diagnoses_uuid
-          subAggSelectedField: stage_of_disease
+          selectedField: diagnosis_ids
+          subAggSelectedField: stage_of_diseases
         result:
           type: arm_program
       

@@ -361,13 +361,13 @@ Indices:
     mapping:
       type:
         type: keyword
-      diagnoses_uuid:
+      diagnosis_id:
         type: keyword
       targeted_therapy_id:
         type: keyword
       specimen_uuid:
         type: keyword
-      subject_uuid:
+      subject_id:
         type: keyword
       data_file_uuid:
         type: keyword
@@ -397,6 +397,10 @@ Indices:
         type: keyword
       tissue_category:
         type: keyword
+      diagnosis_ids:
+        type: keyword
+      stage_of_diseases:
+        type: keyword
       
     # Cypher query will be used to retrieve data from Neo4j, and index into Elasticsearch
     cypher_query: "
@@ -410,11 +414,13 @@ Indices:
       'subject' as type,
       COLLECT(target.targeted_therapy_id) as targeted_therapy_id,
       collect(spec.specimen_id) as specimen_uuid,
-      sb.subject_id as subject_uuid,
+      sb.subject_id as subject_id,
       collect(dat.data_file_uuid) as data_file_uuid,
       collect(dat.data_file_type) as data_file_type,
       COLLECT(diag.stage_of_disease) as stage_of_disease,
-      COLLECT(diag.diagnosis_id) as diagnoses_uuid,
+      diag.stage_of_disease as stage_of_diseases,
+      COLLECT(diag.diagnosis_id) as diagnosis_id,
+      diag.diagnosis_id as diagnosis_ids,
       COLLECT(diag.tumor_grade) as tumor_grade,
       demo.sex as sex,
       demo.reported_gender as reported_gender,
