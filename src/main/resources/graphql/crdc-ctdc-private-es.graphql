@@ -131,6 +131,7 @@ type GroupCount2 {
 }
 
 type SearchResult {
+  numberOfTrials: Int,
   numberOfDiagnoses: Int,
   numberOfTargetedTherapies: Int,
   numberOfBiospecimens: Int,

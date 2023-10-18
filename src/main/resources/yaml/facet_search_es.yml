@@ -1,9 +1,18 @@
 queries:
   - name: searchSubjects
     returnFields:
+      - name: numberOfTrials
+        index:
+          - exposure_facet
+        filter:
+          type: aggregation
+          selectedField: study_short_name
+        result:
+          type: int
+          method: count_bucket_keys
       - name: numberOfDiagnoses
         index:
-          - subjects
+          - diagnoses_widget
         filter:
           type: aggregation
           selectedField: diagnosis_id
@@ -21,7 +30,7 @@ queries:
           method: count_bucket_keys
       - name: numberOfTargetedTherapies
         index:
-          - subjects
+          - targeted_therapy_facet
         filter:
           type: aggregation
           selectedField: targeted_therapy_id
@@ -30,16 +39,16 @@ queries:
           method: count_bucket_keys
       - name: numberOfBiospecimens
         index:
-          - subjects
+          - specimen_widget
         filter:
           type: aggregation
-          selectedField: specimen_uuid
+          selectedField: specimen_id
         result:
           type: int
           method: count_bucket_keys
       - name: numberOfFiles
         index:
-          - subjects
+          - file_widget
         filter:
           type: aggregation
           selectedField: data_file_uuid
@@ -48,7 +57,7 @@ queries:
           method: count_bucket_keys
       - name: participantCountByStageOfDisease
         index:
-          - subjects
+          - diagnoses_widget
         filter:
           type: aggregation
           selectedField: stage_of_disease
@@ -56,7 +65,7 @@ queries:
           type: group_count
       - name: filterParticipantCountByStageOfDisease
         index:
-          - subjects
+          - diagnoses_widget
         filter:
           type: aggregation
           selectedField: stage_of_disease
@@ -65,7 +74,7 @@ queries:
           type: group_count
       - name: participantCountByTumorGrade
         index:
-          - subjects
+          - diagnoses_widget
         filter:
           type: aggregation
           selectedField: tumor_grade
@@ -73,7 +82,7 @@ queries:
           type: group_count
       - name: filterParticipantCountByTumorGrade
         index:
-          - subjects
+          - diagnoses_widget
         filter:
           type: aggregation
           selectedField: tumor_grade
@@ -150,7 +159,7 @@ queries:
           type: group_count
       - name: participantCountByExposures
         index:
-          - subjects
+          - exposure_facet
         filter:
           type: aggregation
           selectedField: exposure_id
@@ -158,7 +167,7 @@ queries:
           type: group_count
       - name: filterParticipantCountByExposures
         index:
-          - subjects
+          - exposure_facet
         filter:
           type: aggregation
           selectedField: exposure_id
@@ -167,7 +176,7 @@ queries:
           type: group_count
       - name: participantCountByTargetedTherapy
         index:
-          - subjects
+          - targeted_therapy_facet
         filter:
           type: aggregation
           selectedField: targeted_therapy_id
@@ -175,7 +184,7 @@ queries:
           type: group_count
       - name: filterParticipantCountByTargetedTherapy
         index:
-          - subjects
+          - targeted_therapy_facet
         filter:
           type: aggregation
           selectedField: targeted_therapy_id
@@ -184,7 +193,7 @@ queries:
           type: group_count
       - name: participantCountByAnatomicalCollectionSite
         index:
-          - subjects
+          - specimen_widget
         filter:
           type: aggregation
           selectedField: anatomical_collection_site
@@ -192,7 +201,7 @@ queries:
           type: group_count
       - name: filterParticipantCountByAnatomicalCollectionSite
         index:
-          - subjects
+          - specimen_widget
         filter:
           type: aggregation
           selectedField: anatomical_collection_site
@@ -201,7 +210,7 @@ queries:
           type: group_count
       - name: participantCountByBiospecimenType
         index:
-          - subjects
+          - specimen_widget
         filter:
           type: aggregation
           selectedField: specimen_type
@@ -209,7 +218,7 @@ queries:
           type: group_count
       - name: filterParticipantCountByBiospecimenType
         index:
-          - subjects
+          - specimen_widget
         filter:
           type: aggregation
           selectedField: specimen_type
@@ -218,7 +227,7 @@ queries:
           type: group_count
       - name: participantCountByTissueCategory
         index:
-          - subjects
+          - specimen_widget
         filter:
           type: aggregation
           selectedField: tissue_category
@@ -226,7 +235,7 @@ queries:
           type: group_count
       - name: filterParticipantCountByTissueCategory
         index:
-          - subjects
+          - specimen_widget
         filter:
           type: aggregation
           selectedField: tissue_category
@@ -235,7 +244,7 @@ queries:
           type: group_count
       - name: filterParticipantCountByFileFormat
         index:
-          - subjects
+          - file_widget
         filter:
           type: aggregation
           selectedField: data_file_format
@@ -243,7 +252,7 @@ queries:
           type: group_count
       - name: participantCountByFileFormat
         index:
-          - subjects
+          - file_widget
         filter:
           type: aggregation
           selectedField: data_file_format
@@ -252,7 +261,7 @@ queries:
           type: group_count
       - name: participantCountByDataFileType
         index:
-          - subjects
+          - file_widget
         filter:
           type: aggregation
           selectedField: data_file_type
@@ -260,7 +269,7 @@ queries:
           type: group_count
       - name: filterParticipantCountByDataFileType
         index:
-          - subjects
+          - file_widget
         filter:
           type: aggregation
           selectedField: data_file_type
@@ -269,7 +278,7 @@ queries:
           type: group_count
       - name: participantCountByCollectionTimepoint
         index:
-          - subjects
+          - specimen_widget
         filter:
           type: aggregation
           selectedField: assessment_timepoint
@@ -277,7 +286,7 @@ queries:
           type: group_count
       - name: filterParticipantCountByCollectionTimepoint
         index:
-          - subjects
+          - specimen_widget
         filter:
           type: aggregation
           selectedField: assessment_timepoint
@@ -286,27 +295,27 @@ queries:
           type: group_count
       - name: participantCountByDiagnosis
         index:
-          - subjects
+          - diagnoses_widget
         filter:
           type: aggregation
-          selectedField: diagnosis_id
+          selectedField: ctep_disease_code
         result:
           type: group_count
       - name: filterParticipantCountByDiagnosis
         index:
-          - subjects
+          - diagnoses_widget
         filter:
           type: aggregation
-          selectedField: diagnosis_id
+          selectedField: ctep_disease_code
           ignoreSelectedField: true
         result:
           type: group_count
       - name: diagnosesAndStageOfDiseases
         index:
-          - subjects
+          - diagnoses_widget
         filter:
           type: sub_aggregation
-          selectedField: diagnosis_ids
+          selectedField: ctep_disease_code
           subAggSelectedField: stage_of_diseases
         result:
           type: arm_program
@@ -321,7 +330,7 @@ queries:
           type: arm_program
       - name: timepointsAndBiospecimensTypes
         index:
-          - subjects
+          - specimen_widget
         filter:
           type: sub_aggregation
           selectedField: assessment_timepoint
@@ -339,39 +348,11 @@ queries:
           type: arm_program
       
       
-      
-      # subject_ids: [String] = [],
-      # ctep_disease_code: [String] = [],
-      # snomed_disease_code: [String] = [],
-      # tumor_grade: [String] = [], 
-      # sex: [String] = [],
-      # reported_gender: [String] = [],
-      # race: [String] = [], 
-      # ethnicity: [String] = [],
-      # carcinogen_exposure: [String] = [],
-      # targeted_therapy: [String] = [],
-      # anatomical_collection_site: [String] = [],
-      # specimen_type: [String] = [],
-      # tissue_category: [String] = [],
-      # assessment_timepoint: [String] = [],
-      # data_file_type: [String] = [], 
-      # data_file_format: [String] = []
-      
 
 
 
 
 
 
-  #  participantCountByGender {
-  #     group
-  #     subjects
-  #     __typename
-  #   }
-  #   filterParticipantCountByGender {
-  #     group
-  #     subjects
-  #     __typename
-  #   }
-      
+ 
 
