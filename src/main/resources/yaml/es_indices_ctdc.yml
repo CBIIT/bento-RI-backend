@@ -474,5 +474,5 @@ Indices:
     cypher_query: "
       MATCH (sb:subject)<-[:of_subject]-(target:targeted_therapy)
       RETURN
-      target.targeted_therapy as targeted_therapy_id
+      target.targeted_therapy_id as targeted_therapy_id
       "
