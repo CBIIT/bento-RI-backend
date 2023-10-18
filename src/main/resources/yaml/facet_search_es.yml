@@ -179,7 +179,7 @@ queries:
           - targeted_therapy_facet
         filter:
           type: aggregation
-          selectedField: targeted_therapy_id
+          selectedField: targeted_therapy
         result:
           type: group_count
       - name: filterParticipantCountByTargetedTherapy
@@ -187,7 +187,7 @@ queries:
           - targeted_therapy_facet
         filter:
           type: aggregation
-          selectedField: targeted_therapy_id
+          selectedField: targeted_therapy
           ignoreSelectedField: true
         result:
           type: group_count
@@ -316,7 +316,7 @@ queries:
         filter:
           type: sub_aggregation
           selectedField: ctep_disease_code
-          subAggSelectedField: stage_of_diseases
+          subAggSelectedField: stage_of_disease
         result:
           type: arm_program
       - name: racesAndEthnicities

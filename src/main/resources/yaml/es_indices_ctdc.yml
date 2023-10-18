@@ -401,7 +401,7 @@ Indices:
       MATCH (sb:subject)<-[:of_subject]-(diag:diagnosis)
       RETURN
       diag.diagnosis_id as diagnosis_id,
-      collect(diag.snomed_disease_code) as stage_of_disease,
+      collect(diag.stage_of_disease) as stage_of_disease,
       collect(diag.ctep_disease_code) as ctep_disease_code,
       COLLECT(DISTINCT(diag.tumor_grade)) as tumor_grade
       "
@@ -467,10 +467,13 @@ Indices:
     type: neo4j
     # type mapping for each property of the index
     mapping:
+      targeted_therapy:
+        type: keyword
       targeted_therapy_id:
         type: keyword
     cypher_query: "
       MATCH (sb:subject)<-[:of_subject]-(target:targeted_therapy)
       RETURN
-      target.targeted_therapy_id as targeted_therapy_id
+      target.targeted_therapy_id as targeted_therapy_id,
+      target.targeted_therapy as targeted_therapy
       "
