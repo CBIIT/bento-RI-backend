@@ -417,8 +417,6 @@ Indices:
         type: keyword
       tissue_category:
         type: keyword
-      assessment_timepoint:
-        type: keyword
       specimen_id:
         type: keyword
     # Cypher query will be used to retrieve data from Neo4j, and index into Elasticsearch
