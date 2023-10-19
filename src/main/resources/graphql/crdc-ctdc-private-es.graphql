@@ -113,6 +113,11 @@ type StudyDiagnosis {
   ctep_disease_codes: [String]
 }
 
+type GroupCount {
+  group: String,
+  subjects: Int
+}
+
 type HomePage {
   numberOfParticipants: Int,
   numberOfDiagnoses: Int,
@@ -122,68 +127,68 @@ type HomePage {
   numberOfBiomarker: Int,
   numberOfHistologyImages: Int,
   numberOfRadiologyImages: Int,
-  specimenCountbySnomedDiseaseCode: [GroupCount2]
+  specimenCountbySnomedDiseaseCode: [GroupCount]
 }
 
-type GroupCount2 {
-  group: String,
-  subjects: Int
-}
 
 type SearchResult {
-  numberOfTrials: Int,
-  numberOfDiagnoses: Int,
-  numberOfTargetedTherapies: Int,
-  numberOfBiospecimens: Int,
-  numberOfFiles: Int,
-  numberOfParticipants: Int,
-  participantCountByStageOfDisease: [GroupCount2],
-  filterParticipantCountByStageOfDisease: [GroupCount2],
-  participantCountByTumorGrade: [GroupCount2],
-  filterParticipantCountByTumorGrade: [GroupCount2],
-  participantCountBySex: [GroupCount2],
-  filterParticipantCountBySex: [GroupCount2],
-  participantCountByGender: [GroupCount2],
-  filterParticipantCountByGender: [GroupCount2],
-  participantCountByRace: [GroupCount2],
-  filterParticipantCountByRace: [GroupCount2],
-  participantCountByEthnicity: [GroupCount2],
-  filterParticipantCountByEthnicity: [GroupCount2],
-  participantCountByExposures: [GroupCount2],
-  filterParticipantCountByExposures: [GroupCount2],
-  participantCountByTargetedTherapy: [GroupCount2],
-  filterParticipantCountByTargetedTherapy: [GroupCount2],
-  participantCountByAnatomicalCollectionSite: [GroupCount2],
-  filterParticipantCountByAnatomicalCollectionSite: [GroupCount2],
-  participantCountByBiospecimenType: [GroupCount2],
-  filterParticipantCountByBiospecimenType: [GroupCount2],
-  participantCountByTissueCategory: [GroupCount2],
-  filterParticipantCountByTissueCategory: [GroupCount2],
-  participantCountByDataFileType: [GroupCount2],
-  filterParticipantCountByDataFileType: [GroupCount2],
-  participantCountByFileFormat: [GroupCount2],
-  filterParticipantCountByFileFormat: [GroupCount2],
-  participantCountByCollectionTimepoint: [GroupCount2],
-  filterParticipantCountByCollectionTimepoint: [GroupCount2],
-  participantCountByDiagnosis: [GroupCount2],
-  filterParticipantCountByDiagnosis: [GroupCount2],
-  diagnosesAndStageOfDiseases: [ProgramArms2],
-  racesAndEthnicities: [ProgramArms2],
-  timepointsAndBiospecimensTypes: [ProgramArms2],
-  sexesAndGenders: [ProgramArms2]
-}
+    diagnosesAndStageOfDiseases: [ProgramArms2],
+    sexesAndGenders: [ProgramArms2],
+    racesAndEthnicities: [ProgramArms2],
+    timepointsAndBiospecimensTypes: [ProgramArms2],
+    numberOfStudies: Int,
+    numberOfParticipants: Int,
+    numberOfDiagnoses: Int,
+    numberOfTargetedTherapies: Int,
+    numberOfSpecimens: Int,
+    numberOfFiles: Int,
+    participantCountByCtepDiseaseCode: [GroupCount],
+    participantCountBySnomedDiseaseCode: [GroupCount],
+    participantCountByDiagnosis: [GroupCount],
+    participantCountByTumorGrade: [GroupCount],
+    participantCountBySex: [GroupCount],
+    participantCountByReportedGender: [GroupCount],
+    participantCountByRace: [GroupCount],
+    participantCountByEthnicity: [GroupCount],
+    participantCountByCarcinogenExposure: [GroupCount],
+    participantCountByTargetedTherapy: [GroupCount],
+    participantCountByAnatomicalCollectionSite: [GroupCount],
+    participantCountByTissueCategory: [GroupCount],
+    participantCountBySpecimenType: [GroupCount],
+    participantCountByAssessmentTimepoint: [GroupCount],
+    participantCountByDataFileType: [GroupCount],
+    participantCountByDataFileFormat: [GroupCount],
 
-type ProgramArms2 {
-    program: String,
-    caseSize: Int,
-    children: [ArmInfo2]
+    filterparticipantCountByCtepDiseaseCode: [GroupCount],
+    filterparticipantCountBySnomedDiseaseCode: [GroupCount],
+    filterparticipantCountByTumorGrade: [GroupCount],
+    filterparticipantCountBySex: [GroupCount],
+    filterparticipantCountByReportedGender: [GroupCount],
+    filterparticipantCountByRace: [GroupCount],
+    filterparticipantCountByEthnicity: [GroupCount],
+    filterparticipantCountByCarcinogenExposure: [GroupCount],
+    filterparticipantCountByTargetedTherapy: [GroupCount],
+    filterparticipantCountByAnatomicalCollectionSite: [GroupCount],
+    filterparticipantCountByTissueCategory: [GroupCount],
+    filterparticipantCountBySpecimenType: [GroupCount],
+    filterparticipantCountByAssessmentTimepoint: [GroupCount],
+
+    filterparticipantCountByDataFileType: [GroupCount],
+    filterparticipantCountByDataFileFormat: [GroupCount]
 }
 
 type ArmInfo2 {
-    arm: String,
-    size: Int,
+    arm: String
+    size: Int
     caseSize: Int
 }
+
+type ProgramArms2 {
+    program: String
+    caseSize: Int
+    children: [ArmInfo2]
+}
+
 
 schema {
     query: QueryType
@@ -199,25 +204,25 @@ type QueryType {
 
      StudyDataFileByStudyShortName(study_short_name: [String]= []):[StudyDataFile]
 
-     getHomePage:[HomePage]
+     getHomePage :[HomePage]
 
-     searchSubjects (
-      subject_ids: [String] = [],
-      ctep_disease_code: [String] = [],
-      snomed_disease_code: [String] = [],
-      tumor_grade: [String] = [], 
-      sex: [String] = [],
-      reported_gender: [String] = [],
-      race: [String] = [], 
-      ethnicity: [String] = [],
-      carcinogen_exposure: [String] = [],
-      targeted_therapy: [String] = [],
-      anatomical_collection_site: [String] = [],
-      specimen_type: [String] = [],
-      tissue_category: [String] = [],
-      assessment_timepoint: [String] = [],
-      data_file_type: [String] = [], 
-      data_file_format: [String] = []
-     ): SearchResult
+     searchParticipants (
+        ctep_disease_code: [String] = [],
+        snomed_disease_code: [String] = [],
+        tumor_grade: [String] = [],
+        sex: [String] = [],
+        reported_gender: [String] = [],
+        race: [String] = [],
+        ethnicity: [String] = [],
+        carcinogen_exposure: [String] = [],
+        targeted_therapy: [String] = [],
+        anatomical_collection_site: [String] = [],
+        specimen_type: [String] = [],
+        tissue_category: [String] = [],
+        assessment_timepoint: [String] = [],
+        association: [String] = [],
+        data_file_type: [String] = [],
+        data_file_format: [String] = [],
+        subject_id: [String] = []
+    ): SearchResult
 }
-

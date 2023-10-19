@@ -1,318 +1,10 @@
 queries:
-  - name: searchSubjects
+  - name: searchParticipants
+    globalRangeFields:
     returnFields:
-      - name: numberOfTrials
-        index:
-          - exposure_facet
-        filter:
-          type: aggregation
-          selectedField: study_short_name
-        result:
-          type: int
-          method: count_bucket_keys
-      - name: numberOfDiagnoses
-        index:
-          - diagnoses_widget
-        filter:
-          type: aggregation
-          selectedField: diagnosis_id
-        result:
-          type: int
-          method: count_bucket_keys
-      - name: numberOfParticipants
-        index:
-          - subjects
-        filter:
-          type: aggregation
-          selectedField: subject_id
-        result:
-          type: int
-          method: count_bucket_keys
-      - name: numberOfTargetedTherapies
-        index:
-          - targeted_therapy_facet
-        filter:
-          type: aggregation
-          selectedField: targeted_therapy_id
-        result:
-          type: int
-          method: count_bucket_keys
-      - name: numberOfBiospecimens
-        index:
-          - specimen_widget
-        filter:
-          type: aggregation
-          selectedField: specimen_id
-        result:
-          type: int
-          method: count_bucket_keys
-      - name: numberOfFiles
-        index:
-          - file_widget
-        filter:
-          type: aggregation
-          selectedField: data_file_uuid
-        result:
-          type: int
-          method: count_bucket_keys
-      - name: participantCountByStageOfDisease
-        index:
-          - diagnoses_widget
-        filter:
-          type: aggregation
-          selectedField: stage_of_disease
-        result:
-          type: group_count
-      - name: filterParticipantCountByStageOfDisease
-        index:
-          - diagnoses_widget
-        filter:
-          type: aggregation
-          selectedField: stage_of_disease
-          ignoreSelectedField: true
-        result:
-          type: group_count
-      - name: participantCountByTumorGrade
-        index:
-          - diagnoses_widget
-        filter:
-          type: aggregation
-          selectedField: tumor_grade
-        result:
-          type: group_count
-      - name: filterParticipantCountByTumorGrade
-        index:
-          - diagnoses_widget
-        filter:
-          type: aggregation
-          selectedField: tumor_grade
-          ignoreSelectedField: true
-        result:
-          type: group_count
-      - name: participantCountBySex
-        index:
-          - subjects
-        filter:
-          type: aggregation
-          selectedField: sex
-        result:
-          type: group_count
-      - name: filterParticipantCountBySex
-        index:
-          - subjects
-        filter:
-          type: aggregation
-          selectedField: sex
-          ignoreSelectedField: true
-        result:
-          type: group_count
-      - name: participantCountByGender
-        index:
-          - subjects
-        filter:
-          type: aggregation
-          selectedField: reported_gender
-        result:
-          type: group_count
-      - name: filterParticipantCountByGender
-        index:
-          - subjects
-        filter:
-          type: aggregation
-          selectedField: reported_gender
-          ignoreSelectedField: true
-        result:
-          type: group_count
-      - name: participantCountByRace
-        index:
-          - subjects
-        filter:
-          type: aggregation
-          selectedField: race
-        result:
-          type: group_count
-      - name: filterParticipantCountByRace
-        index:
-          - subjects
-        filter:
-          type: aggregation
-          selectedField: race
-          ignoreSelectedField: true
-        result:
-          type: group_count
-      - name: participantCountByEthnicity
-        index:
-          - subjects
-        filter:
-          type: aggregation
-          selectedField: ethnicity
-        result:
-          type: group_count
-      - name: filterParticipantCountByEthnicity
-        index:
-          - subjects
-        filter:
-          type: aggregation
-          selectedField: ethnicity
-          ignoreSelectedField: true
-        result:
-          type: group_count
-      - name: participantCountByExposures
-        index:
-          - exposure_facet
-        filter:
-          type: aggregation
-          selectedField: exposure_id
-        result:
-          type: group_count
-      - name: filterParticipantCountByExposures
-        index:
-          - exposure_facet
-        filter:
-          type: aggregation
-          selectedField: exposure_id
-          ignoreSelectedField: true
-        result:
-          type: group_count
-      - name: participantCountByTargetedTherapy
-        index:
-          - targeted_therapy_facet
-        filter:
-          type: aggregation
-          selectedField: targeted_therapy
-        result:
-          type: group_count
-      - name: filterParticipantCountByTargetedTherapy
-        index:
-          - targeted_therapy_facet
-        filter:
-          type: aggregation
-          selectedField: targeted_therapy
-          ignoreSelectedField: true
-        result:
-          type: group_count
-      - name: participantCountByAnatomicalCollectionSite
-        index:
-          - specimen_widget
-        filter:
-          type: aggregation
-          selectedField: anatomical_collection_site
-        result:
-          type: group_count
-      - name: filterParticipantCountByAnatomicalCollectionSite
-        index:
-          - specimen_widget
-        filter:
-          type: aggregation
-          selectedField: anatomical_collection_site
-          ignoreSelectedField: true
-        result:
-          type: group_count
-      - name: participantCountByBiospecimenType
-        index:
-          - specimen_widget
-        filter:
-          type: aggregation
-          selectedField: specimen_type
-        result:
-          type: group_count
-      - name: filterParticipantCountByBiospecimenType
-        index:
-          - specimen_widget
-        filter:
-          type: aggregation
-          selectedField: specimen_type
-          ignoreSelectedField: true
-        result:
-          type: group_count
-      - name: participantCountByTissueCategory
-        index:
-          - specimen_widget
-        filter:
-          type: aggregation
-          selectedField: tissue_category
-        result:
-          type: group_count
-      - name: filterParticipantCountByTissueCategory
-        index:
-          - specimen_widget
-        filter:
-          type: aggregation
-          selectedField: tissue_category
-          ignoreSelectedField: true
-        result:
-          type: group_count
-      - name: filterParticipantCountByFileFormat
-        index:
-          - file_widget
-        filter:
-          type: aggregation
-          selectedField: data_file_format
-        result:
-          type: group_count
-      - name: participantCountByFileFormat
-        index:
-          - file_widget
-        filter:
-          type: aggregation
-          selectedField: data_file_format
-          ignoreSelectedField: true
-        result:
-          type: group_count
-      - name: participantCountByDataFileType
-        index:
-          - file_widget
-        filter:
-          type: aggregation
-          selectedField: data_file_type
-        result:
-          type: group_count
-      - name: filterParticipantCountByDataFileType
-        index:
-          - file_widget
-        filter:
-          type: aggregation
-          selectedField: data_file_type
-          ignoreSelectedField: true
-        result:
-          type: group_count
-      - name: participantCountByCollectionTimepoint
-        index:
-          - specimen_widget
-        filter:
-          type: aggregation
-          selectedField: assessment_timepoint
-        result:
-          type: group_count
-      - name: filterParticipantCountByCollectionTimepoint
-        index:
-          - specimen_widget
-        filter:
-          type: aggregation
-          selectedField: assessment_timepoint
-          ignoreSelectedField: true
-        result:
-          type: group_count
-      - name: participantCountByDiagnosis
-        index:
-          - diagnoses_widget
-        filter:
-          type: aggregation
-          selectedField: ctep_disease_code
-        result:
-          type: group_count
-      - name: filterParticipantCountByDiagnosis
-        index:
-          - diagnoses_widget
-        filter:
-          type: aggregation
-          selectedField: ctep_disease_code
-          ignoreSelectedField: true
-        result:
-          type: group_count
       - name: diagnosesAndStageOfDiseases
         index:
-          - diagnoses_widget
+          - participants
         filter:
           type: sub_aggregation
           selectedField: ctep_disease_code
@@ -321,7 +13,7 @@ queries:
           type: arm_program
       - name: racesAndEthnicities
         index:
-          - subjects
+          - participants
         filter:
           type: sub_aggregation
           selectedField: race
@@ -330,29 +22,367 @@ queries:
           type: arm_program
       - name: timepointsAndBiospecimensTypes
         index:
-          - specimen_widget
+          - participants
         filter:
           type: sub_aggregation
           selectedField: assessment_timepoint
           subAggSelectedField: specimen_type
+          nestedPath: biospecimen_info
+          nestedParameters:
+            - anatomical_collection_site,
+            - specimen_type,
+            - tissue_category,
+            - assessment_timepoint
         result:
           type: arm_program
       - name: sexesAndGenders
         index:
-          - subjects
+          - participants
         filter:
           type: sub_aggregation
           selectedField: sex
           subAggSelectedField: reported_gender
         result:
           type: arm_program
-      
-      
-
-
-
-
-
-
- 
-
+      - name: numberOfStudies
+        index:
+          - participants
+        filter:
+          type: aggregation
+          selectedField: study_short_name
+        result:
+          type: int
+          method: count_bucket_keys
+      - name: numberOfParticipants
+        index:
+          - participants
+        filter:
+          type: aggregation
+          selectedField: subject_id
+        result:
+          type: int
+          method: count_bucket_keys
+      - name: numberOfDiagnoses
+        index:
+          - participants
+        filter:
+          type: aggregation
+          selectedField: diagnosis_id
+        result:
+          type: int
+          method: count_bucket_keys
+      - name: numberOfTargetedTherapies
+        index:
+          - participants
+        filter:
+          type: aggregation
+          selectedField: targeted_therapy_id
+        result:
+          type: int
+          method: count_bucket_keys
+      - name: numberOfSpecimens
+        index:
+          - participants
+        filter:
+          type: aggregation
+          selectedField: specimen_id
+        result:
+          type: int
+          method: count_bucket_keys
+      - name: numberOfFiles
+        index:
+          - participants
+        filter:
+          type: aggregation
+          selectedField: data_file_uuid
+        result:
+          type: int
+          method: count_bucket_keys
+      - name: participantCountByCtepDiseaseCode
+        index:
+          - participants
+        filter:
+          type: aggregation
+          selectedField: ctep_disease_code
+        result:
+          type: group_count
+      - name: filterparticipantCountByCtepDiseaseCode
+        index:
+          - participants
+        filter:
+          type: aggregation
+          selectedField: ctep_disease_code
+          ignoreSelectedField: true
+        result:
+          type: group_count
+      - name: participantCountBySnomedDiseaseCode
+        index:
+          - participants
+        filter:
+          type: aggregation
+          selectedField: snomed_disease_code
+        result:
+          type: group_count
+      - name: filterparticipantCountBySnomedDiseaseCode
+        index:
+          - participants
+        filter:
+          type: aggregation
+          selectedField: snomed_disease_code
+          ignoreSelectedField: true
+        result:
+          type: group_count
+      - name: participantCountByTumorGrade
+        index:
+          - participants
+        filter:
+          type: aggregation
+          selectedField: tumor_grade
+        result:
+          type: group_count
+      - name: filterparticipantCountByTumorGrade
+        index:
+          - participants
+        filter:
+          type: aggregation
+          selectedField: tumor_grade
+          ignoreSelectedField: true
+        result:
+          type: group_count
+      - name: participantCountByStageOfDisease
+        index:
+          - participants
+        filter:
+          type: aggregation
+          selectedField: stage_of_disease
+        result:
+          type: group_count
+      - name: filterparticipantCountByStageOfDisease
+        index:
+          - participants
+        filter:
+          type: aggregation
+          selectedField: stage_of_disease
+          ignoreSelectedField: true
+        result:
+          type: group_count
+      - name: participantCountBySex
+        index:
+          - participants
+        filter:
+          type: aggregation
+          selectedField: sex
+        result:
+          type: group_count
+      - name: filterparticipantCountBySex
+        index:
+          - participants
+        filter:
+          type: aggregation
+          selectedField: sex
+          ignoreSelectedField: true
+        result:
+          type: group_count
+      - name: participantCountByReportedGender
+        index:
+          - participants
+        filter:
+          type: aggregation
+          selectedField: reported_gender
+        result:
+          type: group_count
+      - name: filterparticipantCountByReportedGender
+        index:
+          - participants
+        filter:
+          type: aggregation
+          selectedField: reported_gender
+          ignoreSelectedField: true
+        result:
+          type: group_count
+      - name: participantCountByRace
+        index:
+          - participants
+        filter:
+          type: aggregation
+          selectedField: race
+        result:
+          type: group_count
+      - name: filterparticipantCountByRace
+        index:
+          - participants
+        filter:
+          type: aggregation
+          selectedField: race
+          ignoreSelectedField: true
+        result:
+          type: group_count
+      - name: participantCountByEthnicity
+        index:
+          - participants
+        filter:
+          type: aggregation
+          selectedField: ethnicity
+        result:
+          type: group_count
+      - name: filterparticipantCountByEthnicity
+        index:
+          - participants
+        filter:
+          type: aggregation
+          selectedField: ethnicity
+          ignoreSelectedField: true
+        result:
+          type: group_count
+      - name: participantCountByCarcinogenExposure
+        index:
+          - participants
+        filter:
+          type: aggregation
+          selectedField: carcinogen_exposure
+        result:
+          type: group_count
+      - name: filterparticipantCountByCarcinogenExposure
+        index:
+          - participants
+        filter:
+          type: aggregation
+          selectedField: carcinogen_exposure
+          ignoreSelectedField: true
+        result:
+          type: group_count
+      - name: participantCountByTargetedTherapy
+        index:
+          - participants
+        filter:
+          type: aggregation
+          selectedField: targeted_therapy
+        result:
+          type: group_count
+      - name: filterparticipantCountByTargetedTherapy
+        index:
+          - participants
+        filter:
+          type: aggregation
+          selectedField: targeted_therapy
+          ignoreSelectedField: true
+        result:
+          type: group_count
+      - name: participantCountByAnatomicalCollectionSite
+        index:
+          - participants
+        filter:
+          type: nested
+          selectedField: anatomical_collection_site
+          nestedPath: biospecimen_info
+        result:
+          type: nested_list
+      - name: filterparticipantCountByAnatomicalCollectionSite
+        index:
+          - participants
+        filter:
+          type: nested
+          ignoreSelectedField: true
+          selectedField: anatomical_collection_site
+          nestedPath: biospecimen_info
+          nestedParameters:
+            - anatomical_collection_site
+            - specimen_type
+            - tissue_category
+            - assessment_timepoint
+        result:
+          type: nested_list
+      - name: participantCountBySpecimenType
+        index:
+          - participants
+        filter:
+          type: nested
+          selectedField: specimen_type
+          nestedPath: biospecimen_info
+        result:
+          type: nested_list
+      - name: filterparticipantCountBySpecimenType
+        index:
+          - participants
+        filter:
+          type: nested
+          ignoreSelectedField: true
+          selectedField: specimen_type
+          nestedPath: biospecimen_info
+          nestedParameters:
+            - anatomical_collection_site
+            - specimen_type
+            - tissue_category
+            - assessment_timepoint
+        result:
+          type: nested_list
+      - name: participantCountByTissueCategory
+        index:
+          - participants
+        filter:
+          type: nested
+          selectedField: tissue_type
+          nestedPath: biospecimen_info
+        result:
+          type: nested_list
+      - name: filterparticipantCountByTissueCategory
+        index:
+          - participants
+        filter:
+          type: nested
+          ignoreSelectedField: true
+          selectedField: tissue_type
+          nestedPath: biospecimen_info
+          nestedParameters:
+            - anatomical_collection_site
+            - specimen_type
+            - tissue_category
+            - assessment_timepoint
+        result:
+          type: nested_list
+      - name: participantCountByDataFileType
+        index:
+          - participants
+        filter:
+          type: nested
+          selectedField: data_file_type
+          nestedPath: file_info
+        result:
+          type: nested_list
+      - name: filterparticipantCountByDataFileType
+        index:
+          - participants
+        filter:
+          type: nested
+          ignoreSelectedField: true
+          selectedField: data_file_type
+          nestedPath: file_info
+          nestedParameters:
+            - data_file_format,
+            - data_file_type
+        result:
+          type: nested_list
+      - name: participantCountByDataFileFormat
+        index:
+          - participants
+        filter:
+          type: nested
+          selectedField: data_file_format
+          nestedPath: file_info
+        result:
+          type: nested_list
+      - name: filterparticipantCountByDataFileFormat
+        index:
+          - participants
+        filter:
+          type: nested
+          ignoreSelectedField: true
+          selectedField: data_file_format
+          nestedPath: file_info
+          nestedParameters:
+            - anatomical_collection_site
+            - specimen_type
+            - tissue_category
+            - assessment_timepoint
+        result:
+          type: nested_list
