@@ -268,7 +268,7 @@ queries:
           ignoreSelectedField: true
         result:
           type: group_count
-      - name: participantCountByAnatomicalCollectionSite
+      - name: specimenCountByAnatomicalCollectionSite
         index:
           - participants
         filter:
@@ -282,7 +282,7 @@ queries:
             - assessment_timepoint
         result:
           type: nested_list
-      - name: filterParticipantCountByAnatomicalCollectionSite
+      - name: filterSpecimenCountByAnatomicalCollectionSite
         index:
           - participants
         filter:
@@ -297,7 +297,7 @@ queries:
             - assessment_timepoint
         result:
           type: nested_list
-      - name: participantCountBySpecimenType
+      - name: specimenCountBySpecimenType
         index:
           - participants
         filter:
@@ -311,7 +311,7 @@ queries:
             - assessment_timepoint
         result:
           type: nested_list
-      - name: filterParticipantCountBySpecimenType
+      - name: filterSpecimenCountBySpecimenType
         index:
           - participants
         filter:
@@ -326,7 +326,7 @@ queries:
             - assessment_timepoint
         result:
           type: nested_list
-      - name: participantCountByTissueCategory
+      - name: specimenCountByTissueCategory
         index:
           - participants
         filter:
@@ -340,7 +340,7 @@ queries:
             - assessment_timepoint
         result:
           type: nested_list
-      - name: filterParticipantCountByTissueCategory
+      - name: filterSpecimenCountByTissueCategory
         index:
           - participants
         filter:
@@ -384,7 +384,7 @@ queries:
             - assessment_timepoint
         result:
           type: nested_list
-      - name: participantCountByDataFileType
+      - name: dataFileCountByDataFileType
         index:
           - participants
         filter:
@@ -396,7 +396,7 @@ queries:
             - data_file_type
         result:
           type: nested_list
-      - name: filterParticipantCountByDataFileType
+      - name: filterDataFileCountByDataFileType
         index:
           - participants
         filter:
@@ -409,7 +409,7 @@ queries:
             - data_file_type
         result:
           type: nested_list
-      - name: participantCountByDataFileFormat
+      - name: dataFileCountByDataFileFormat
         index:
           - participants
         filter:
@@ -421,7 +421,7 @@ queries:
             - data_file_type
         result:
           type: nested_list
-      - name: filterParticipantCountByDataFileFormat
+      - name: filterDataFileCountByDataFileFormat
         index:
           - participants
         filter:

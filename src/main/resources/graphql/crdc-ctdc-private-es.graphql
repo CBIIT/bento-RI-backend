@@ -152,12 +152,12 @@ type SearchResult {
     participantCountByEthnicity: [GroupCount],
     participantCountByCarcinogenExposure: [GroupCount],
     participantCountByTargetedTherapy: [GroupCount],
-    participantCountByAnatomicalCollectionSite: [GroupCount],
-    participantCountByTissueCategory: [GroupCount],
-    participantCountBySpecimenType: [GroupCount],
+    specimenCountByAnatomicalCollectionSite: [GroupCount],
+    specimenCountByTissueCategory: [GroupCount],
+    specimenCountBySpecimenType: [GroupCount],
     participantCountByAssessmentTimepoint: [GroupCount],
-    participantCountByDataFileType: [GroupCount],
-    participantCountByDataFileFormat: [GroupCount],
+    dataFileCountByDataFileType: [GroupCount],
+    dataFileCountByDataFileFormat: [GroupCount],
     participantCountByStageOfDisease: [GroupCount],
 
     
@@ -170,14 +170,14 @@ type SearchResult {
     filterParticipantCountByEthnicity: [GroupCount],
     filterParticipantCountByCarcinogenExposure: [GroupCount],
     filterParticipantCountByTargetedTherapy: [GroupCount],
-    filterParticipantCountByAnatomicalCollectionSite: [GroupCount],
-    filterParticipantCountByTissueCategory: [GroupCount],
-    filterParticipantCountBySpecimenType: [GroupCount],
+    filterSpecimenCountByAnatomicalCollectionSite: [GroupCount],
+    filterSpecimenCountByTissueCategory: [GroupCount],
+    filterSpecimenCountBySpecimenType: [GroupCount],
     filterParticipantCountByAssessmentTimepoint: [GroupCount],
     filterParticipantCountByStageOfDisease: [GroupCount],
 
-    filterParticipantCountByDataFileType: [GroupCount],
-    filterParticipantCountByDataFileFormat: [GroupCount]
+    filterDataFileCountByDataFileType: [GroupCount],
+    filterDataFileCountByDataFileFormat: [GroupCount]
 }
 
 type ArmInfo {
