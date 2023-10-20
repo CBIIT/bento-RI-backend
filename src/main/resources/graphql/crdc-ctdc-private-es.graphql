@@ -132,10 +132,10 @@ type HomePage {
 
 
 type SearchResult {
-    diagnosesAndStageOfDiseases: [ProgramArms2],
-    sexesAndGenders: [ProgramArms2],
-    racesAndEthnicities: [ProgramArms2],
-    timepointsAndBiospecimensTypes: [ProgramArms2],
+    diagnosesAndStageOfDiseases: [ProgramArms],
+    sexesAndGenders: [ProgramArms],
+    racesAndEthnicities: [ProgramArms],
+    timepointsAndBiospecimensTypes: [ProgramArms],
     numberOfStudies: Int,
     numberOfParticipants: Int,
     numberOfDiagnoses: Int,
@@ -189,7 +189,7 @@ type ArmInfo {
 type ProgramArms {
     program: String
     caseSize: Int
-    children: [ArmInfo2]
+    children: [ArmInfo]
 }
 
 

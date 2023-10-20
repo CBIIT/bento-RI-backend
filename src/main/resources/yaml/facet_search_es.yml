@@ -275,6 +275,11 @@ queries:
           type: nested
           selectedField: anatomical_collection_site
           nestedPath: biospecimen_info
+          nestedParameters:
+            - anatomical_collection_site
+            - specimen_type
+            - tissue_category
+            - assessment_timepoint
         result:
           type: nested_list
       - name: filterParticipantCountByAnatomicalCollectionSite
@@ -299,6 +304,11 @@ queries:
           type: nested
           selectedField: specimen_type
           nestedPath: biospecimen_info
+          nestedParameters:
+            - anatomical_collection_site
+            - specimen_type
+            - tissue_category
+            - assessment_timepoint
         result:
           type: nested_list
       - name: filterParticipantCountBySpecimenType
@@ -321,8 +331,13 @@ queries:
           - participants
         filter:
           type: nested
-          selectedField: tissue_type
+          selectedField: tissue_category
           nestedPath: biospecimen_info
+          nestedParameters:
+            - anatomical_collection_site
+            - specimen_type
+            - tissue_category
+            - assessment_timepoint
         result:
           type: nested_list
       - name: filterParticipantCountByTissueCategory
@@ -331,7 +346,36 @@ queries:
         filter:
           type: nested
           ignoreSelectedField: true
-          selectedField: tissue_type
+          selectedField: tissue_category
+          nestedPath: biospecimen_info
+          nestedParameters:
+            - anatomical_collection_site
+            - specimen_type
+            - tissue_category
+            - assessment_timepoint
+        result:
+          type: nested_list
+      - name: participantCountByAssessmentTimepoint
+        index:
+          - participants
+        filter:
+          type: nested
+          selectedField: assessment_timepoint
+          nestedPath: biospecimen_info
+          nestedParameters:
+            - anatomical_collection_site
+            - specimen_type
+            - tissue_category
+            - assessment_timepoint
+        result:
+          type: nested_list
+      - name: filterParticipantCountByAssessmentTimepoint
+        index:
+          - participants
+        filter:
+          type: nested
+          ignoreSelectedField: true
+          selectedField: assessment_timepoint
           nestedPath: biospecimen_info
           nestedParameters:
             - anatomical_collection_site
@@ -347,6 +391,9 @@ queries:
           type: nested
           selectedField: data_file_type
           nestedPath: file_info
+          nestedParameters:
+            - data_file_format,
+            - data_file_type
         result:
           type: nested_list
       - name: filterParticipantCountByDataFileType
@@ -369,6 +416,9 @@ queries:
           type: nested
           selectedField: data_file_format
           nestedPath: file_info
+          nestedParameters:
+            - data_file_format
+            - data_file_type
         result:
           type: nested_list
       - name: filterParticipantCountByDataFileFormat
@@ -380,9 +430,7 @@ queries:
           selectedField: data_file_format
           nestedPath: file_info
           nestedParameters:
-            - anatomical_collection_site
-            - specimen_type
-            - tissue_category
-            - assessment_timepoint
+            - data_file_format
+            - data_file_type
         result:
           type: nested_list
