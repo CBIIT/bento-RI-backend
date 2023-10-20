@@ -127,7 +127,7 @@ Indices:
     # Cypher query will be used to retrieve data from Neo4j, and index into Elasticsearch
     cypher_query: "
       MATCH (s:study)
-      optional MATCH (s)<-[:associated_with]-(df:data_file)
+      optional MATCH (s)<-[*]-(df:data_file)
       RETURN DISTINCT 
         s.study_short_name as study_short_name,
         COLLECT(DISTINCT{
@@ -195,17 +195,18 @@ Indices:
             type: keyword
     cypher_query: "
       MATCH (s:study)<-[:belongs_to]-(subject)<-[:of_subject]-(sp:specimen)
-      WITH COUNT(sp) AS sample_count
+      WITH DISTINCT sp.specimen_type AS biospecimen_type, COUNT(sp) AS count1
 
       MATCH (s:study)<-[:belongs_to]-(subject)<-[:of_subject]-(sp:specimen)
-      WITH DISTINCT sp.specimen_type AS biospecimen_type, COUNT(sp) AS count1, s ,sample_count
+      WITH DISTINCT sp.assessment_timepoint AS assessment_timepoint, COUNT(sp) AS count2, biospecimen_type, count1
 
       MATCH (s:study)<-[:belongs_to]-(subject)<-[:of_subject]-(sp:specimen)
-      WITH DISTINCT sp.assessment_timepoint AS assessment_timepoint, COUNT(sp) AS count2, s ,biospecimen_type,  count1,sp ,sample_count
+      WITH COUNT(sp) AS sample_count ,biospecimen_type , count1, assessment_timepoint,count2,s,sp
+
       RETURN DISTINCT
           s.study_short_name AS study_short_name,
-          COLLECT(DISTINCT{group: sp.assessment_timepoint, count: count2}) AS specimen_timepoints,
-          COLLECT(DISTINCT{group: sp.specimen_type, count: count1}) AS specimen_types,
+          COLLECT(DISTINCT{group: assessment_timepoint, count: count2}) AS specimen_timepoints,
+          COLLECT(DISTINCT{group: biospecimen_type, count: count1}) AS specimen_types,
           COLLECT(DISTINCT{
             specimen_id:sp.specimen_id,
             parent_specimen_id:sp.parent_specimen_id,
