@@ -175,18 +175,18 @@ type SearchResult {
     filterParticipantCountBySpecimenType: [GroupCount],
     filterParticipantCountByAssessmentTimepoint: [GroupCount],
     filterParticipantCountByStageOfDisease: [GroupCount],
-    
+
     filterParticipantCountByDataFileType: [GroupCount],
     filterParticipantCountByDataFileFormat: [GroupCount]
 }
 
-type ArmInfo2 {
+type ArmInfo {
     arm: String
     size: Int
     caseSize: Int
 }
 
-type ProgramArms2 {
+type ProgramArms {
     program: String
     caseSize: Int
     children: [ArmInfo2]
