@@ -33,8 +33,6 @@ type Study {
   image_collection: [ImageCollection]
 }
 
-
-
 type DataFile {
   data_file_uuid: String
   data_file_name: String
@@ -86,7 +84,6 @@ type StudySpecimen {
   specimen: [Specimen]
 }
 
-
 type Diagnosis {
   ctep_disease_code: String
   diagnosis_date: String
@@ -114,36 +111,40 @@ type StudyDiagnosis {
 }
 
 type HomePage {
-  numberOfParticipants: Int,
-  numberOfDiagnoses: Int,
-  numberOfTherapies: Int,
-  numberOfTargeted: Int,
-  numberOfNonTargeted: Int,
-  numberOfBiomarker: Int,
-  numberOfHistologyImages: Int,
-  numberOfRadiologyImages: Int,
+  numberOfParticipants: Int
+  numberOfDiagnoses: Int
+  numberOfTherapies: Int
+  numberOfTargeted: Int
+  numberOfNonTargeted: Int
+  numberOfBiomarker: Int
+  numberOfHistologyImages: Int
+  numberOfRadiologyImages: Int
   specimenCountbySnomedDiseaseCode: [GroupCount]
 }
 
 type GroupCount {
-  group: String,
+  group: String
   subjects: Int
 }
 
 schema {
-    query: QueryType
+  query: QueryType
 }
 
 type QueryType {
+  studyByStudyShortName(study_short_name: [String] = []): [Study]
 
-     studyByStudyShortName(study_short_name: [String]= []):[Study]
+  studyDiagnosisByStudyShortName(
+    study_short_name: [String] = []
+  ): [StudyDiagnosis]
 
-     studyDiagnosisByStudyShortName(study_short_name: [String]= []):[StudyDiagnosis]
+  StudySpecimenByStudyShortName(
+    study_short_name: [String] = []
+  ): [StudySpecimen]
 
-     StudySpecimenByStudyShortName(study_short_name: [String]= []):[StudySpecimen]
+  StudyDataFileByStudyShortName(
+    study_short_name: [String] = []
+  ): [StudyDataFile]
 
-     StudyDataFileByStudyShortName(study_short_name: [String]= []):[StudyDataFile]
-
-     getHomePage :[HomePage]
+  getHomePage: [HomePage]
 }
-
