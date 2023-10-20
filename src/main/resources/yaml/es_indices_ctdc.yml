@@ -357,7 +357,7 @@ Indices:
               COLLECT(specimenCountbySnomedDiseaseCode) as specimenCountbySnomedDiseaseCode
       "
  
-  - index_name: participants
+  - index_name: tab_participants
     type: neo4j
     # type mapping for each property of the index
     mapping:
@@ -501,7 +501,7 @@ Indices:
     "
    
   # Biospecimen Index Configuration
-  - index_name: biospecimens
+  - index_name: tab_biospecimens
     type: neo4j
     mapping:
       type:
@@ -641,7 +641,7 @@ Indices:
     "
 
 
-  - index_name: data_files
+  - index_name: tab_data_files
     type: neo4j
     # type mapping for each property of the index
     mapping:

@@ -48,7 +48,7 @@ queries:
       type: object_array
   - name: participantOverview
     index:
-      - participants
+      - tab_participants
     filter:
       type: pagination
       defaultSortField: subject_id
@@ -58,7 +58,7 @@ queries:
       type: object_array
   - name: biospecimenOverview
     index:
-      - biospecimens
+      - tab_biospecimens
     filter:
       type: pagination
       defaultSortField: specimen_id
@@ -68,7 +68,7 @@ queries:
       type: object_array
   - name: fileOverview
     index:
-      - data_files
+      - tab_data_files
     filter:
       type: pagination
       defaultSortField: data_file_name
