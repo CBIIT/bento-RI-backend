@@ -325,7 +325,7 @@ Indices:
   
     # Cypher query will be used to retrieve data from Neo4j, and index into Elasticsearch
     cypher_query: "
-         MATCH (sb:subject) WITH count(sb) as subjectcount
+        MATCH (sb:subject) WITH count(sb) as subjectcount
 
         MATCH (target:targeted_therapy) WITH count(DISTINCT(target)) as targetThreapyCount,subjectcount
         MATCH (sb:subject) WHERE toLOWER(sb.histology_images_available) = 'yes'  WITH count(sb) as histcount,targetThreapyCount,subjectcount
@@ -341,8 +341,8 @@ Indices:
         with surgicalCount,radiologicalCount,untargetedThreapyCount, untargetedThreapyCount + radiologicalCount + surgicalCount + targetThreapyCount as TotalTherapy,targetThreapyCount,radiocount,countofDiagnoses,subjectcount,histcount,biomarkercount,TotalUntargeted
         MATCH (sp:specimen)-[:of_subject]->(sb:subject)<-[:of_subject]-(diag:diagnosis) WITH histcount,TotalUntargeted,surgicalCount,radiologicalCount,untargetedThreapyCount,targetThreapyCount,radiocount,countofDiagnoses,subjectcount,biomarkercount,
         TotalTherapy,{
-        group:'Stage ' + diag.stage_of_disease,
-        subjects:count(diag.stage_of_disease)}
+        group:diag.ctep_disease_code,
+        subjects:count(diag.ctep_disease_code)}
          as specimenCountbySnomedDiseaseCode
         RETURN DISTINCT
               subjectcount as numberOfParticipants,
@@ -355,125 +355,116 @@ Indices:
               radiocount as numberOfRadiologyImages,
               COLLECT(specimenCountbySnomedDiseaseCode) as specimenCountbySnomedDiseaseCode
       "
-  - index_name: subjects
+
+  - index_name: participants
     type: neo4j
     # type mapping for each property of the index
     mapping:
       type:
         type: keyword
-      subject_id:
+      study_short_name:
         type: keyword
-      reported_gender:
+      ctep_disease_code:
+        type: keyword
+      snomed_disease_code:
+        type: keyword
+      tumor_grade:
+        type: keyword
+      stage_of_disease:
+        type: keyword
+      diagnosis_id:
         type: keyword
       sex:
+        type: keyword
+      reported_gender:
         type: keyword
       race:
         type: keyword
       ethnicity:
         type: keyword
-      
-    # Cypher query will be used to retrieve data from Neo4j, and index into Elasticsearch
-    cypher_query: "
-      MATCH (sb:subject)<-[:of_subject]-(demo:demographic)
-      MATCH (sb:subject)<-[:associated_with]-(dat:data_file)
-      RETURN DISTINCT
-      'subject' as type,
-      sb.subject_id as subject_id,
-      COLLECT(DISTINCT(demo.sex)) as sex,
-      COLLECT(DISTINCT(demo.reported_gender)) as reported_gender,
-      COLLECT(DISTINCT(demo.race)) as race,
-      COLLECT(DISTINCT(demo.ethnicity)) as ethnicity
-      "
-  - index_name: diagnoses_widget
-    type: neo4j
-    # type mapping for each property of the index
-    mapping:
-      stage_of_disease:
+      carcinogen_exposure:
         type: keyword
-      ctep_disease_code:
-        type: keyword
-      tumor_grade:
-        type: keyword
-      diagnosis_id:
-        type: keyword
-    # Cypher query will be used to retrieve data from Neo4j, and index into Elasticsearch
-    cypher_query: "
-      MATCH (sb:subject)<-[:of_subject]-(diag:diagnosis)
-      RETURN
-      diag.diagnosis_id as diagnosis_id,
-      collect(diag.stage_of_disease) as stage_of_disease,
-      collect(diag.ctep_disease_code) as ctep_disease_code,
-      COLLECT(DISTINCT(diag.tumor_grade)) as tumor_grade
-      "
-  - index_name: specimen_widget
-    type: neo4j
-    # type mapping for each property of the index
-    mapping:
-      assessment_timepoint:
-        type: keyword
-      specimen_type:
-        type: keyword
-      anatomical_collection_site:
-        type: keyword
-      tissue_category:
-        type: keyword
-      specimen_id:
-        type: keyword
-    # Cypher query will be used to retrieve data from Neo4j, and index into Elasticsearch
-    cypher_query: "
-      MATCH (sb:subject)<-[:of_subject]-(spec:specimen)
-      RETURN
-      spec.specimen_id as specimen_id,
-      collect(spec.assessment_timepoint) as assessment_timepoint,
-      collect(spec.specimen_type) as specimen_type,
-      COLLECT(spec.anatomical_collection_site) as anatomical_collection_site,
-      COLLECT(spec.tissue_category) as tissue_category
-      "
-  - index_name: file_widget
-    type: neo4j
-    # type mapping for each property of the index
-    mapping:
-      data_file_uuid:
-        type: keyword
-      data_file_format:
-        type: keyword
-      data_file_type:
-        type: keyword
-    # Cypher query will be used to retrieve data from Neo4j, and index into Elasticsearch
-    cypher_query: "
-      MATCH (sb:subject)<-[:associated_with]-(data:data_file)
-      RETURN
-      data.data_file_uuid as data_file_uuid,
-      COLLECT(data.data_file_format) as data_file_format,
-      collect(data.data_file_type) as data_file_type
-      "
-  - index_name: exposure_facet
-    type: neo4j
-    # type mapping for each property of the index
-    mapping:
-      exposure_id:
-        type: keyword
-      study_short_name:
-        type: keyword
-    cypher_query: "
-      MATCH (sb:subject)<-[:of_subject]-(expose:exposure)
-      MATCH (study:study)
-      RETURN
-      expose.exposure_id,
-      collect(expose.environmental_exposure_type) as exposure_id,
-      collect(distinct(study.study_short_name)) as study_short_name
-      "
-  - index_name: targeted_therapy_facet
-    type: neo4j
-    # type mapping for each property of the index
-    mapping:
       targeted_therapy:
         type: keyword
       targeted_therapy_id:
         type: keyword
+      anatomical_collection_site:
+        type: keyword
+      specimen_type:
+        type: keyword
+      tissue_category:
+        type: keyword
+      assessment_timepoint:
+        type: keyword
+      specimen_id:
+        type: keyword
+      data_file_uuid:
+        type: keyword
+      data_file_type:
+        type: keyword
+      data_file_format:
+        type: keyword
+      biospecimen_info:
+        type: nested
+        properties:
+          anatomical_collection_site:
+            type: keyword
+          specimen_type:
+            type: keyword
+          tissue_category:
+            type: keyword
+          assessment_timepoint:
+            type: keyword
+      file_info:
+        type: nested
+        properties:
+          data_file_type:
+            type: keyword
+          data_file_format:
+            type: keyword
+      subject_id:
+        type: keyword
+    # Cypher query will be used to retrieve data from Neo4j, and index into Elasticsearch
     cypher_query: "
-      MATCH (sb:subject)<-[:of_subject]-(target:targeted_therapy)
-      RETURN
-      target.targeted_therapy_id as targeted_therapy_id,
-      target.targeted_therapy as targeted_therapy
+      MATCH (demo:demographic)-[:of_subject]->(sb:subject)
+      MATCH (diag:diagnosis)-[:of_subject]->(sb:subject)
+      MATCH (target:targeted_therapy)-[:of_subject]->(sb:subject)
+      MATCH (spec:specimen)-[:of_subject]->(sb:subject)
+      MATCH (data_file)-[:associated_with]->(sb:subject)
+      MATCH (expose:exposure)-[:of_subject]->(sb:subject)
+      MATCH (study:study)<-[:belongs_to]-(sb:subject)
+      RETURN DISTINCT
+      'subject' as type,
+      COLLECT(DISTINCT study.study_short_name) as study_short_name,
+      COLLECT(DISTINCT diag.ctep_disease_code) as ctep_disease_code,
+      COLLECT(DISTINCT diag.snomed_disease_code) as snomed_disease_code, 
+      COLLECT(DISTINCT diag.tumor_grade) as tumor_grade,
+      COLLECT(DISTINCT diag.stage_of_disease) as stage_of_disease,
+      COLLECT(DISTINCT diag.diagnosis_id) as diagnosis_id,
+      COLLECT(DISTINCT demo.sex) as sex,
+      COLLECT(DISTINCT demo.reported_gender) as reported_gender,
+      COLLECT(DISTINCT demo.race) as race,
+      COLLECT(DISTINCT demo.ethnicity) as ethnicity,
+      COLLECT(DISTINCT expose.carcinogen_exposure) as carcinogen_exposure,
+      COLLECT(DISTINCT target.targeted_therapy) as targeted_therapy,
+      COLLECT(DISTINCT target.targeted_therapy_id) as targeted_therapy_id,
+      COLLECT(DISTINCT spec.anatomical_collection_site) AS anatomical_collection_site,
+      COLLECT(DISTINCT spec.specimen_type) AS specimen_type,
+      COLLECT(DISTINCT spec.tissue_category) AS tissue_category,
+      COLLECT(DISTINCT spec.assessment_timepoint) AS assessment_timepoint,
+      COLLECT(DISTINCT spec.specimen_id) AS specimen_id,
+      COLLECT(DISTINCT data_file.data_file_type) AS data_file_type,
+      COLLECT(DISTINCT data_file.data_file_uuid) AS data_file_uuid,
+      COLLECT(DISTINCT data_file.data_file_format) AS data_file_format,
+      COLLECT(DISTINCT {
+        anatomical_collection_site: spec.anatomical_collection_site,
+        specimen_type: spec.specimen_type,
+        tissue_category: spec.tissue_category,
+        assessment_timepoint: spec.assessment_timepoint
+      }) AS biospecimen_info,
+      COLLECT(DISTINCT {
+        data_file_format: data_file.data_file_format,
+        data_file_type: data_file.data_file_type
+      }) AS file_info,
+      sb.subject_id as subject_id
       "
