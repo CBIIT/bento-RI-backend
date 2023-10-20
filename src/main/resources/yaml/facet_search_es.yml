@@ -106,7 +106,7 @@ queries:
           selectedField: ctep_disease_code
         result:
           type: group_count
-      - name: filterparticipantCountByCtepDiseaseCode
+      - name: filterParticipantCountByCtepDiseaseCode
         index:
           - participants
         filter:
@@ -123,7 +123,7 @@ queries:
           selectedField: snomed_disease_code
         result:
           type: group_count
-      - name: filterparticipantCountBySnomedDiseaseCode
+      - name: filterParticipantCountBySnomedDiseaseCode
         index:
           - participants
         filter:
@@ -140,7 +140,7 @@ queries:
           selectedField: tumor_grade
         result:
           type: group_count
-      - name: filterparticipantCountByTumorGrade
+      - name: filterParticipantCountByTumorGrade
         index:
           - participants
         filter:
@@ -157,7 +157,7 @@ queries:
           selectedField: stage_of_disease
         result:
           type: group_count
-      - name: filterparticipantCountByStageOfDisease
+      - name: filterParticipantCountByStageOfDisease
         index:
           - participants
         filter:
@@ -174,7 +174,7 @@ queries:
           selectedField: sex
         result:
           type: group_count
-      - name: filterparticipantCountBySex
+      - name: filterParticipantCountBySex
         index:
           - participants
         filter:
@@ -191,7 +191,7 @@ queries:
           selectedField: reported_gender
         result:
           type: group_count
-      - name: filterparticipantCountByReportedGender
+      - name: filterParticipantCountByReportedGender
         index:
           - participants
         filter:
@@ -208,7 +208,7 @@ queries:
           selectedField: race
         result:
           type: group_count
-      - name: filterparticipantCountByRace
+      - name: filterParticipantCountByRace
         index:
           - participants
         filter:
@@ -225,7 +225,7 @@ queries:
           selectedField: ethnicity
         result:
           type: group_count
-      - name: filterparticipantCountByEthnicity
+      - name: filterParticipantCountByEthnicity
         index:
           - participants
         filter:
@@ -242,7 +242,7 @@ queries:
           selectedField: carcinogen_exposure
         result:
           type: group_count
-      - name: filterparticipantCountByCarcinogenExposure
+      - name: filterParticipantCountByCarcinogenExposure
         index:
           - participants
         filter:
@@ -259,7 +259,7 @@ queries:
           selectedField: targeted_therapy
         result:
           type: group_count
-      - name: filterparticipantCountByTargetedTherapy
+      - name: filterParticipantCountByTargetedTherapy
         index:
           - participants
         filter:
@@ -277,7 +277,7 @@ queries:
           nestedPath: biospecimen_info
         result:
           type: nested_list
-      - name: filterparticipantCountByAnatomicalCollectionSite
+      - name: filterParticipantCountByAnatomicalCollectionSite
         index:
           - participants
         filter:
@@ -301,7 +301,7 @@ queries:
           nestedPath: biospecimen_info
         result:
           type: nested_list
-      - name: filterparticipantCountBySpecimenType
+      - name: filterParticipantCountBySpecimenType
         index:
           - participants
         filter:
@@ -325,7 +325,7 @@ queries:
           nestedPath: biospecimen_info
         result:
           type: nested_list
-      - name: filterparticipantCountByTissueCategory
+      - name: filterParticipantCountByTissueCategory
         index:
           - participants
         filter:
@@ -349,7 +349,7 @@ queries:
           nestedPath: file_info
         result:
           type: nested_list
-      - name: filterparticipantCountByDataFileType
+      - name: filterParticipantCountByDataFileType
         index:
           - participants
         filter:
@@ -371,7 +371,7 @@ queries:
           nestedPath: file_info
         result:
           type: nested_list
-      - name: filterparticipantCountByDataFileFormat
+      - name: filterParticipantCountByDataFileFormat
         index:
           - participants
         filter:

@@ -4,15 +4,6 @@ queries:
       - age_at_index
       - survival_time
     returnFields:
-      - name: diagnosesAndStageOfDiseases
-        index:
-          - diagnoses_widget
-        filter:
-          type: sub_aggregation
-          selectedField: ctep_disease_code
-          subAggSelectedField: stage_of_disease
-        result:
-          type: arm_program
       - name: numberOfPrograms
         index:
           - subjects

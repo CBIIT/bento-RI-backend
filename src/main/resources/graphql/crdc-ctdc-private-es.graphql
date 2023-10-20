@@ -159,22 +159,22 @@ type SearchResult {
     participantCountByDataFileType: [GroupCount],
     participantCountByDataFileFormat: [GroupCount],
 
-    filterparticipantCountByCtepDiseaseCode: [GroupCount],
-    filterparticipantCountBySnomedDiseaseCode: [GroupCount],
-    filterparticipantCountByTumorGrade: [GroupCount],
-    filterparticipantCountBySex: [GroupCount],
-    filterparticipantCountByReportedGender: [GroupCount],
-    filterparticipantCountByRace: [GroupCount],
-    filterparticipantCountByEthnicity: [GroupCount],
-    filterparticipantCountByCarcinogenExposure: [GroupCount],
-    filterparticipantCountByTargetedTherapy: [GroupCount],
-    filterparticipantCountByAnatomicalCollectionSite: [GroupCount],
-    filterparticipantCountByTissueCategory: [GroupCount],
-    filterparticipantCountBySpecimenType: [GroupCount],
-    filterparticipantCountByAssessmentTimepoint: [GroupCount],
+    filterParticipantCountByCtepDiseaseCode: [GroupCount],
+    filterParticipantCountBySnomedDiseaseCode: [GroupCount],
+    filterParticipantCountByTumorGrade: [GroupCount],
+    filterParticipantCountBySex: [GroupCount],
+    filterParticipantCountByReportedGender: [GroupCount],
+    filterParticipantCountByRace: [GroupCount],
+    filterParticipantCountByEthnicity: [GroupCount],
+    filterParticipantCountByCarcinogenExposure: [GroupCount],
+    filterParticipantCountByTargetedTherapy: [GroupCount],
+    filterParticipantCountByAnatomicalCollectionSite: [GroupCount],
+    filterParticipantCountByTissueCategory: [GroupCount],
+    filterParticipantCountBySpecimenType: [GroupCount],
+    filterParticipantCountByAssessmentTimepoint: [GroupCount],
 
-    filterparticipantCountByDataFileType: [GroupCount],
-    filterparticipantCountByDataFileFormat: [GroupCount]
+    filterParticipantCountByDataFileType: [GroupCount],
+    filterParticipantCountByDataFileFormat: [GroupCount]
 }
 
 type ArmInfo2 {
