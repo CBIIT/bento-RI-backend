@@ -127,6 +127,52 @@ type GroupCount {
   subjects: Int
 }
 
+type ParticipantOverview {
+  subject_id: String
+  ctep_disease_code: String
+  snomed_disease_code: String
+  tumor_grade: String
+  age_at_diagnosis: String # TODO: Check type Int
+  sex: String
+  reported_gender: String
+  race: String
+  ethnicity: String
+  carcinogen_exposure: String
+  targeted_therapy: String
+
+  data_file_uuid: String
+  data_files: [DataFile] # For Adding Files into Cart
+}
+type BiospecimenOverview {
+  subject_id: String
+  ctep_disease_code: String
+  snomed_disease_code: String
+  primary_disease_site: String
+  specimen_id: String
+  parent_specimen_id: String
+  anatomical_collection_site: String
+  specimen_type: String
+  tissue_category: String
+  assessment_timepoint: String
+
+  data_file_uuid: String
+  data_files: [DataFile] # For Adding Files into Cart
+}
+
+type FileOverview {
+  subject_id: String
+  data_file_name: String
+  data_file_format: String
+  data_file_type: String
+  data_file_size: String
+  association: String
+  data_file_description: String
+  specimen_id: String
+  ctep_disease_code: String
+
+  data_file_uuid: String # For Adding Files into Cart
+}
+
 schema {
   query: QueryType
 }
@@ -147,4 +193,83 @@ type QueryType {
   ): [StudyDataFile]
 
   getHomePage: [HomePage]
+
+  participantOverview(
+    subject_id: [String] = []
+    ctep_disease_code: [String] = []
+    snomed_disease_code: [String] = []
+    tumor_grade: [String] = []
+    sex: [String] = []
+    reported_gender: [String] = []
+    race: [String] = []
+    ethnicity: [String] = []
+    carcinogen_exposure: [String] = []
+    targeted_therapy: [String] = []
+
+    anatomical_collection_site: [String] = []
+    specimen_type: [String] = []
+    tissue_category: [String] = []
+    assessment_timepoint: [String] = []
+
+    data_file_type: [String] = []
+    data_file_format: [String] = []
+
+    order_by: String = "subject_id"
+    sort_direction: String = "ASC"
+    first: Int = 10
+    offset: Int = 0
+  ): [ParticipantOverview]
+
+  biospecimenOverview(
+    subject_id: [String] = []
+    specimen_id: [String] = [] # TODO: Remove if not needed
+    ctep_disease_code: [String] = []
+    snomed_disease_code: [String] = []
+    tumor_grade: [String] = []
+    sex: [String] = []
+    reported_gender: [String] = []
+    race: [String] = []
+    ethnicity: [String] = []
+    carcinogen_exposure: [String] = []
+    targeted_therapy: [String] = []
+
+    anatomical_collection_site: [String] = []
+    specimen_type: [String] = []
+    tissue_category: [String] = []
+    assessment_timepoint: [String] = []
+
+    data_file_type: [String] = []
+    data_file_format: [String] = []
+
+    order_by: String = "specimen_id"
+    sort_direction: String = "ASC"
+    first: Int = 10
+    offset: Int = 0
+  ): [BiospecimenOverview]
+
+  fileOverview(
+    subject_id: [String] = []
+    ctep_disease_code: [String] = []
+    snomed_disease_code: [String] = []
+    tumor_grade: [String] = []
+    sex: [String] = []
+    reported_gender: [String] = []
+    race: [String] = []
+    ethnicity: [String] = []
+    carcinogen_exposure: [String] = []
+    targeted_therapy: [String] = []
+
+    anatomical_collection_site: [String] = []
+    specimen_type: [String] = []
+    tissue_category: [String] = []
+    assessment_timepoint: [String] = []
+
+    data_file_type: [String] = []
+    data_file_format: [String] = []
+
+    order_by: String = "data_file_name"
+    sort_direction: String = "ASC"
+    first: Int = 10
+    offset: Int = 0
+  ): [FileOverview]
 }

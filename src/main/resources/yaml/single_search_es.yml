@@ -46,3 +46,34 @@ queries:
       type: default
     result:
       type: object_array
+  - name: participantOverview
+    index:
+      - participants
+    filter:
+      type: pagination
+      defaultSortField: subject_id
+      alternativeSortField:
+        subject_id: subject_id
+    result:
+      type: object_array
+  - name: biospecimenOverview
+    index:
+      - biospecimens
+    filter:
+      type: pagination
+      defaultSortField: specimen_id
+      alternativeSortField:
+        subject_id: specimen_id
+    result:
+      type: object_array
+  - name: fileOverview
+    index:
+      - data_files
+    filter:
+      type: pagination
+      defaultSortField: data_file_name
+      alternativeSortField:
+        specimen_id: specimen_id
+        subject_id: subject_id
+    result:
+      type: object_array
