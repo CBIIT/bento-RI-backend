@@ -341,8 +341,8 @@ Indices:
         with surgicalCount,radiologicalCount,untargetedThreapyCount, untargetedThreapyCount + radiologicalCount + surgicalCount + targetThreapyCount as TotalTherapy,targetThreapyCount,radiocount,countofDiagnoses,subjectcount,histcount,biomarkercount,TotalUntargeted
         MATCH (sp:specimen)-[:of_subject]->(sb:subject)<-[:of_subject]-(diag:diagnosis) WITH histcount,TotalUntargeted,surgicalCount,radiologicalCount,untargetedThreapyCount,targetThreapyCount,radiocount,countofDiagnoses,subjectcount,biomarkercount,
         TotalTherapy,{
-        group:diag.ctep_disease_code,
-        subjects:count(diag.ctep_disease_code)}
+        group: 'Stage ' + diag.stage_of_disease,
+        subjects:count(diag.stage_of_disease)}
          as specimenCountbySnomedDiseaseCode
         RETURN DISTINCT
               subjectcount as numberOfParticipants,
