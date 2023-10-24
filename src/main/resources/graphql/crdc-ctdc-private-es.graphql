@@ -113,6 +113,11 @@ type StudyDiagnosis {
   ctep_disease_codes: [String]
 }
 
+type GroupCount {
+  group: String,
+  subjects: Int
+}
+
 type HomePage {
   numberOfParticipants: Int,
   numberOfDiagnoses: Int,
@@ -125,10 +130,68 @@ type HomePage {
   specimenCountbySnomedDiseaseCode: [GroupCount]
 }
 
-type GroupCount {
-  group: String,
-  subjects: Int
+
+type SearchResult {
+    diagnosesAndStageOfDiseases: [ProgramArms],
+    sexesAndGenders: [ProgramArms],
+    racesAndEthnicities: [ProgramArms],
+    timepointsAndBiospecimensTypes: [ProgramArms],
+    numberOfStudies: Int,
+    numberOfParticipants: Int,
+    numberOfDiagnoses: Int,
+    numberOfTargetedTherapies: Int,
+    numberOfSpecimens: Int,
+    numberOfFiles: Int,
+    participantCountByCtepDiseaseCode: [GroupCount],
+    participantCountBySnomedDiseaseCode: [GroupCount],
+    participantCountByDiagnosis: [GroupCount],
+    participantCountByTumorGrade: [GroupCount],
+    participantCountBySex: [GroupCount],
+    participantCountByReportedGender: [GroupCount],
+    participantCountByRace: [GroupCount],
+    participantCountByEthnicity: [GroupCount],
+    participantCountByCarcinogenExposure: [GroupCount],
+    participantCountByTargetedTherapy: [GroupCount],
+    specimenCountByAnatomicalCollectionSite: [GroupCount],
+    specimenCountByTissueCategory: [GroupCount],
+    specimenCountBySpecimenType: [GroupCount],
+    participantCountByAssessmentTimepoint: [GroupCount],
+    dataFileCountByDataFileType: [GroupCount],
+    dataFileCountByDataFileFormat: [GroupCount],
+    participantCountByStageOfDisease: [GroupCount],
+
+    
+    filterParticipantCountByCtepDiseaseCode: [GroupCount],
+    filterParticipantCountBySnomedDiseaseCode: [GroupCount],
+    filterParticipantCountByTumorGrade: [GroupCount],
+    filterParticipantCountBySex: [GroupCount],
+    filterParticipantCountByReportedGender: [GroupCount],
+    filterParticipantCountByRace: [GroupCount],
+    filterParticipantCountByEthnicity: [GroupCount],
+    filterParticipantCountByCarcinogenExposure: [GroupCount],
+    filterParticipantCountByTargetedTherapy: [GroupCount],
+    filterSpecimenCountByAnatomicalCollectionSite: [GroupCount],
+    filterSpecimenCountByTissueCategory: [GroupCount],
+    filterSpecimenCountBySpecimenType: [GroupCount],
+    filterParticipantCountByAssessmentTimepoint: [GroupCount],
+    filterParticipantCountByStageOfDisease: [GroupCount],
+
+    filterDataFileCountByDataFileType: [GroupCount],
+    filterDataFileCountByDataFileFormat: [GroupCount]
 }
+
+type ArmInfo {
+    arm: String
+    size: Int
+    caseSize: Int
+}
+
+type ProgramArms {
+    program: String
+    caseSize: Int
+    children: [ArmInfo]
+}
+
 
 schema {
     query: QueryType
@@ -145,5 +208,24 @@ type QueryType {
      StudyDataFileByStudyShortName(study_short_name: [String]= []):[StudyDataFile]
 
      getHomePage :[HomePage]
-}
 
+     searchParticipants (
+        ctep_disease_code: [String] = [],
+        snomed_disease_code: [String] = [],
+        tumor_grade: [String] = [],
+        sex: [String] = [],
+        reported_gender: [String] = [],
+        race: [String] = [],
+        ethnicity: [String] = [],
+        carcinogen_exposure: [String] = [],
+        targeted_therapy: [String] = [],
+        anatomical_collection_site: [String] = [],
+        specimen_type: [String] = [],
+        tissue_category: [String] = [],
+        assessment_timepoint: [String] = [],
+        association: [String] = [],
+        data_file_type: [String] = [],
+        data_file_format: [String] = [],
+        subject_id: [String] = []
+    ): SearchResult
+}
