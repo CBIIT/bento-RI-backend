@@ -335,7 +335,7 @@ type QueryType {
 
   searchParticipants (
         ctep_disease_code: [String] = [],
-        snomed_disease_code: [String] = [],
+        stage_of_disease: [String] = [],
         tumor_grade: [String] = [],
         sex: [String] = [],
         reported_gender: [String] = [],
