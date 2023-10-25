@@ -173,51 +173,51 @@ type FileOverview {
 
 
 type SearchResult {
-    diagnosesAndStageOfDiseases: [ProgramArms],
-    sexesAndGenders: [ProgramArms],
-    racesAndEthnicities: [ProgramArms],
-    timepointsAndBiospecimensTypes: [ProgramArms],
-    numberOfStudies: Int,
-    numberOfParticipants: Int,
-    numberOfDiagnoses: Int,
-    numberOfTargetedTherapies: Int,
-    numberOfSpecimens: Int g,
-    numberOfFiles: Int,
-    participantCountByCtepDiseaseCode: [GroupCount],
-    participantCountBySnomedDiseaseCode: [GroupCount],
-    participantCountByDiagnosis: [GroupCount],
-    participantCountByTumorGrade: [GroupCount],
-    participantCountBySex: [GroupCount],
-    participantCountByReportedGender: [GroupCount],
-    participantCountByRace: [GroupCount],
-    participantCountByEthnicity: [GroupCount],
-    participantCountByCarcinogenExposure: [GroupCount],
-    participantCountByTargetedTherapy: [GroupCount],
-    specimenCountByAnatomicalCollectionSite: [GroupCount],
-    specimenCountByTissueCategory: [GroupCount],
-    specimenCountBySpecimenType: [GroupCount],
-    participantCountByAssessmentTimepoint: [GroupCount],
-    dataFileCountByDataFileType: [GroupCount],
-    dataFileCountByDataFileFormat: [GroupCount],
-    participantCountByStageOfDisease: [GroupCount],
+    diagnosesAndStageOfDiseases: [ProgramArms]
+    sexesAndGenders: [ProgramArms]
+    racesAndEthnicities: [ProgramArms]
+    timepointsAndBiospecimensTypes: [ProgramArms]
+    numberOfStudies: Int
+    numberOfParticipants: Int
+    numberOfDiagnoses: Int
+    numberOfTargetedTherapies: Int
+    numberOfSpecimens: Int
+    numberOfFiles: Int
+    participantCountByCtepDiseaseCode: [GroupCount]
+    participantCountBySnomedDiseaseCode: [GroupCount]
+    participantCountByDiagnosis: [GroupCount]
+    participantCountByTumorGrade: [GroupCount]
+    participantCountBySex: [GroupCount]
+    participantCountByReportedGender: [GroupCount]
+    participantCountByRace: [GroupCount]
+    participantCountByEthnicity: [GroupCount]
+    participantCountByCarcinogenExposure: [GroupCount]
+    participantCountByTargetedTherapy: [GroupCount]
+    specimenCountByAnatomicalCollectionSite: [GroupCount]
+    specimenCountByTissueCategory: [GroupCount]
+    specimenCountBySpecimenType: [GroupCount]
+    participantCountByAssessmentTimepoint: [GroupCount]
+    dataFileCountByDataFileType: [GroupCount]
+    dataFileCountByDataFileFormat: [GroupCount]
+    participantCountByStageOfDisease: [GroupCount]
 
     
-    filterParticipantCountByCtepDiseaseCode: [GroupCount],
-    filterParticipantCountBySnomedDiseaseCode: [GroupCount],
-    filterParticipantCountByTumorGrade: [GroupCount],
-    filterParticipantCountBySex: [GroupCount],
-    filterParticipantCountByReportedGender: [GroupCount],
-    filterParticipantCountByRace: [GroupCount],
-    filterParticipantCountByEthnicity: [GroupCount],
-    filterParticipantCountByCarcinogenExposure: [GroupCount],
-    filterParticipantCountByTargetedTherapy: [GroupCount],
-    filterSpecimenCountByAnatomicalCollectionSite: [GroupCount],
-    filterSpecimenCountByTissueCategory: [GroupCount],
-    filterSpecimenCountBySpecimenType: [GroupCount],
-    filterParticipantCountByAssessmentTimepoint: [GroupCount],
-    filterParticipantCountByStageOfDisease: [GroupCount],
+    filterParticipantCountByCtepDiseaseCode: [GroupCount]
+    filterParticipantCountBySnomedDiseaseCode: [GroupCount]
+    filterParticipantCountByTumorGrade: [GroupCount]
+    filterParticipantCountBySex: [GroupCount]
+    filterParticipantCountByReportedGender: [GroupCount]
+    filterParticipantCountByRace: [GroupCount]
+    filterParticipantCountByEthnicity: [GroupCount]
+    filterParticipantCountByCarcinogenExposure: [GroupCount]
+    filterParticipantCountByTargetedTherapy: [GroupCount]
+    filterSpecimenCountByAnatomicalCollectionSite: [GroupCount]
+    filterSpecimenCountByTissueCategory: [GroupCount]
+    filterSpecimenCountBySpecimenType: [GroupCount]
+    filterParticipantCountByAssessmentTimepoint: [GroupCount]
+    filterParticipantCountByStageOfDisease: [GroupCount]
 
-    filterDataFileCountByDataFileType: [GroupCount],
+    filterDataFileCountByDataFileType: [GroupCount]
     filterDataFileCountByDataFileFormat: [GroupCount]
 }
 
