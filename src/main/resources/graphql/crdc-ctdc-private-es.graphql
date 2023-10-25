@@ -45,6 +45,24 @@ type DataFile {
   data_file_compression_status: String
   data_file_location: String
 }
+# Cart
+type DataFileDetail {
+  subject_id: String
+  specimen_id: String
+  association: String
+  ctep_disease_code: String
+
+  data_file_uuid: String
+  data_file_name: String
+  data_file_type: String
+  data_file_description: String
+  data_file_format: String
+  data_file_size: String
+  data_file_checksum_value: String
+  data_file_checksum_type: String
+  data_file_compression_status: String
+  data_file_location: String
+}
 
 type StudyDataFile {
   study_short_name: String
@@ -272,4 +290,18 @@ type QueryType {
     first: Int = 10
     offset: Int = 0
   ): [FileOverview]
+
+  fileIDsFromList(
+    subject_id: [String] = []
+    specimen_id: [String] = []
+    data_file_name: [String] = []
+  ): [String]
+
+  filesInList(
+    data_file_uuid: [String]
+    order_by: String = ""
+    sort_direction: String = "ASC"
+    first: Int = 10
+    offset: Int = 0
+  ): [DataFileDetail]
 }
