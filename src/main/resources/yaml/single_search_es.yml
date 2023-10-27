@@ -83,8 +83,8 @@ queries:
     filter:
       type: pagination
       defaultSortField: data_file_name
-      # ignoreIfEmpty:
-      #   - data_file_uuid
+      ignoreIfEmpty:
+        - data_file_uuid
     result:
       type: object_array
   - name: fileIDsFromList # Support adding selected files into Cart
