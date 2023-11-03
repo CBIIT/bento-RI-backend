@@ -148,7 +148,7 @@ type GroupCount {
 type ParticipantOverview {
   subject_id: String
   ctep_disease_code: String
-  snomed_disease_code: String
+  stage_of_disease: String
   tumor_grade: String
   age_at_diagnosis: String # TODO: Check type Int
   sex: String
@@ -164,7 +164,7 @@ type ParticipantOverview {
 type BiospecimenOverview {
   subject_id: String
   ctep_disease_code: String
-  snomed_disease_code: String
+  stage_of_disease: String
   primary_disease_site: String
   specimen_id: String
   parent_specimen_id: String
@@ -273,7 +273,7 @@ type QueryType {
   participantOverview(
     subject_id: [String] = []
     ctep_disease_code: [String] = []
-    snomed_disease_code: [String] = []
+    stage_of_disease: [String] = []
     tumor_grade: [String] = []
     sex: [String] = []
     reported_gender: [String] = []
@@ -300,7 +300,7 @@ type QueryType {
     subject_id: [String] = []
     specimen_id: [String] = [] # TODO: Remove if not needed
     ctep_disease_code: [String] = []
-    snomed_disease_code: [String] = []
+    stage_of_disease: [String] = []
     tumor_grade: [String] = []
     sex: [String] = []
     reported_gender: [String] = []
@@ -326,7 +326,7 @@ type QueryType {
   fileOverview(
     subject_id: [String] = []
     ctep_disease_code: [String] = []
-    snomed_disease_code: [String] = []
+    stage_of_disease: [String] = []
     tumor_grade: [String] = []
     sex: [String] = []
     reported_gender: [String] = []

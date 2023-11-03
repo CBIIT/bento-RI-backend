@@ -478,7 +478,7 @@ Indices:
         type: keyword
       ctep_disease_code:
         type: keyword
-      snomed_disease_code:
+      stage_of_disease:
         type: keyword
       tumor_grade:
         type: keyword
@@ -549,7 +549,7 @@ Indices:
       sb.subject_id AS subject_id,
 
       COLLECT(DISTINCT(diag.ctep_disease_code)) AS ctep_disease_code,
-      COLLECT(DISTINCT(diag.snomed_disease_code)) AS snomed_disease_code,
+      COLLECT(DISTINCT(diag.stage_of_disease)) AS stage_of_disease,
       COLLECT(DISTINCT(diag.tumor_grade)) AS tumor_grade,
       COLLECT(DISTINCT(diag.subject_age_at_diagnosis)) as age_at_diagnosis,
 
@@ -597,7 +597,7 @@ Indices:
         type: keyword
       ctep_disease_code:
         type: keyword
-      snomed_disease_code:
+      stage_of_disease:
         type: keyword
       primary_disease_site:
         type: keyword
@@ -642,7 +642,7 @@ Indices:
       # Facets section: "Filter by Participants"
       # ctep_disease_code:
         # type: keyword
-      # snomed_disease_code:
+      # stage_of_disease:
       #   type: keyword
       tumor_grade:
         type: keyword
@@ -691,7 +691,7 @@ Indices:
         'biospecimen' AS type,
         sub.subject_id AS subject_id,
         diag.ctep_disease_code AS ctep_disease_code,
-        diag.snomed_disease_code AS snomed_disease_code,
+        diag.stage_of_disease AS stage_of_disease,
         diag.primary_disease_site AS primary_disease_site,
         spec.specimen_id AS specimen_id,
         spec.parent_specimen_id AS parent_specimen_id,
@@ -764,7 +764,7 @@ Indices:
       # Facets section: "Filter by Participants"
       # ctep_disease_code:
         # type: keyword
-      snomed_disease_code:
+      stage_of_disease:
         type: keyword
       tumor_grade:
         type: keyword
@@ -827,7 +827,7 @@ Indices:
 
         f.data_file_uuid AS data_file_uuid,
         
-        COLLECT(DISTINCT(diag.snomed_disease_code)) AS snomed_disease_code,
+        COLLECT(DISTINCT(diag.stage_of_disease)) AS stage_of_disease,
         COLLECT(DISTINCT(diag.tumor_grade)) AS tumor_grade,
         demo.sex AS sex,
         demo.reported_gender AS reported_gender,
