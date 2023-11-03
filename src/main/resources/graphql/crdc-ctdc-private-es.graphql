@@ -199,7 +199,7 @@ type FileParticipant {
   data_file_description: String
   specimen_id: String
   ctep_disease_code: String
-  data_file_uuid: [String] # For Adding Files into Cart
+  data_file_uuid: String # For Adding Files into Cart
 }
 
 type FileSubject {
