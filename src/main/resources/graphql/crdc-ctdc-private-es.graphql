@@ -397,6 +397,7 @@ type QueryType {
 
     order_by: String = "data_file_name"
     sort_direction: String = "ASC"
+    first: Int = 1000
     offset: Int = 0
   ): [FileParticipant]
 
