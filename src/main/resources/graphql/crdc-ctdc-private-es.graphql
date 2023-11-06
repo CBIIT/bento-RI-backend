@@ -172,8 +172,8 @@ type BiospecimenOverview {
   specimen_type: String
   tissue_category: String
   assessment_timepoint: String
-  data_file_uuid: String
-  data_files: [DataFile] # For Adding Files into Cart
+  data_file_uuid: [String] # For Adding Files into Cart
+  data_files: [DataFile]
 }
 
 type FileOverview {
