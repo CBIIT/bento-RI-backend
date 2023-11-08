@@ -116,21 +116,11 @@ queries:
       - participant_data_files
     filter:
       type: pagination
-      defaultSortField: data_file_name
+      defaultSortField: data_file_uuid
       alternativeSortField:
         specimen_id: specimen_id
         subject_id: subject_id
     result:
       type: object_array
-  # - name: fileOverview
-  #   index:
-  #     - tab_data_files
-  #   filter:
-  #     type: pagination
-  #     defaultSortField: data_file_name
-  #     alternativeSortField:
-  #       specimen_id: specimen_id
-  #       subject_id: subject_id
-  #   result:
-  #     type: object_array
+
   
