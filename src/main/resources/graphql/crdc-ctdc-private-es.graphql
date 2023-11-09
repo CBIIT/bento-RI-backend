@@ -202,19 +202,6 @@ type FileParticipant {
   data_file_uuid: String # For Adding Files into Cart
 }
 
-type FileSubject {
-  subject_id: String
-  data_file_name: String
-  data_file_format: String
-  data_file_type: String
-  data_file_size: String
-  association: String
-  data_file_description: String
-  specimen_id: String
-  ctep_disease_code: String
-  data_file_uuid: String # For Adding Files into Cart
-}
-
 type SearchResult {
   diagnosesAndStageOfDiseases: [ProgramArms]
   sexesAndGenders: [ProgramArms]
@@ -397,7 +384,7 @@ type QueryType {
 
     order_by: String = "data_file_name"
     sort_direction: String = "ASC"
-    first: Int = 1000
+    first: Int = 1
     offset: Int = 0
   ): [FileParticipant]
 
