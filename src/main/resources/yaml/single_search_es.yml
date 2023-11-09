@@ -92,11 +92,12 @@ queries:
       - tab_data_files
     filter:
       type: default
-      caseInsensitive: true
+      # caseInsensitive: true
       selectedField: data_file_uuid
       ignoreIfEmpty:
         - subject_id
         - specimen_id
+        - data_file_uuid
         - data_file_name
     result:
       type: str_array
