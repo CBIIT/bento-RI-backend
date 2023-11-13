@@ -326,11 +326,12 @@ Indices:
     # Cypher query will be used to retrieve data from Neo4j, and index into Elasticsearch
     cypher_query: "
         MATCH (sb:subject) WITH count(sb) as subjectcount
-        MATCH (target:targeted_therapy) WITH target, count(DISTINCT(target)) as targetTherapyCount,subjectcount
-        MATCH (untargeted:non_targeted_therapy) WITH count(DISTINCT(target)) as untargetedTherapyCount ,targetTherapyCount,subjectcount
-        MATCH (sb:subject) WHERE toLOWER(sb.histology_images_available) = 'yes'  WITH count(sb) as histcount,targetTherapyCount,subjectcount,untargetedTherapyCount
-        MATCH (sb:subject) WHERE toLOWER(sb.radiology_images_available) = 'yes'  WITH count(sb) as radiocount,targetTherapyCount,subjectcount,histcount,untargetedTherapyCount
-        MATCH (sb:subject) WHERE toLOWER(sb.biomarker_results_available) = 'yes'  WITH count(sb) as biomarkercount,targetTherapyCount,subjectcount,histcount,radiocount,untargetedTherapyCount
+        MATCH (target:targeted_therapy) WITH target,subjectcount
+        MATCH (untargeted:non_targeted_therapy) WITH count(DISTINCT(untargeted)) as untargetedTherapyCount ,subjectcount,target
+        MATCH (sb:subject) WHERE toLOWER(sb.histology_images_available) = 'yes'  WITH count(sb) as histcount,subjectcount,untargetedTherapyCount,target
+        MATCH (sb:subject) WHERE toLOWER(sb.radiology_images_available) = 'yes'  WITH count(sb) as radiocount,subjectcount,histcount,untargetedTherapyCount,target
+        MATCH (sb:subject) WHERE toLOWER(sb.biomarker_results_available) = 'yes'  WITH count(sb) as biomarkercount,subjectcount,histcount,radiocount,untargetedTherapyCount,target
+WITH biomarkercount,subjectcount,histcount,radiocount,untargetedTherapyCount,count(target) as targetTherapyCount
 
         MATCH (diag:diagnosis) with  histcount,
         count(DISTINCT(diag)) as countofDiagnoses ,targetTherapyCount,radiocount,subjectcount,biomarkercount,untargetedTherapyCount,untargetedTherapyCount + targetTherapyCount as TotalTherapy
@@ -424,15 +425,16 @@ Indices:
         type: keyword
     # Cypher query will be used to retrieve data from Neo4j, and index into Elasticsearch
     cypher_query: "
-      MATCH (demo:demographic)-[:of_subject]->(sb:subject)
-      MATCH (diag:diagnosis)-[:of_subject]->(sb:subject)
-      MATCH (target:targeted_therapy)-[:of_subject]->(sb:subject)
-      MATCH (spec:specimen)-[:of_subject]->(sb:subject)
-      MATCH (data_file)-[:associated_with]->(sb:subject)
-      MATCH (expose:exposure)-[:of_subject]->(sb:subject)
-      MATCH (study:study)<-[:belongs_to]-(sb:subject)
+      MATCH (study:study)<-[:belongs_to]-(sb)
+      MATCH (sb:subject)<-[*..2]-(data_file:data_file)
+      MATCH (demo:demographic)-[:of_subject]->(sb)
+      MATCH (diag:diagnosis)-[:of_subject]->(sb)
+      MATCH (target:targeted_therapy)-[:of_subject]->(sb)
+      MATCH (expose:exposure)-[:of_subject]->(sb)
+      optional MATCH (spec:specimen)-[:of_subject]->(sb)
       RETURN DISTINCT
       'subject' as type,
+      sb.subject_id as subject_id,
       COLLECT(DISTINCT study.study_short_name) as study_short_name,
       COLLECT(DISTINCT diag.ctep_disease_code) as ctep_disease_code,
       COLLECT(DISTINCT diag.snomed_disease_code) as snomed_disease_code, 
@@ -463,8 +465,8 @@ Indices:
       COLLECT(DISTINCT {
         data_file_format: data_file.data_file_format,
         data_file_type: data_file.data_file_type
-      }) AS file_info,
-      sb.subject_id as subject_id
+      }) AS file_info
+      
       "
   - index_name: tab_participants
     type: neo4j
