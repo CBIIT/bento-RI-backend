@@ -101,3 +101,16 @@ queries:
         - data_file_name
     result:
       type: str_array
+  - name: participant_data_files
+    index:
+      - participant_data_files
+    filter:
+      type: pagination
+      defaultSortField: data_file_uuid
+      alternativeSortField:
+        specimen_id: specimen_id
+        subject_id: subject_id
+    result:
+      type: object_array
+
+  
