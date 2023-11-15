@@ -7,7 +7,7 @@ queries:
           - participants
         filter:
           type: sub_aggregation
-          selectedField: ctep_disease_code
+          selectedField: snomed_disease_term
           subAggSelectedField: stage_of_disease
         result:
           type: arm_program
@@ -98,20 +98,20 @@ queries:
         result:
           type: int
           method: count_bucket_keys
-      - name: participantCountByCtepDiseaseCode
+      - name: participantCountBySnomedDiseaseTerm
         index:
           - participants
         filter:
           type: aggregation
-          selectedField: ctep_disease_code
+          selectedField: snomed_disease_term
         result:
           type: group_count
-      - name: filterParticipantCountByCtepDiseaseCode
+      - name: filterParticipantCountBySnomedDiseaseTerm
         index:
           - participants
         filter:
           type: aggregation
-          selectedField: ctep_disease_code
+          selectedField: snomed_disease_term
           ignoreSelectedField: true
         result:
           type: group_count
