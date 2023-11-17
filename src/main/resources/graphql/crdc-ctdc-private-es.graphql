@@ -163,7 +163,7 @@ type ParticipantOverview {
 type BiospecimenOverview {
   subject_id: String
   snomed_disease_term: String
-  snomed_disease_code: String
+  stage_of_disease: String
   primary_disease_site: String
   specimen_id: String
   parent_specimen_id: String
@@ -171,8 +171,8 @@ type BiospecimenOverview {
   specimen_type: String
   tissue_category: String
   assessment_timepoint: String
-  data_file_uuid: String
-  data_files: [DataFile] # For Adding Files into Cart
+  data_file_uuid: [String] # For Adding Files into Cart
+  data_files: [DataFile]
 }
 
 type FileOverview {
@@ -312,7 +312,7 @@ type QueryType {
     subject_id: [String] = []
     specimen_id: [String] = [] # TODO: Remove if not needed
     snomed_disease_term: [String] = []
-    snomed_disease_code: [String] = []
+    stage_of_disease: [String] = []
     tumor_grade: [String] = []
     sex: [String] = []
     reported_gender: [String] = []
@@ -338,7 +338,7 @@ type QueryType {
   fileOverview(
     subject_id: [String] = []
     snomed_disease_term: [String] = []
-    snomed_disease_code: [String] = []
+    stage_of_disease: [String] = []
     tumor_grade: [String] = []
     sex: [String] = []
     reported_gender: [String] = []
@@ -410,6 +410,7 @@ type QueryType {
   fileIDsFromList(
     subject_id: [String] = []
     specimen_id: [String] = []
+    data_file_uuid: [String] = []
     data_file_name: [String] = []
   ): [String]
 
@@ -420,5 +421,4 @@ type QueryType {
     first: Int = 10
     offset: Int = 0
   ): [DataFileDetail]
-
 }

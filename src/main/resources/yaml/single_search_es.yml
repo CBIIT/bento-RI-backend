@@ -92,6 +92,7 @@ queries:
       - tab_data_files
     filter:
       type: default
+      # caseInsensitive: true
       selectedField: data_file_uuid
       ignoreIfEmpty:
         - subject_id
@@ -111,5 +112,3 @@ queries:
         subject_id: subject_id
     result:
       type: object_array
-
-  

@@ -331,7 +331,7 @@ Indices:
         MATCH (sb:subject) WHERE toLOWER(sb.histology_images_available) = 'yes'  WITH count(sb) as histcount,subjectcount,untargetedTherapyCount,target
         MATCH (sb:subject) WHERE toLOWER(sb.radiology_images_available) = 'yes'  WITH count(sb) as radiocount,subjectcount,histcount,untargetedTherapyCount,target
         MATCH (sb:subject) WHERE toLOWER(sb.biomarker_results_available) = 'yes'  WITH count(sb) as biomarkercount,subjectcount,histcount,radiocount,untargetedTherapyCount,target
-WITH biomarkercount,subjectcount,histcount,radiocount,untargetedTherapyCount,count(target) as targetTherapyCount
+        WITH biomarkercount,subjectcount,histcount,radiocount,untargetedTherapyCount,count(target) as targetTherapyCount
 
         MATCH (diag:diagnosis) with  histcount,
         count(DISTINCT(diag)) as countofDiagnoses ,targetTherapyCount,radiocount,subjectcount,biomarkercount,untargetedTherapyCount,untargetedTherapyCount + targetTherapyCount as TotalTherapy
@@ -677,7 +677,7 @@ WITH biomarkercount,subjectcount,histcount,radiocount,untargetedTherapyCount,cou
       
     # Cypher query for biospecimen listing
     # TODO: Remove Collection over exposure property once 1:1
-    # TODO: Make sure diagnosis is 1:1 with subject
+    # TODO: Make sure diagnosis is 1:1 with subject, Remove Collection
     cypher_query: "
       MATCH (spec:specimen)-[:of_subject]->(sub:subject)
       MATCH (sub)<-[:of_subject]-(diag:diagnosis)
@@ -690,9 +690,9 @@ WITH biomarkercount,subjectcount,histcount,radiocount,untargetedTherapyCount,cou
       RETURN DISTINCT
         'biospecimen' AS type,
         sub.subject_id AS subject_id,
-        diag.snomed_disease_term AS snomed_disease_term,
-        diag.stage_of_disease AS stage_of_disease,
-        diag.primary_disease_site AS primary_disease_site,
+        COLLECT(DISTINCT(diag.snomed_disease_term)) AS snomed_disease_term,
+        COLLECT(DISTINCT(diag.stage_of_disease)) AS stage_of_disease,
+        COLLECT(DISTINCT(diag.primary_disease_site)) AS primary_disease_site,
         spec.specimen_id AS specimen_id,
         spec.parent_specimen_id AS parent_specimen_id,
         spec.anatomical_collection_site AS anatomical_collection_site,
@@ -800,86 +800,86 @@ WITH biomarkercount,subjectcount,histcount,radiocount,untargetedTherapyCount,cou
     # TODO: Remove COLLECT from diagnosis property once subject and diagnosis are 1:1
     cypher_query: "
       MATCH (sub:subject)<-[*..2]-(parent)<--(f:data_file)
-optional MATCH (f:data_file)-[:associated_with]->(spec:specimen)
- 
-MATCH (sub)<-[:of_subject]-(diag:diagnosis)
-MATCH (sub)<-[:of_subject]-(demo:demographic)
-MATCH (sub)<-[:of_subject]-(exp:exposure)
-MATCH (sub)<-[:of_subject]-(tt:targeted_therapy)
- 
-RETURN DISTINCT
-  'data file' AS type,
-  f.data_file_name AS data_file_name,
-  f.data_file_format AS data_file_format,
-  f.data_file_type AS data_file_type,
-  f.data_file_size AS data_file_size,
-  f.data_file_uuid AS data_file_uuid,
-  CASE
-    WHEN head(labels(parent)) = 'subject' THEN 'participant'
-    WHEN head(labels(parent)) = 'specimen' THEN 'biospecimen'
-    ELSE head(labels(parent))
-  END AS association,
-  f.data_file_description AS data_file_description,
- 
-  spec.specimen_id AS specimen_id,
-  sub.subject_id AS subject_id,
- 
-  COLLECT(DISTINCT(diag.snomed_disease_term)) AS snomed_disease_term,
- 
-  COLLECT(DISTINCT(diag.stage_of_disease)) AS stage_of_disease,
-  COLLECT(DISTINCT(diag.tumor_grade)) AS tumor_grade,
-  demo.sex AS sex,
-  demo.reported_gender AS reported_gender,
-  demo.race AS race,
-  demo.ethnicity AS ethnicity,
- 
-  COLLECT(DISTINCT(exp.carcinogen_exposure)) AS carcinogen_exposure,
-  COLLECT(DISTINCT(tt.targeted_therapy)) AS targeted_therapy,
- 
-  spec.anatomical_collection_site AS anatomical_collection_site,
-  spec.specimen_type AS specimen_type,
-  spec.tissue_category AS tissue_category,
-  spec.assessment_timepoint AS assessment_timepoint
- 
-        union
- 
-    MATCH (f:data_file)-[:associated_with]->(sub:subject)
-    optional MATCH (f)-[:associated_with]->(spec:specimen)
- 
-    MATCH (sub)<-[:of_subject]-(diag:diagnosis)
-    MATCH (sub)<-[:of_subject]-(demo:demographic)
-    MATCH (sub)<-[:of_subject]-(exp:exposure)
-    MATCH (sub)<-[:of_subject]-(tt:targeted_therapy)
+      optional MATCH (f:data_file)-[:associated_with]->(spec:specimen)
       
-RETURN DISTINCT
-  'data file' AS type,
-  f.data_file_name AS data_file_name,
-  f.data_file_format AS data_file_format,
-  f.data_file_type AS data_file_type,
-  f.data_file_size AS data_file_size,
-  f.data_file_uuid AS data_file_uuid,
-'participant' AS association,
-  f.data_file_description AS data_file_description,
- 
-  spec.specimen_id AS specimen_id,
-  sub.subject_id AS subject_id,
- 
-  COLLECT(DISTINCT(diag.snomed_disease_term)) AS snomed_disease_term,
- 
-  COLLECT(DISTINCT(diag.stage_of_disease)) AS stage_of_disease,
-  COLLECT(DISTINCT(diag.tumor_grade)) AS tumor_grade,
-  demo.sex AS sex,
-  demo.reported_gender AS reported_gender,
-  demo.race AS race,
-  demo.ethnicity AS ethnicity,
- 
-  COLLECT(DISTINCT(exp.carcinogen_exposure)) AS carcinogen_exposure,
-  COLLECT(DISTINCT(tt.targeted_therapy)) AS targeted_therapy,
- 
-  spec.anatomical_collection_site AS anatomical_collection_site,
-  spec.specimen_type AS specimen_type,
-  spec.tissue_category AS tissue_category,
-  spec.assessment_timepoint AS assessment_timepoint
+      MATCH (sub)<-[:of_subject]-(diag:diagnosis)
+      MATCH (sub)<-[:of_subject]-(demo:demographic)
+      MATCH (sub)<-[:of_subject]-(exp:exposure)
+      MATCH (sub)<-[:of_subject]-(tt:targeted_therapy)
+      
+      RETURN DISTINCT
+        'data file' AS type,
+        f.data_file_name AS data_file_name,
+        f.data_file_format AS data_file_format,
+        f.data_file_type AS data_file_type,
+        f.data_file_size AS data_file_size,
+        f.data_file_uuid AS data_file_uuid,
+        CASE
+          WHEN head(labels(parent)) = 'subject' THEN 'participant'
+          WHEN head(labels(parent)) = 'specimen' THEN 'biospecimen'
+          ELSE head(labels(parent))
+        END AS association,
+        f.data_file_description AS data_file_description,
+      
+        spec.specimen_id AS specimen_id,
+        sub.subject_id AS subject_id,
+      
+        COLLECT(DISTINCT(diag.snomed_disease_term)) AS snomed_disease_term,
+      
+        COLLECT(DISTINCT(diag.stage_of_disease)) AS stage_of_disease,
+        COLLECT(DISTINCT(diag.tumor_grade)) AS tumor_grade,
+        demo.sex AS sex,
+        demo.reported_gender AS reported_gender,
+        demo.race AS race,
+        demo.ethnicity AS ethnicity,
+      
+        COLLECT(DISTINCT(exp.carcinogen_exposure)) AS carcinogen_exposure,
+        COLLECT(DISTINCT(tt.targeted_therapy)) AS targeted_therapy,
+      
+        spec.anatomical_collection_site AS anatomical_collection_site,
+        spec.specimen_type AS specimen_type,
+        spec.tissue_category AS tissue_category,
+        spec.assessment_timepoint AS assessment_timepoint
+      
+      union
+      
+      MATCH (f:data_file)-[:associated_with]->(sub:subject)
+      optional MATCH (f)-[:associated_with]->(spec:specimen)
+  
+      MATCH (sub)<-[:of_subject]-(diag:diagnosis)
+      MATCH (sub)<-[:of_subject]-(demo:demographic)
+      MATCH (sub)<-[:of_subject]-(exp:exposure)
+      MATCH (sub)<-[:of_subject]-(tt:targeted_therapy)
+            
+      RETURN DISTINCT
+        'data file' AS type,
+        f.data_file_name AS data_file_name,
+        f.data_file_format AS data_file_format,
+        f.data_file_type AS data_file_type,
+        f.data_file_size AS data_file_size,
+        f.data_file_uuid AS data_file_uuid,
+        'participant' AS association,
+        f.data_file_description AS data_file_description,
+    
+        spec.specimen_id AS specimen_id,
+        sub.subject_id AS subject_id,
+      
+        COLLECT(DISTINCT(diag.snomed_disease_term)) AS snomed_disease_term,
+      
+        COLLECT(DISTINCT(diag.stage_of_disease)) AS stage_of_disease,
+        COLLECT(DISTINCT(diag.tumor_grade)) AS tumor_grade,
+        demo.sex AS sex,
+        demo.reported_gender AS reported_gender,
+        demo.race AS race,
+        demo.ethnicity AS ethnicity,
+      
+        COLLECT(DISTINCT(exp.carcinogen_exposure)) AS carcinogen_exposure,
+        COLLECT(DISTINCT(tt.targeted_therapy)) AS targeted_therapy,
+  
+        spec.anatomical_collection_site AS anatomical_collection_site,
+        spec.specimen_type AS specimen_type,
+        spec.tissue_category AS tissue_category,
+        spec.assessment_timepoint AS assessment_timepoint
     "
   - index_name: participant_data_files
     type: neo4j
@@ -985,5 +985,4 @@ RETURN DISTINCT
         COLLECT(DISTINCT(spec.tissue_category)) AS tissue_category,
         COLLECT(DISTINCT(spec.assessment_timepoint)) AS assessment_timepoint
     "
-
 
