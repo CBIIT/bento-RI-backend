@@ -363,7 +363,7 @@ Indices:
         type: keyword
       study_short_name:
         type: keyword
-      ctep_disease_code:
+      snomed_disease_term:
         type: keyword
       snomed_disease_code:
         type: keyword
@@ -436,7 +436,7 @@ Indices:
       'subject' as type,
       sb.subject_id as subject_id,
       COLLECT(DISTINCT study.study_short_name) as study_short_name,
-      COLLECT(DISTINCT diag.ctep_disease_code) as ctep_disease_code,
+      COLLECT(DISTINCT diag.snomed_disease_term) as snomed_disease_term,
       COLLECT(DISTINCT diag.snomed_disease_code) as snomed_disease_code, 
       COLLECT(DISTINCT diag.tumor_grade) as tumor_grade,
       COLLECT(DISTINCT diag.stage_of_disease) as stage_of_disease,
@@ -476,7 +476,7 @@ Indices:
         type: keyword
       subject_id:
         type: keyword
-      ctep_disease_code:
+      snomed_disease_term:
         type: keyword
       stage_of_disease:
         type: keyword
@@ -548,7 +548,7 @@ Indices:
       'participant' AS type,
       sb.subject_id AS subject_id,
 
-      COLLECT(DISTINCT(diag.ctep_disease_code)) AS ctep_disease_code,
+      COLLECT(DISTINCT(diag.snomed_disease_term)) AS snomed_disease_term,
       COLLECT(DISTINCT(diag.stage_of_disease)) AS stage_of_disease,
       COLLECT(DISTINCT(diag.tumor_grade)) AS tumor_grade,
       COLLECT(DISTINCT(diag.subject_age_at_diagnosis)) as age_at_diagnosis,
@@ -595,7 +595,7 @@ Indices:
         type: keyword
       subject_id:
         type: keyword
-      ctep_disease_code:
+      snomed_disease_term:
         type: keyword
       stage_of_disease:
         type: keyword
@@ -690,7 +690,7 @@ Indices:
       RETURN DISTINCT
         'biospecimen' AS type,
         sub.subject_id AS subject_id,
-        COLLECT(DISTINCT(diag.ctep_disease_code)) AS ctep_disease_code,
+        COLLECT(DISTINCT(diag.snomed_disease_term)) AS snomed_disease_term,
         COLLECT(DISTINCT(diag.stage_of_disease)) AS stage_of_disease,
         COLLECT(DISTINCT(diag.primary_disease_site)) AS primary_disease_site,
         spec.specimen_id AS specimen_id,
@@ -749,7 +749,7 @@ Indices:
         type: keyword
       specimen_id:
         type: keyword
-      ctep_disease_code:
+      snomed_disease_term:
         type: keyword
       data_file_uuid: # For Adding Files into Cart
         type: keyword
@@ -824,7 +824,7 @@ Indices:
         spec.specimen_id AS specimen_id,
         sub.subject_id AS subject_id,
       
-        COLLECT(DISTINCT(diag.ctep_disease_code)) AS ctep_disease_code,
+        COLLECT(DISTINCT(diag.snomed_disease_term)) AS snomed_disease_term,
       
         COLLECT(DISTINCT(diag.stage_of_disease)) AS stage_of_disease,
         COLLECT(DISTINCT(diag.tumor_grade)) AS tumor_grade,
@@ -864,7 +864,7 @@ Indices:
         spec.specimen_id AS specimen_id,
         sub.subject_id AS subject_id,
       
-        COLLECT(DISTINCT(diag.ctep_disease_code)) AS ctep_disease_code,
+        COLLECT(DISTINCT(diag.snomed_disease_term)) AS snomed_disease_term,
       
         COLLECT(DISTINCT(diag.stage_of_disease)) AS stage_of_disease,
         COLLECT(DISTINCT(diag.tumor_grade)) AS tumor_grade,
@@ -899,7 +899,7 @@ Indices:
         type: keyword
       subject_id:
         type: keyword
-      ctep_disease_code:
+      snomed_disease_term:
         type: keyword
       data_file_uuid:
         type: keyword
@@ -932,7 +932,7 @@ Indices:
         f.data_file_size AS data_file_size,
         f.data_file_description AS data_file_description,
         sub.subject_id AS subject_id,
-        COLLECT(DISTINCT(diag.ctep_disease_code)) AS ctep_disease_code,
+        COLLECT(DISTINCT(diag.snomed_disease_term)) AS snomed_disease_term,
 
         f.data_file_uuid AS data_file_uuid,
         
@@ -965,7 +965,7 @@ Indices:
         f.data_file_size AS data_file_size,
         f.data_file_description AS data_file_description,
         sub.subject_id AS subject_id,
-        COLLECT(DISTINCT(diag.ctep_disease_code)) AS ctep_disease_code,
+        COLLECT(DISTINCT(diag.snomed_disease_term)) AS snomed_disease_term,
 
         f.data_file_uuid AS data_file_uuid,
         

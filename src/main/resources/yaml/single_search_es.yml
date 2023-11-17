@@ -112,5 +112,3 @@ queries:
         subject_id: subject_id
     result:
       type: object_array
-
-  
