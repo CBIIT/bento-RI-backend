@@ -399,10 +399,10 @@ Indices:
         type: keyword
       data_file_uuid:
         type: keyword
-      data_file_type:
-        type: keyword
-      data_file_format:
-        type: keyword
+      # data_file_type:
+      #   type: keyword
+      # data_file_format:
+      #   type: keyword
       biospecimen_info:
         type: nested
         properties:

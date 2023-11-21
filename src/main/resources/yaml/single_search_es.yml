@@ -95,7 +95,6 @@ queries:
       # caseInsensitive: true
       selectedField: data_file_uuid
       ignoreIfEmpty:
-        - subject_id
         - specimen_id
         - data_file_uuid
         - data_file_name
