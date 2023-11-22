@@ -82,7 +82,7 @@ queries:
           method: count_bucket_keys
       - name: numberOfSpecimens
         index:
-          - participants
+          - tab_biospecimens
         filter:
           type: aggregation
           selectedField: specimen_id
@@ -91,7 +91,7 @@ queries:
           method: count_bucket_keys
       - name: numberOfFiles
         index:
-          - participants
+          - tab_data_files
         filter:
           type: aggregation
           selectedField: data_file_uuid

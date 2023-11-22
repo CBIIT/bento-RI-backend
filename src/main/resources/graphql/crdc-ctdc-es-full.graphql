@@ -74,7 +74,7 @@ type associated_link{
     associated_link_url : String
 }
 
-type Iimage_collection{
+type image_collection{
     image_collection_name: String
     image_type_included: String
     image_collection_url: String
