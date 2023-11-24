@@ -328,6 +328,7 @@ type QueryType {
 
     data_file_type: [String] = []
     data_file_format: [String] = []
+    data_file_uuid:[String] = []
 
     order_by: String = "specimen_id"
     sort_direction: String = "ASC"
@@ -354,6 +355,7 @@ type QueryType {
 
     data_file_type: [String] = []
     data_file_format: [String] = []
+    data_file_uuid:[String] = []
 
     order_by: String = "data_file_name"
     sort_direction: String = "ASC"
@@ -380,12 +382,41 @@ type QueryType {
 
     data_file_type: [String] = []
     data_file_format: [String] = []
+    data_file_uuid:[String] = []
 
     order_by: String = "data_file_name"
     sort_direction: String = "ASC"
-    first: Int = 1
+    first: Int = 10
     offset: Int = 0
   ): [FileParticipant]
+
+  biospecimen_data_files(
+    subject_id: [String] = []
+    snomed_disease_term: [String] = []
+    snomed_disease_code: [String] = []
+    tumor_grade: [String] = []
+    sex: [String] = []
+    reported_gender: [String] = []
+    race: [String] = []
+    ethnicity: [String] = []
+    carcinogen_exposure: [String] = []
+    targeted_therapy: [String] = []
+
+    specimen_id: [String] = []
+    anatomical_collection_site: [String] = []
+    specimen_type: [String] = []
+    tissue_category: [String] = []
+    assessment_timepoint: [String] = []
+
+    data_file_type: [String] = []
+    data_file_format: [String] = []
+    data_file_uuid:[String] = []
+
+    order_by: String = "data_file_name"
+    sort_direction: String = "ASC"
+    first: Int = 10
+    offset: Int = 0
+  ): [FileOverview]
 
   searchParticipants(
     snomed_disease_term: [String] = []
@@ -395,6 +426,7 @@ type QueryType {
     reported_gender: [String] = []
     race: [String] = []
     ethnicity: [String] = []
+
     carcinogen_exposure: [String] = []
     targeted_therapy: [String] = []
     anatomical_collection_site: [String] = []
