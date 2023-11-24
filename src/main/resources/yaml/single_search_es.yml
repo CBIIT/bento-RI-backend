@@ -102,12 +102,25 @@ queries:
       type: str_array
   - name: participant_data_files
     index:
-      - participant_data_files
+      - tab_data_files
     filter:
       type: pagination
       defaultSortField: data_file_uuid
       alternativeSortField:
         specimen_id: specimen_id
         subject_id: subject_id
+    result:
+      type: object_array
+  - name: biospecimen_data_files
+    index:
+      - tab_data_files
+    filter:
+      type: pagination
+      defaultSortField: data_file_uuid
+      alternativeSortField:
+        specimen_id: specimen_id
+        subject_id: subject_id
+      ignoreIfEmpty:
+        - specimen_id
     result:
       type: object_array
