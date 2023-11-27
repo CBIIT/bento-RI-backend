@@ -776,6 +776,8 @@ Indices:
         type: keyword
       parent_specimen_id:
         type: keyword
+      primary_disease_site:
+        type: keyword
     cypher_query: "
       MATCH (sub:subject)<-[*..2]-(f:data_file)
       optional MATCH (f:data_file)-[:associated_with]->(spec:specimen)

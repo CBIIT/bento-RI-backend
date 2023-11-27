@@ -204,7 +204,8 @@ type FileOverview {
  specimen_type: String
  tissue_category: String
  assessment_timepoint: String
- parent_specimen_id: String     
+ parent_specimen_id: String  
+ primary_disease_site: String   
 }
 
 type FileParticipant {
