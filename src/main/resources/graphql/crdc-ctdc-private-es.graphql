@@ -176,16 +176,35 @@ type BiospecimenOverview {
 }
 
 type FileOverview {
-  subject_id: String
-  data_file_name: String
-  data_file_format: String
-  data_file_type: String
-  data_file_size: String
-  association: String
-  data_file_description: String
-  specimen_id: String
-  snomed_disease_term: String
-  data_file_uuid: String # For Adding Files into Cart
+ association: String
+ parent_specimen_id: String
+ data_file_name: String
+ data_file_format: String
+ data_file_type: String
+ data_file_size: String
+ data_file_description: String
+ data_file_checksum_value: String
+ data_file_checksum_type: String
+ data_file_location: String
+ data_file_compression_status: String
+ subject_id: String
+ specimen_id: String
+ snomed_disease_term: String
+ data_file_uuid: String
+ stage_of_disease: String
+ tumor_grade: String
+ sex: String
+ reported_gender: String
+ race: String
+ ethnicity: String
+ age_at_enrollment: String
+ carcinogen_exposure: String
+ targeted_therapy: String
+ anatomical_collection_site: String
+ specimen_type: String
+ tissue_category: String
+ assessment_timepoint: String
+ parent_specimen_id: String     
 }
 
 type FileParticipant {
