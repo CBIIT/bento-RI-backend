@@ -310,7 +310,7 @@ type QueryType {
 
   biospecimenOverview(
     subject_id: [String] = []
-    specimen_id: [String] = [] # TODO: Remove if not needed
+    specimen_id: [String] = []
     snomed_disease_term: [String] = []
     stage_of_disease: [String] = []
     tumor_grade: [String] = []
@@ -328,7 +328,7 @@ type QueryType {
 
     data_file_type: [String] = []
     data_file_format: [String] = []
-    data_file_uuid:[String] = []
+    data_file_uuid: [String] = []
 
     order_by: String = "specimen_id"
     sort_direction: String = "ASC"
@@ -355,7 +355,7 @@ type QueryType {
 
     data_file_type: [String] = []
     data_file_format: [String] = []
-    data_file_uuid:[String] = []
+    data_file_uuid: [String] = []
 
     order_by: String = "data_file_name"
     sort_direction: String = "ASC"
@@ -366,7 +366,7 @@ type QueryType {
   participant_data_files(
     subject_id: [String] = []
     snomed_disease_term: [String] = []
-    snomed_disease_code: [String] = []
+    stage_of_disease: [String] = []
     tumor_grade: [String] = []
     sex: [String] = []
     reported_gender: [String] = []
@@ -382,7 +382,7 @@ type QueryType {
 
     data_file_type: [String] = []
     data_file_format: [String] = []
-    data_file_uuid:[String] = []
+    data_file_uuid: [String] = []
 
     order_by: String = "data_file_name"
     sort_direction: String = "ASC"
@@ -392,8 +392,9 @@ type QueryType {
 
   biospecimen_data_files(
     subject_id: [String] = []
+    specimen_id: [String] = []
     snomed_disease_term: [String] = []
-    snomed_disease_code: [String] = []
+    stage_of_disease: [String] = []
     tumor_grade: [String] = []
     sex: [String] = []
     reported_gender: [String] = []
@@ -402,7 +403,6 @@ type QueryType {
     carcinogen_exposure: [String] = []
     targeted_therapy: [String] = []
 
-    specimen_id: [String] = []
     anatomical_collection_site: [String] = []
     specimen_type: [String] = []
     tissue_category: [String] = []
@@ -410,7 +410,7 @@ type QueryType {
 
     data_file_type: [String] = []
     data_file_format: [String] = []
-    data_file_uuid:[String] = []
+    data_file_uuid: [String] = []
 
     order_by: String = "data_file_name"
     sort_direction: String = "ASC"

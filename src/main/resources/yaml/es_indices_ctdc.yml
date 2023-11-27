@@ -730,6 +730,8 @@ Indices:
         type: keyword
       data_file_description:
         type: keyword
+      association:
+        type: keyword
       subject_id:
         type: keyword
       specimen_id:
@@ -765,13 +767,13 @@ Indices:
       assessment_timepoint:
         type: keyword
     cypher_query: "
-      MATCH (sub:subject)<-[*..2]-(f:data_file)
+      MATCH (sub:subject)<-[*..2]-(parent)<--(f:data_file)
       optional MATCH (f:data_file)-[:associated_with]->(spec:specimen)
       MATCH (sub)<-[:of_subject]-(diag:diagnosis)
       MATCH (sub)<-[:of_subject]-(demo:demographic)
       MATCH (sub)<-[:of_subject]-(exp:exposure)
       MATCH (sub)<-[:of_subject]-(tt:targeted_therapy)
-
+ 
       RETURN DISTINCT
         'data file' AS type,
         f.data_file_name AS data_file_name,
@@ -780,6 +782,46 @@ Indices:
         f.data_file_size AS data_file_size,
         f.data_file_uuid AS data_file_uuid,
         f.data_file_description AS data_file_description,
+        'biospecimen' AS association,
+      
+        spec.specimen_id AS specimen_id,
+        sub.subject_id AS subject_id,
+      
+        diag.snomed_disease_term AS snomed_disease_term,
+      
+        diag.stage_of_disease AS stage_of_disease,
+        diag.tumor_grade AS tumor_grade,
+        demo.sex AS sex,
+        demo.reported_gender AS reported_gender,
+        demo.race AS race,
+        demo.ethnicity AS ethnicity,
+      
+        COLLECT(DISTINCT(exp.carcinogen_exposure)) AS carcinogen_exposure,
+        COLLECT(DISTINCT(tt.targeted_therapy)) AS targeted_therapy,
+        
+        spec.anatomical_collection_site AS anatomical_collection_site,
+        spec.specimen_type AS specimen_type,
+        spec.tissue_category AS tissue_category,
+        spec.assessment_timepoint AS assessment_timepoint
+      
+      UNION
+
+      MATCH (sub:subject)<-[:associated_with]-(f:data_file)
+      optional MATCH (f:data_file)-[:associated_with]->(spec:specimen)
+      MATCH (sub)<-[:of_subject]-(diag:diagnosis)
+      MATCH (sub)<-[:of_subject]-(demo:demographic)
+      MATCH (sub)<-[:of_subject]-(exp:exposure)
+      MATCH (sub)<-[:of_subject]-(tt:targeted_therapy)
+ 
+      RETURN DISTINCT
+        'data file' AS type,
+        f.data_file_name AS data_file_name,
+        f.data_file_format AS data_file_format,
+        f.data_file_type AS data_file_type,
+        f.data_file_size AS data_file_size,
+        f.data_file_uuid AS data_file_uuid,
+        f.data_file_description AS data_file_description,
+        'participant' AS association,
       
         spec.specimen_id AS specimen_id,
         sub.subject_id AS subject_id,
