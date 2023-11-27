@@ -366,7 +366,7 @@ type QueryType {
   participant_data_files(
     subject_id: [String] = []
     snomed_disease_term: [String] = []
-    snomed_disease_code: [String] = []
+    stage_of_disease: [String] = []
     tumor_grade: [String] = []
     sex: [String] = []
     reported_gender: [String] = []
