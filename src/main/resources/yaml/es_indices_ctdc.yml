@@ -785,6 +785,15 @@ Indices:
         type: keyword
       assessment_timepoint:
         type: keyword
+      file_info:
+        type: nested
+        properties:
+          data_file_uuid:
+            type: keyword
+          data_file_type:
+            type: keyword
+          data_file_format:
+            type: keyword
     cypher_query: "
       MATCH (sub:subject)<-[*..2]-(parent)<--(f:data_file)
       optional MATCH (f:data_file)-[:associated_with]->(spec:specimen)
@@ -821,7 +830,12 @@ Indices:
         spec.anatomical_collection_site AS anatomical_collection_site,
         spec.specimen_type AS specimen_type,
         spec.tissue_category AS tissue_category,
-        spec.assessment_timepoint AS assessment_timepoint
+        spec.assessment_timepoint AS assessment_timepoint,
+        COLLECT(DISTINCT{
+        data_file_uuid: f.data_file_uuid,
+        data_file_format: f.data_file_format,
+        data_file_type: f.data_file_type
+      }) AS file_info
       
       UNION
 
@@ -860,10 +874,15 @@ Indices:
         spec.anatomical_collection_site AS anatomical_collection_site,
         spec.specimen_type AS specimen_type,
         spec.tissue_category AS tissue_category,
-        spec.assessment_timepoint AS assessment_timepoint
+        spec.assessment_timepoint AS assessment_timepoint,
+        COLLECT(DISTINCT{
+        data_file_uuid: f.data_file_uuid,
+        data_file_format: f.data_file_format,
+        data_file_type: f.data_file_type
+      }) AS file_info    
     "
-    
-   - index_name: biospecimen_data_file
+  #Handles datafiles only related to Biospecimen
+  - index_name: biospecimen_data_file
     type: neo4j
     # type mapping for each property of the index
     mapping:

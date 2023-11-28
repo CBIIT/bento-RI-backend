@@ -268,20 +268,6 @@ queries:
           ignoreSelectedField: true
         result:
           type: group_count
-      # - name: specimenCountByAnatomicalCollectionSite
-      #   index:
-      #     - tab_biospecimens
-      #   filter:
-      #     type: nested
-      #     selectedField: anatomical_collection_site
-      #     nestedPath: biospecimen_info
-      #     nestedParameters:
-      #       - anatomical_collection_site
-      #       - specimen_type
-      #       - tissue_category
-      #       - assessment_timepoint
-      #   result:
-      #     type: nested_list
       - name: specimenCountByAnatomicalCollectionSite
         index:
           - tab_biospecimens
@@ -297,21 +283,6 @@ queries:
             - assessment_timepoint
         result:
           type: nested_list
-      # - name: filterSpecimenCountByAnatomicalCollectionSite
-      #   index:
-      #     - participants
-      #   filter:
-      #     type: nested
-      #     ignoreSelectedField: true
-      #     selectedField: anatomical_collection_site
-      #     nestedPath: biospecimen_info
-      #     nestedParameters:
-      #       - anatomical_collection_site
-      #       - specimen_type
-      #       - tissue_category
-      #       - assessment_timepoint
-      #   result:
-      #     type: nested_list
       - name: filterSpecimenCountByAnatomicalCollectionSite
         index:
           - tab_biospecimens
@@ -423,7 +394,7 @@ queries:
           type: nested_list
       - name: dataFileCountByDataFileType
         index:
-          - participants
+          - tab_data_files
         filter:
           type: nested
           selectedField: data_file_type
@@ -435,7 +406,7 @@ queries:
           type: nested_list
       - name: filterDataFileCountByDataFileType
         index:
-          - participants
+          - tab_data_files
         filter:
           type: nested
           ignoreSelectedField: true
@@ -448,7 +419,7 @@ queries:
           type: nested_list
       - name: dataFileCountByDataFileFormat
         index:
-          - participants
+          - tab_data_files
         filter:
           type: nested
           selectedField: data_file_format
@@ -460,7 +431,7 @@ queries:
           type: nested_list
       - name: filterDataFileCountByDataFileFormat
         index:
-          - participants
+          - tab_data_files
         filter:
           type: nested
           ignoreSelectedField: true
