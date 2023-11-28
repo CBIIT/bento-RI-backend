@@ -270,12 +270,13 @@ queries:
           type: group_count
       - name: specimenCountByAnatomicalCollectionSite
         index:
-          - participants
+          - tab_biospecimens
         filter:
           type: nested
           selectedField: anatomical_collection_site
           nestedPath: biospecimen_info
           nestedParameters:
+            - specimen_id
             - anatomical_collection_site
             - specimen_type
             - tissue_category
@@ -284,13 +285,14 @@ queries:
           type: nested_list
       - name: filterSpecimenCountByAnatomicalCollectionSite
         index:
-          - participants
+          - tab_biospecimens
         filter:
           type: nested
           ignoreSelectedField: true
           selectedField: anatomical_collection_site
           nestedPath: biospecimen_info
           nestedParameters:
+            - specimen_id
             - anatomical_collection_site
             - specimen_type
             - tissue_category
@@ -299,12 +301,13 @@ queries:
           type: nested_list
       - name: specimenCountBySpecimenType
         index:
-          - participants
+          - tab_biospecimens
         filter:
           type: nested
           selectedField: specimen_type
           nestedPath: biospecimen_info
           nestedParameters:
+            - specimen_id
             - anatomical_collection_site
             - specimen_type
             - tissue_category
@@ -313,13 +316,14 @@ queries:
           type: nested_list
       - name: filterSpecimenCountBySpecimenType
         index:
-          - participants
+          - tab_biospecimens
         filter:
           type: nested
           ignoreSelectedField: true
           selectedField: specimen_type
           nestedPath: biospecimen_info
           nestedParameters:
+            - specimen_id
             - anatomical_collection_site
             - specimen_type
             - tissue_category
@@ -328,12 +332,13 @@ queries:
           type: nested_list
       - name: specimenCountByTissueCategory
         index:
-          - participants
+          - tab_biospecimens
         filter:
           type: nested
           selectedField: tissue_category
           nestedPath: biospecimen_info
           nestedParameters:
+            - specimen_id
             - anatomical_collection_site
             - specimen_type
             - tissue_category
@@ -342,13 +347,14 @@ queries:
           type: nested_list
       - name: filterSpecimenCountByTissueCategory
         index:
-          - participants
+          - tab_biospecimens
         filter:
           type: nested
           ignoreSelectedField: true
           selectedField: tissue_category
           nestedPath: biospecimen_info
           nestedParameters:
+            - specimen_id
             - anatomical_collection_site
             - specimen_type
             - tissue_category
@@ -357,12 +363,13 @@ queries:
           type: nested_list
       - name: participantCountByAssessmentTimepoint
         index:
-          - participants
+          - tab_biospecimens
         filter:
           type: nested
           selectedField: assessment_timepoint
           nestedPath: biospecimen_info
           nestedParameters:
+            - specimen_id
             - anatomical_collection_site
             - specimen_type
             - tissue_category
@@ -371,13 +378,14 @@ queries:
           type: nested_list
       - name: filterParticipantCountByAssessmentTimepoint
         index:
-          - participants
+          - tab_biospecimens
         filter:
           type: nested
           ignoreSelectedField: true
           selectedField: assessment_timepoint
           nestedPath: biospecimen_info
           nestedParameters:
+            - specimen_id
             - anatomical_collection_site
             - specimen_type
             - tissue_category
@@ -386,7 +394,7 @@ queries:
           type: nested_list
       - name: dataFileCountByDataFileType
         index:
-          - participants
+          - tab_data_files
         filter:
           type: nested
           selectedField: data_file_type
@@ -398,7 +406,7 @@ queries:
           type: nested_list
       - name: filterDataFileCountByDataFileType
         index:
-          - participants
+          - tab_data_files
         filter:
           type: nested
           ignoreSelectedField: true
@@ -411,7 +419,7 @@ queries:
           type: nested_list
       - name: dataFileCountByDataFileFormat
         index:
-          - participants
+          - tab_data_files
         filter:
           type: nested
           selectedField: data_file_format
@@ -423,7 +431,7 @@ queries:
           type: nested_list
       - name: filterDataFileCountByDataFileFormat
         index:
-          - participants
+          - tab_data_files
         filter:
           type: nested
           ignoreSelectedField: true
