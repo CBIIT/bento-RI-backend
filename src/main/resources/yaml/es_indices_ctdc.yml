@@ -428,8 +428,8 @@ Indices:
         type: keyword
     # Cypher query will be used to retrieve data from Neo4j, and index into Elasticsearch
     cypher_query: "
-      MATCH (study:study)<-[:belongs_to]-(sb)
       MATCH (sb:subject)<-[*..2]-(data_file:data_file)
+      MATCH (study:study)<-[:belongs_to]-(sb)
       MATCH (demo:demographic)-[:of_subject]->(sb)
       MATCH (diag:diagnosis)-[:of_subject]->(sb)
       MATCH (target:targeted_therapy)-[:of_subject]->(sb)
@@ -639,6 +639,19 @@ Indices:
             type: keyword
           data_file_location:
             type: keyword
+      biospecimen_info:
+        type: nested
+        properties:
+          specimen_id:
+            type: keyword
+          anatomical_collection_site:
+            type: keyword
+          specimen_type:
+            type: keyword
+          tissue_category:
+            type: keyword
+          assessment_timepoint:
+            type: keyword
       data_file_uuid:
         type: keyword
 
@@ -668,7 +681,6 @@ Indices:
     cypher_query: "
       MATCH (spec:specimen)-[:of_subject]->(sub:subject)
       MATCH (sub)<-[:of_subject]-(diag:diagnosis)
-
       MATCH (sub)<-[:of_subject]-(demo:demographic)
       MATCH (sub)<-[:of_subject]-(exp:exposure)
       MATCH (sub)<-[:of_subject]-(tt:targeted_therapy)
@@ -698,6 +710,13 @@ Indices:
           data_file_compression_status: df.data_file_compression_status,
           data_file_location: df.data_file_location
         }) AS data_files,
+        COLLECT(DISTINCT{
+          specimen_id: spec.specimen_id,
+          anatomical_collection_site: spec.anatomical_collection_site,
+          specimen_type: spec.specimen_type,
+          tissue_category: spec.tissue_category,
+          assessment_timepoint: spec.assessment_timepoint
+      }) AS biospecimen_info,
         COLLECT(DISTINCT(df.data_file_uuid)) AS data_file_uuid,
   
         COLLECT(DISTINCT(diag.tumor_grade )) AS tumor_grade,
