@@ -749,6 +749,14 @@ Indices:
         type: keyword
       data_file_description:
         type: keyword
+      data_file_checksum_value:
+        type: keyword
+      data_file_checksum_type:
+        type: keyword
+      data_file_location:
+        type: keyword
+      data_file_compression_status:
+        type: keyword
       association:
         type: keyword
       subject_id:
@@ -757,7 +765,7 @@ Indices:
         type: keyword
       snomed_disease_term:
         type: keyword
-      data_file_uuid: # For Adding Files into Cart
+      data_file_uuid: 
         type: keyword
       stage_of_disease:
         type: keyword
@@ -771,12 +779,12 @@ Indices:
         type: keyword
       ethnicity:
         type: keyword
+      age_at_enrollment:
+        type: keyword
       carcinogen_exposure:
         type: keyword
       targeted_therapy:
         type: keyword
-      
-      # Facets section: Biospecimens
       anatomical_collection_site:
         type: keyword
       specimen_type:
@@ -794,6 +802,10 @@ Indices:
             type: keyword
           data_file_format:
             type: keyword
+      parent_specimen_id:
+        type: keyword
+      primary_disease_site:
+        type: keyword
     cypher_query: "
       MATCH (sub:subject)<-[*..2]-(parent)<--(f:data_file)
       optional MATCH (f:data_file)-[:associated_with]->(spec:specimen)
@@ -810,6 +822,10 @@ Indices:
         f.data_file_size AS data_file_size,
         f.data_file_uuid AS data_file_uuid,
         f.data_file_description AS data_file_description,
+        f.data_file_checksum_value AS  data_file_checksum_value,
+        f.data_file_checksum_type AS data_file_checksum_type,
+        f.data_file_location AS data_file_location,
+        f.data_file_compression_status AS data_file_compression_status,
         'biospecimen' AS association,
       
         spec.specimen_id AS specimen_id,
@@ -819,10 +835,13 @@ Indices:
       
         diag.stage_of_disease AS stage_of_disease,
         diag.tumor_grade AS tumor_grade,
+        diag.primary_disease_site as primary_disease_site,
+        
         demo.sex AS sex,
         demo.reported_gender AS reported_gender,
         demo.race AS race,
         demo.ethnicity AS ethnicity,
+        demo.age_at_enrollment AS age_at_enrollment,
       
         COLLECT(DISTINCT(exp.carcinogen_exposure)) AS carcinogen_exposure,
         COLLECT(DISTINCT(tt.targeted_therapy)) AS targeted_therapy,
@@ -831,11 +850,13 @@ Indices:
         spec.specimen_type AS specimen_type,
         spec.tissue_category AS tissue_category,
         spec.assessment_timepoint AS assessment_timepoint,
+        spec.parent_specimen_id AS parent_specimen_id,
+
         COLLECT(DISTINCT{
-        data_file_uuid: f.data_file_uuid,
-        data_file_format: f.data_file_format,
-        data_file_type: f.data_file_type
-      }) AS file_info
+          data_file_uuid: f.data_file_uuid,
+          data_file_format: f.data_file_format,
+          data_file_type: f.data_file_type
+        }) AS file_info
       
       UNION
 
@@ -854,8 +875,11 @@ Indices:
         f.data_file_size AS data_file_size,
         f.data_file_uuid AS data_file_uuid,
         f.data_file_description AS data_file_description,
+        f.data_file_checksum_value AS  data_file_checksum_value,
+        f.data_file_checksum_type AS data_file_checksum_type,
+        f.data_file_location AS data_file_location,
+        f.data_file_compression_status AS data_file_compression_status,
         'participant' AS association,
-      
         spec.specimen_id AS specimen_id,
         sub.subject_id AS subject_id,
       
@@ -863,11 +887,15 @@ Indices:
       
         diag.stage_of_disease AS stage_of_disease,
         diag.tumor_grade AS tumor_grade,
+        diag.primary_disease_site as primary_disease_site,
+
         demo.sex AS sex,
         demo.reported_gender AS reported_gender,
         demo.race AS race,
         demo.ethnicity AS ethnicity,
-      
+        demo.age_at_enrollment AS age_at_enrollment,
+
+
         COLLECT(DISTINCT(exp.carcinogen_exposure)) AS carcinogen_exposure,
         COLLECT(DISTINCT(tt.targeted_therapy)) AS targeted_therapy,
         
@@ -875,11 +903,13 @@ Indices:
         spec.specimen_type AS specimen_type,
         spec.tissue_category AS tissue_category,
         spec.assessment_timepoint AS assessment_timepoint,
+        spec.parent_specimen_id AS parent_specimen_id,
+
         COLLECT(DISTINCT{
-        data_file_uuid: f.data_file_uuid,
-        data_file_format: f.data_file_format,
-        data_file_type: f.data_file_type
-      }) AS file_info    
+          data_file_uuid: f.data_file_uuid,
+          data_file_format: f.data_file_format,
+          data_file_type: f.data_file_type
+        }) AS file_info
     "
   #Handles datafiles only related to Biospecimen
   - index_name: biospecimen_data_file
@@ -969,6 +999,5 @@ Indices:
         spec.specimen_type AS specimen_type,
         spec.tissue_category AS tissue_category,
         spec.assessment_timepoint AS assessment_timepoint
-        
     "
  
