@@ -75,8 +75,6 @@ queries:
       alternativeSortField:
         specimen_id: specimen_id
         subject_id: subject_id
-      ignoreIfEmpty:
-        - data_file_uuid
     result:
       type: object_array
   - name: filesInList # Support Cart Table
