@@ -396,6 +396,8 @@ Indices:
         type: keyword
       specimen_id:
         type: keyword
+      parent_specimen_type:
+        type: keyword
       data_file_uuid:
         type: keyword
       data_file_type:
@@ -436,7 +438,7 @@ Indices:
       MATCH (expose:exposure)-[:of_subject]->(sb)
       optional MATCH (spec:specimen)-[:of_subject]->(sb)
       RETURN DISTINCT
-      'subject' as type,
+      'participant' as type,
       sb.subject_id as subject_id,
       COLLECT(DISTINCT study.study_short_name) as study_short_name,
       COLLECT(DISTINCT diag.snomed_disease_term) as snomed_disease_term,
@@ -456,6 +458,7 @@ Indices:
       COLLECT(DISTINCT spec.tissue_category) AS tissue_category,
       COLLECT(DISTINCT spec.assessment_timepoint) AS assessment_timepoint,
       COLLECT(DISTINCT spec.specimen_id) AS specimen_id,
+      spec.parent_specimen_type AS parent_specimen_type,
       COLLECT(DISTINCT data_file.data_file_type) AS data_file_type,
       COLLECT(DISTINCT data_file.data_file_uuid) AS data_file_uuid,
       COLLECT(DISTINCT data_file.data_file_format) AS data_file_format,
@@ -598,6 +601,8 @@ Indices:
         type: keyword
       subject_id:
         type: keyword
+      study_short_name:
+        type: keyword
       snomed_disease_term:
         type: keyword
       stage_of_disease:
@@ -607,6 +612,8 @@ Indices:
       specimen_id:
         type: keyword
       parent_specimen_id:
+        type: keyword
+      parent_biospecimen_type:
         type: keyword
       anatomical_collection_site:
         type: keyword
@@ -680,6 +687,7 @@ Indices:
     # TODO: Make sure diagnosis is 1:1 with subject
     cypher_query: "
       MATCH (spec:specimen)-[:of_subject]->(sub:subject)
+      MATCH (study:study)<-[:belongs_to]-(sub)
       MATCH (sub)<-[:of_subject]-(diag:diagnosis)
       MATCH (sub)<-[:of_subject]-(demo:demographic)
       MATCH (sub)<-[:of_subject]-(exp:exposure)
@@ -694,10 +702,12 @@ Indices:
         diag.primary_disease_site AS primary_disease_site,
         spec.specimen_id AS specimen_id,
         spec.parent_specimen_id AS parent_specimen_id,
+        spec.parent_biospecimen_type AS parent_biospecimen_type,
         spec.anatomical_collection_site AS anatomical_collection_site,
         spec.specimen_type AS specimen_type,
         spec.tissue_category AS tissue_category,
         spec.assessment_timepoint AS assessment_timepoint,
+        COLLECT(DISTINCT study.study_short_name) as study_short_name,
         COLLECT(DISTINCT{
           data_file_uuid: df.data_file_uuid,
           data_file_name: df.data_file_name,

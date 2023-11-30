@@ -1,17 +1,35 @@
 queries:
   - name: globalSearch
     returnFields:
-      - name: subjects
+      - name: participants
         index:
-          - subjects
+          - participants
         filter:
           type: global
-          defaultSortField: subject_id_num
+          defaultSortField: subject_id
           searches:
             - field: subject_id
               type: wildcard
               caseInsensitive: true
-            - field: diagnosis_gs
+            - field: study_short_name
+              type: wildcard
+              caseInsensitive: true
+            - field: snomed_disease_term
+              type: wildcard
+              caseInsensitive: true
+            - field: sex
+              type: wildcard
+              caseInsensitive: true
+            - field: reported_gender
+              type: wildcard
+              caseInsensitive: true
+            - field: race
+              type: wildcard
+              caseInsensitive: true
+            - field: ethnicity
+              type: wildcard
+              caseInsensitive: true
+            - field: targeted_therapy
               type: wildcard
               caseInsensitive: true
           typedSearch:
@@ -20,17 +38,38 @@ queries:
               option: integer
         result:
           type: global
-      - name: subject_count
+      - name: biospecimen
         index:
-          - subjects
+          - tab_biospecimens
         filter:
           type: global
-          defaultSortField: subject_id_num
+          defaultSortField: specimen_id
           searches:
-            - field: subject_id
+            - field: specimen_id
               type: wildcard
               caseInsensitive: true
-            - field: diagnosis_gs
+            - field: study_short_name
+              type: wildcard
+              caseInsensitive: true
+            - field: subject_ID
+              type: wildcard
+              caseInsensitive: true
+            - field: snomed_disease_term
+              type: wildcard
+              caseInsensitive: true
+            - field: specimen_type
+              type: wildcard
+              caseInsensitive: true
+            - field: parent_specimen_type
+              type: wildcard
+              caseInsensitive: true
+            - field: tissue_category
+              type: wildcard
+              caseInsensitive: true
+            - field: anatomical_collection_site
+              type: wildcard
+              caseInsensitive: true
+            - field: assessment_timepoint
               type: wildcard
               caseInsensitive: true
           typedSearch:
@@ -38,235 +77,5 @@ queries:
               type: term
               option: integer
         result:
-          type: int_total_count
-
-      - name: samples
-        index:
-          - samples
-        filter:
           type: global
-          defaultSortField: subject_id_num
-          searches:
-            - field: sample_id_gs
-              type: wildcard
-            - field: sample_anatomic_site_gs
-              type: wildcard
-            - field: tissue_type_gs
-              type: wildcard
-        result:
-          type: global
-      - name: sample_count
-        index:
-          - samples
-        filter:
-          type: global
-          defaultSortField: subject_id_num
-          searches:
-            - field: sample_id_gs
-              type: wildcard
-            - field: sample_anatomic_site_gs
-              type: wildcard
-            - field: tissue_type_gs
-              type: wildcard
-        result:
-          type: int_total_count
-
-      - name: programs
-        index:
-          - programs
-        filter:
-          type: global
-          defaultSortField: program_id_kw
-          searches:
-            - field: program_id
-              type: wildcard
-            - field: program_code
-              type: wildcard
-            - field: program_name
-              type: wildcard
-        result:
-          type: global
-      - name: program_count
-        index:
-          - programs
-        filter:
-          type: global
-          defaultSortField: program_id_kw
-          searches:
-            - field: program_id
-              type: wildcard
-            - field: program_code
-              type: wildcard
-            - field: program_name
-              type: wildcard
-        result:
-          type: int_total_count
-
-      - name: studies
-        index:
-          - studies
-        filter:
-          type: global
-          defaultSortField: study_id_kw
-          searches:
-            - field: study_id
-              type: wildcard
-            - field: study_name
-              type: wildcard
-            - field: study_type
-              type: wildcard
-        result:
-          type: global
-      - name: study_count
-        index:
-          - studies
-        filter:
-          type: global
-          defaultSortField: study_id_kw
-          searches:
-            - field: study_id
-              type: wildcard
-            - field: study_name
-              type: wildcard
-            - field: study_type
-              type: wildcard
-        result:
-          type: int_total_count
-
-      - name: files
-        index:
-          - files
-        filter:
-          type: global
-          defaultSortField: file_id_num
-          searches:
-            - field: file_id_gs
-              type: wildcard
-            - field: file_name
-              type: wildcard
-              caseInsensitive: true
-            - field: file_format_gs
-              type: wildcard
-        result:
-          type: global
-      - name: file_count
-        index:
-          - files
-        filter:
-          type: global
-          defaultSortField: file_id_num
-          searches:
-            - field: file_id_gs
-              type: wildcard
-            - field: file_name
-              type: wildcard
-              caseInsensitive: true
-            - field: file_format_gs
-              type: wildcard
-        result:
-          type: int_total_count
-
-      # About Page
-      # Always Set offset= 0 and default-size=10000
-      - name: about_page
-        index:
-          - about_page
-        filter:
-          type: global
-          selectedField: content.paragraph
-          searches:
-            - field: content.paragraph
-              type: wildcard
-        highlight:
-          fields:
-            - content.paragraph
-          preTag: $
-          postTag: $
-        result:
-          type: global_about
-      - name: about_count
-        index:
-          - about_page
-        filter:
-          type: global
-          selectedField: content.paragraph
-          searches:
-            - field: content.paragraph
-              type: wildcard
-        highlight:
-          fields:
-            - content.paragraph
-          preTag: $
-          postTag: $
-        result:
-          type: int_total_count
-
-      # Multiple ES Index Search
-      # Always Set offset= 0 and default-size=10000
-      - name: model
-        index:
-          - model_properties
-          - model_values
-          - model_nodes
-        filter:
-          type: global
-          searches:
-            - field: value.keyword
-              type: wildcard
-            - field: property_name
-              type: term
-            - field: property_type
-              type: term
-            - field: property_description
-              type: wildcard
-            - field: node_name
-              type: term
-          typedSearch:
-            - field: property_required
-              type: match
-              option: boolean
-        highlight:
-          fields:
-            - property_name
-            - property_description
-            - property_type
-            - property_required
-            - value
-            - node_name
-          fragmentSize: 1
-        result:
-          type: global_multi_models
-
-      - name: model_count
-        index:
-          - model_properties
-          - model_values
-          - model_nodes
-        filter:
-          type: global
-          searches:
-            - field: value.keyword
-              type: wildcard
-            - field: property_name
-              type: term
-            - field: property_type
-              type: term
-            - field: property_description
-              type: wildcard
-            - field: node_name
-              type: term
-          typedSearch:
-            - field: property_required
-              type: match
-              option: boolean
-        highlight:
-          fields:
-            - property_name
-            - property_description
-            - property_type
-            - property_required
-            - value
-            - node_name
-          fragmentSize: 1
-        result:
-          type: int_total_count
+ 
