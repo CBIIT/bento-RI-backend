@@ -32,6 +32,9 @@ queries:
             - field: targeted_therapy
               type: wildcard
               caseInsensitive: true
+            - field: stage_of_disease
+              type: wildcard
+              caseInsensitive: true
           typedSearch:
             - field: age_at_index
               type: term
@@ -78,4 +81,4 @@ queries:
               option: integer
         result:
           type: global
- 
+      

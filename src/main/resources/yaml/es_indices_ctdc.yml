@@ -702,7 +702,7 @@ Indices:
         diag.primary_disease_site AS primary_disease_site,
         spec.specimen_id AS specimen_id,
         spec.parent_specimen_id AS parent_specimen_id,
-        spec.parent_biospecimen_type AS parent_biospecimen_type,
+        spec.parent_specimen_type AS parent_specimen_type,
         spec.anatomical_collection_site AS anatomical_collection_site,
         spec.specimen_type AS specimen_type,
         spec.tissue_category AS tissue_category,
