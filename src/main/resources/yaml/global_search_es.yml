@@ -38,7 +38,7 @@ queries:
               option: integer
         result:
           type: global
-      - name: biospecimen
+      - name: biospecimens
         index:
           - tab_biospecimens
         filter:

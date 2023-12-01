@@ -613,7 +613,7 @@ Indices:
         type: keyword
       parent_specimen_id:
         type: keyword
-      parent_biospecimen_type:
+      parent_specimen_type:
         type: keyword
       anatomical_collection_site:
         type: keyword

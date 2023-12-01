@@ -4,7 +4,7 @@ type GlobalSearchResult {
 
     participants: [GS_Subject]
 
-    biospecimen: [GS_Biospecimen]
+    biospecimens: [GS_Biospecimen]
 
 
 }
