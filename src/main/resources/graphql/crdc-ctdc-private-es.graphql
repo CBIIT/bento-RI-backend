@@ -133,23 +133,6 @@ type DataFile {
   data_file_compression_status: String
   data_file_location: String
 }
-# Cart
-type DataFileDetail {
-  subject_id: String
-  specimen_id: String
-  association: String
-  snomed_disease_term: String
-  data_file_uuid: String
-  data_file_name: String
-  data_file_type: String
-  data_file_description: String
-  data_file_format: String
-  data_file_size: String
-  data_file_checksum_value: String
-  data_file_checksum_type: String
-  data_file_compression_status: String
-  data_file_location: String
-}
 
 type StudyDataFile {
   study_short_name: String
@@ -263,6 +246,7 @@ type BiospecimenOverview {
   data_files: [DataFile]
 }
 
+# Cart
 type FileOverview {
   subject_id: String
   data_file_name: String
@@ -540,7 +524,7 @@ type QueryType {
     sort_direction: String = "ASC"
     first: Int = 10
     offset: Int = 0
-  ): [DataFileDetail]
+  ): [FileOverview]
 
   globalSearch (
     input: String,
