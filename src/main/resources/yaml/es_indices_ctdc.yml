@@ -438,7 +438,7 @@ Indices:
       MATCH (expose:exposure)-[:of_subject]->(sb)
       optional MATCH (spec:specimen)-[:of_subject]->(sb)
       RETURN DISTINCT
-      'participant' as type,
+      'participants' as type,
       sb.subject_id as subject_id,
       COLLECT(DISTINCT study.study_short_name) as study_short_name,
       COLLECT(DISTINCT diag.snomed_disease_term) as snomed_disease_term,
@@ -553,7 +553,7 @@ Indices:
       MATCH (sb)<-[:of_subject]-(exp:exposure)
       MATCH (sb)<-[:of_subject]-(tt:targeted_therapy)
       RETURN DISTINCT
-      'participant' AS type,
+      'participants' AS type,
       sb.subject_id AS subject_id,
       COLLECT(DISTINCT(diag.snomed_disease_term)) AS snomed_disease_term,
       COLLECT(DISTINCT(diag.stage_of_disease)) AS stage_of_disease,
@@ -695,7 +695,7 @@ Indices:
       MATCH (spec)<-[:associated_with]-(df:data_file)
 
       RETURN DISTINCT
-        'biospecimen' AS type,
+        'biospecimens' AS type,
         sub.subject_id AS subject_id,
         diag.snomed_disease_term AS snomed_disease_term,
         diag.stage_of_disease AS stage_of_disease,
