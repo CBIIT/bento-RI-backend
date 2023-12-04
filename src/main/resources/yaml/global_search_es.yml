@@ -51,6 +51,30 @@ queries:
             - field: subject_id
               type: wildcard
               caseInsensitive: true
+            - field: study_short_name
+              type: wildcard
+              caseInsensitive: true
+            - field: snomed_disease_term
+              type: wildcard
+              caseInsensitive: true
+            - field: sex
+              type: wildcard
+              caseInsensitive: true
+            - field: reported_gender
+              type: wildcard
+              caseInsensitive: true
+            - field: race
+              type: wildcard
+              caseInsensitive: true
+            - field: ethnicity
+              type: wildcard
+              caseInsensitive: true
+            - field: targeted_therapy
+              type: wildcard
+              caseInsensitive: true
+            - field: stage_of_disease
+              type: wildcard
+              caseInsensitive: true
           typedSearch:
             - field: age_at_index
               type: term
@@ -105,6 +129,30 @@ queries:
           defaultSortField: specimen_id
           searches:
             - field: specimen_id
+              type: wildcard
+              caseInsensitive: true
+            - field: study_short_name
+              type: wildcard
+              caseInsensitive: true
+            - field: subject_ID
+              type: wildcard
+              caseInsensitive: true
+            - field: snomed_disease_term
+              type: wildcard
+              caseInsensitive: true
+            - field: specimen_type
+              type: wildcard
+              caseInsensitive: true
+            - field: parent_specimen_type
+              type: wildcard
+              caseInsensitive: true
+            - field: tissue_category
+              type: wildcard
+              caseInsensitive: true
+            - field: anatomical_collection_site
+              type: wildcard
+              caseInsensitive: true
+            - field: assessment_timepoint
               type: wildcard
               caseInsensitive: true
           typedSearch:
