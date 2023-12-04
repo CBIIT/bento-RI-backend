@@ -3,9 +3,10 @@
 type GlobalSearchResult {
 
     participants: [GS_Subject]
+    participant_count: Int
 
     biospecimens: [GS_Biospecimen]
-
+    biospecimen_count: Int
 
 }
 type PublicGlobalSearchResult {

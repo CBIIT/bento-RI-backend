@@ -41,6 +41,22 @@ queries:
               option: integer
         result:
           type: global
+      - name: participant_count
+        index:
+          - participants
+        filter:
+          type: global
+          defaultSortField: subject_id
+          searches:
+            - field: subject_id
+              type: wildcard
+              caseInsensitive: true
+          typedSearch:
+            - field: age_at_index
+              type: term
+              option: integer
+        result:
+          type: int_total_count
       - name: biospecimens
         index:
           - tab_biospecimens
@@ -81,4 +97,20 @@ queries:
               option: integer
         result:
           type: global
+      - name: biospecimen_count
+        index:
+          - tab_biospecimens
+        filter:
+          type: global
+          defaultSortField: specimen_id
+          searches:
+            - field: specimen_id
+              type: wildcard
+              caseInsensitive: true
+          typedSearch:
+            - field: age_at_index
+              type: term
+              option: integer
+        result:
+          type: int_total_count
       
