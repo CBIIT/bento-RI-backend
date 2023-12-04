@@ -1,9 +1,100 @@
+
+
+type GlobalSearchResult {
+
+    participants: [GS_Subject]
+    participant_count: Int
+
+    biospecimens: [GS_Biospecimen]
+    biospecimen_count: Int
+
+}
+type PublicGlobalSearchResult {
+
+    about_count: Int
+    about_page: [GS_About]
+
+    model_count: Int
+    model: [GS_Model]
+}
+type GS_Program {
+    type: String
+    program_id: String
+    program_code: String
+    program_name: String
+}
+
+type GS_Study {
+    type: String
+    study_id: String
+    program_id: String
+    study_name: String
+    study_type: String
+    study_code: String
+}
+
+type GS_Subject {
+    type: String
+    study_short_name: String
+    snomed_disease_term: String
+    sex: String
+    reported_gender: String
+    race: String
+    targeted_therapy: String
+    ethnicity: String
+    subject_id: String
+    stage_of_disease: String 
+}
+
+type GS_Biospecimen {
+    type: String
+    study_short_name: String
+    specimen_id: String
+    subject_id: String
+    snomed_disease_term: String
+    specimen_type: String
+    parent_specimen_type: String
+    tissue_category: String
+    anatomical_collection_site: String
+    assessment_timepoint: String  
+    
+}
+
+type GS_File {
+    type: String
+    file_id: String
+    file_name: String
+    file_format: String
+    program_id: String
+    subject_id: String
+    sample_id: String
+}
+
+type GS_Model {
+    type: String
+    node_name: String
+    property_name: String
+    property_description: String
+    property_required: String
+    property_type: String
+    value: String
+    highlight: String
+}
+
+type GS_About {
+    page: String
+    title: String
+    type: String
+    text: [String]
+}
+
 type Subject {
   biomarker_results_available: String
   histology_images_available: String
   radiology_images_available: String
   radiology_report_available: String
   subject_id: String
+  study_short_name: String
 }
 
 type AssociatedLink {
@@ -415,7 +506,7 @@ type QueryType {
     data_file_format: [String] = []
     data_file_uuid: [String] = []
 
-    order_by: String = "data_file_name"
+    order_by: String = "specimen_id"
     sort_direction: String = "ASC"
     first: Int = 10
     offset: Int = 0
@@ -456,4 +547,10 @@ type QueryType {
     first: Int = 10
     offset: Int = 0
   ): [FileOverview]
+
+  globalSearch (
+    input: String,
+    first: Int = 100,
+    offset: Int = 0
+  ): GlobalSearchResult
 }
