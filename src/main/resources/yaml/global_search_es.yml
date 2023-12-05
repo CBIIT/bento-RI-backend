@@ -161,4 +161,109 @@ queries:
               option: integer
         result:
           type: int_total_count
+      # About Page
+      # Always Set offset= 0 and default-size=10000
+      - name: about_page
+        index:
+          - about_page
+        filter:
+          type: global
+          selectedField: content.paragraph
+          searches:
+            - field: content.paragraph
+              type: wildcard
+        highlight:
+          fields:
+            - content.paragraph
+          preTag: $
+          postTag: $
+        result:
+          type: global_about
+      - name: about_count
+        index:
+          - about_page
+        filter:
+          type: global
+          selectedField: content.paragraph
+          searches:
+            - field: content.paragraph
+              type: wildcard
+        highlight:
+          fields:
+            - content.paragraph
+          preTag: $
+          postTag: $
+        result:
+          type: int_total_count
+
+      # Multiple ES Index Search
+      # Always Set offset= 0 and default-size=10000
+      - name: model
+        index:
+          - model_properties
+          - model_values
+          - model_nodes
+        filter:
+          type: global
+          searches:
+            - field: value.keyword
+              type: wildcard
+            - field: property_name
+              type: term
+            - field: property_type
+              type: term
+            - field: property_description
+              type: wildcard
+            - field: node_name
+              type: term
+          typedSearch:
+            - field: property_required
+              type: match
+              option: boolean
+        highlight:
+          fields:
+            - property_name
+            - property_description
+            - property_type
+            - property_required
+            - value
+            - node_name
+          fragmentSize: 1
+        result:
+          type: global_multi_models
+
+      - name: model_count
+        index:
+          - model_properties
+          - model_values
+          - model_nodes
+        filter:
+          type: global
+          searches:
+            - field: value.keyword
+              type: wildcard
+            - field: property_name
+              type: term
+            - field: property_type
+              type: term
+            - field: property_description
+              type: wildcard
+            - field: node_name
+              type: term
+          typedSearch:
+            - field: property_required
+              type: match
+              option: boolean
+        highlight:
+          fields:
+            - property_name
+            - property_description
+            - property_type
+            - property_required
+            - value
+            - node_name
+          fragmentSize: 1
+        result:
+          type: int_total_count
+
       

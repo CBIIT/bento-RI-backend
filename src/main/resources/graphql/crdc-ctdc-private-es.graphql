@@ -8,6 +8,12 @@ type GlobalSearchResult {
     biospecimens: [GS_Biospecimen]
     biospecimen_count: Int
 
+    about_count: Int
+    about_page: [GS_About]
+
+    model_count: Int
+    model: [GS_Model]
+
 }
 type PublicGlobalSearchResult {
 

@@ -1010,4 +1010,62 @@ Indices:
         spec.tissue_category AS tissue_category,
         spec.assessment_timepoint AS assessment_timepoint
     "
+    #Handles information stored int the about page
+  - index_name: about_page
+    type: about_file
+    mapping:
+      page:
+        type: keyword
+      title:
+        type: keyword
+      primaryContentImage:
+        type: text
+      content:
+        type: object
+  #Handles information stored in model file regarding nodes
+  - index_name: model_nodes
+    type: model
+    subtype: node
+    mapping:
+      node:
+        type: keyword
+      node_kw:
+        type: keyword
+  #Handles information stored in model file
+  - index_name: model_properties
+    type: model
+    subtype: property
+    mapping:
+      node:
+        type: keyword
+      property:
+        type: keyword
+      property_kw:
+        type: keyword
+      property_description:
+        type: keyword
+      property_required:
+        type: keyword
+      property_type:
+        type: keyword
+  #Handles information stored in model file
+  - index_name: model_values
+    type: model
+    subtype: value
+    mapping:
+      node:
+        type: keyword
+      property:
+        type: keyword
+      property_description:
+        type: keyword
+      property_required:
+        type: keyword
+      property_type:
+        type: keyword
+      value:
+        type: keyword
+      value_kw:
+        type: keyword
+
  
