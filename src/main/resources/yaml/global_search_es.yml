@@ -94,7 +94,7 @@ queries:
             - field: study_short_name
               type: wildcard
               caseInsensitive: true
-            - field: subject_ID
+            - field: subject_id
               type: wildcard
               caseInsensitive: true
             - field: snomed_disease_term
@@ -134,7 +134,7 @@ queries:
             - field: study_short_name
               type: wildcard
               caseInsensitive: true
-            - field: subject_ID
+            - field: subject_id
               type: wildcard
               caseInsensitive: true
             - field: snomed_disease_term
