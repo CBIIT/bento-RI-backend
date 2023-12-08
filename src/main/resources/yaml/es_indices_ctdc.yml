@@ -775,6 +775,12 @@ Indices:
         type: keyword
       snomed_disease_term:
         type: keyword
+      ctep_disease_term:
+        type: keyword
+      meddra_disease_code:
+        type: keyword
+      histology:
+        type: keyword
       data_file_uuid: 
         type: keyword
       stage_of_disease:
@@ -842,11 +848,14 @@ Indices:
         sub.subject_id AS subject_id,
       
         diag.snomed_disease_term AS snomed_disease_term,
-      
+        
         diag.stage_of_disease AS stage_of_disease,
         diag.tumor_grade AS tumor_grade,
         diag.primary_disease_site as primary_disease_site,
-        
+        diag.ctep_disease_code as ctep_disease_term,
+        diag.meddra_disease_code as meddra_disease_code,
+        diag.histology as histology,
+
         demo.sex AS sex,
         demo.reported_gender AS reported_gender,
         demo.race AS race,
@@ -898,6 +907,9 @@ Indices:
         diag.stage_of_disease AS stage_of_disease,
         diag.tumor_grade AS tumor_grade,
         diag.primary_disease_site as primary_disease_site,
+        diag.ctep_disease_code as ctep_disease_term,
+        diag.meddra_disease_code as meddra_disease_code,
+        diag.histology as histology,
 
         demo.sex AS sex,
         demo.reported_gender AS reported_gender,
