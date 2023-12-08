@@ -127,8 +127,8 @@ Indices:
 
     # Cypher query will be used to retrieve data from Neo4j, and index into Elasticsearch
     cypher_query: "
-      MATCH (s:study)
-      optional MATCH (s)<-[:associated_with]-(df:data_file)
+      MATCH (s:study)<-[:belongs_to]-(sb:subject)
+      optional MATCH (sb:subject)<-[*..2]-(df:data_file)
       RETURN DISTINCT 
         s.study_short_name as study_short_name,
         COLLECT(DISTINCT{
@@ -775,6 +775,12 @@ Indices:
         type: keyword
       snomed_disease_term:
         type: keyword
+      ctep_disease_term:
+        type: keyword
+      meddra_disease_code:
+        type: keyword
+      histology:
+        type: keyword
       data_file_uuid: 
         type: keyword
       stage_of_disease:
@@ -842,11 +848,14 @@ Indices:
         sub.subject_id AS subject_id,
       
         diag.snomed_disease_term AS snomed_disease_term,
-      
+        
         diag.stage_of_disease AS stage_of_disease,
         diag.tumor_grade AS tumor_grade,
         diag.primary_disease_site as primary_disease_site,
-        
+        diag.ctep_disease_code as ctep_disease_term,
+        diag.meddra_disease_code as meddra_disease_code,
+        diag.histology as histology,
+
         demo.sex AS sex,
         demo.reported_gender AS reported_gender,
         demo.race AS race,
@@ -898,6 +907,9 @@ Indices:
         diag.stage_of_disease AS stage_of_disease,
         diag.tumor_grade AS tumor_grade,
         diag.primary_disease_site as primary_disease_site,
+        diag.ctep_disease_code as ctep_disease_term,
+        diag.meddra_disease_code as meddra_disease_code,
+        diag.histology as histology,
 
         demo.sex AS sex,
         demo.reported_gender AS reported_gender,
@@ -1010,9 +1022,9 @@ Indices:
         spec.tissue_category AS tissue_category,
         spec.assessment_timepoint AS assessment_timepoint
     "
-    #Handles information stored int the about page
   - index_name: about_page
     type: about_file
+    # type mapping for each property of the index
     mapping:
       page:
         type: keyword
@@ -1022,19 +1034,22 @@ Indices:
         type: text
       content:
         type: object
-  #Handles information stored in model file regarding nodes
+
   - index_name: model_nodes
     type: model
     subtype: node
+    # type mapping for each property of the index
     mapping:
       node:
         type: keyword
       node_kw:
         type: keyword
   #Handles information stored in model file
+
   - index_name: model_properties
     type: model
     subtype: property
+    # type mapping for each property of the index
     mapping:
       node:
         type: keyword
@@ -1049,9 +1064,11 @@ Indices:
       property_type:
         type: keyword
   #Handles information stored in model file
+
   - index_name: model_values
     type: model
     subtype: value
+    # type mapping for each property of the index
     mapping:
       node:
         type: keyword

@@ -268,6 +268,9 @@ type FileOverview {
   data_file_checksum_type: String
   data_file_location: String
   data_file_compression_status: String
+  ctep_disease_term: String
+  meddra_disease_code: String
+  histology: String
   subject_id: String
   specimen_id: String
   snomed_disease_term: String
@@ -447,7 +450,6 @@ type QueryType {
     ethnicity: [String] = []
     carcinogen_exposure: [String] = []
     targeted_therapy: [String] = []
-
     anatomical_collection_site: [String] = []
     specimen_type: [String] = []
     tissue_category: [String] = []

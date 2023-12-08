@@ -22,7 +22,7 @@ queries:
           type: arm_program
       - name: timepointsAndBiospecimensTypes
         index:
-          - participants
+          - tab_biospecimens
         filter:
           type: sub_aggregation
           selectedField: assessment_timepoint
