@@ -7,7 +7,7 @@ queries:
           - participants
         filter:
           type: sub_aggregation
-          selectedField: snomed_disease_term
+          selectedField: ctep_disease_term
           subAggSelectedField: stage_of_disease
         result:
           type: arm_program
@@ -103,7 +103,7 @@ queries:
           - participants
         filter:
           type: aggregation
-          selectedField: snomed_disease_term
+          selectedField: ctep_disease_term
         result:
           type: group_count
       - name: filterParticipantCountBySnomedDiseaseTerm
@@ -111,7 +111,7 @@ queries:
           - participants
         filter:
           type: aggregation
-          selectedField: snomed_disease_term
+          selectedField: ctep_disease_term
           ignoreSelectedField: true
         result:
           type: group_count
@@ -256,7 +256,7 @@ queries:
           - participants
         filter:
           type: aggregation
-          selectedField: targeted_therapy
+          selectedField: targeted_therapy_id
         result:
           type: group_count
       - name: filterParticipantCountByTargetedTherapy
@@ -264,7 +264,7 @@ queries:
           - participants
         filter:
           type: aggregation
-          selectedField: targeted_therapy
+          selectedField: targeted_therapy_id
           ignoreSelectedField: true
         result:
           type: group_count

@@ -42,7 +42,7 @@ type GS_Study {
 type GS_Subject {
     type: String
     study_short_name: String
-    snomed_disease_term: String
+    ctep_disease_term: String
     sex: String
     reported_gender: String
     race: String
@@ -57,7 +57,7 @@ type GS_Biospecimen {
     study_short_name: String
     specimen_id: String
     subject_id: String
-    snomed_disease_term: String
+    ctep_disease_term: String
     specimen_type: String
     parent_specimen_type: String
     tissue_category: String
@@ -182,7 +182,7 @@ type StudySpecimen {
 }
 
 type Diagnosis {
-  snomed_disease_term: String
+  ctep_disease_term: String
   diagnosis_date: String
   diagnosis_date_original: String
   diagnosis_date_original_unit: String
@@ -226,7 +226,7 @@ type GroupCount {
 
 type ParticipantOverview {
   subject_id: String
-  snomed_disease_term: String
+  ctep_disease_term: String
   stage_of_disease: String
   tumor_grade: String
   age_at_diagnosis: String # TODO: Check type Int
@@ -242,7 +242,7 @@ type ParticipantOverview {
 }
 type BiospecimenOverview {
   subject_id: String
-  snomed_disease_term: String
+  ctep_disease_term: String
   stage_of_disease: String
   primary_disease_site: String
   specimen_id: String
@@ -273,7 +273,6 @@ type FileOverview {
   histology: String
   subject_id: String
   specimen_id: String
-  snomed_disease_term: String
   data_file_uuid: String
   stage_of_disease: String
   tumor_grade: String
@@ -300,7 +299,7 @@ type FileParticipant {
   association: String
   data_file_description: String
   specimen_id: String
-  snomed_disease_term: String
+  ctep_disease_term: String
   data_file_uuid: String # For Adding Files into Cart
 }
 
@@ -387,7 +386,7 @@ type QueryType {
 
   participantOverview(
     subject_id: [String] = []
-    snomed_disease_term: [String] = []
+    ctep_disease_term: [String] = []
     stage_of_disease: [String] = []
     tumor_grade: [String] = []
     sex: [String] = []
@@ -414,7 +413,7 @@ type QueryType {
   biospecimenOverview(
     subject_id: [String] = []
     specimen_id: [String] = []
-    snomed_disease_term: [String] = []
+    ctep_disease_term: [String] = []
     stage_of_disease: [String] = []
     tumor_grade: [String] = []
     sex: [String] = []
@@ -441,7 +440,8 @@ type QueryType {
 
   fileOverview(
     subject_id: [String] = []
-    snomed_disease_term: [String] = []
+    ctep_disease_term: [String] = []
+    snomed_disease_code: [String] = []
     stage_of_disease: [String] = []
     tumor_grade: [String] = []
     sex: [String] = []
@@ -467,7 +467,7 @@ type QueryType {
 
   participant_data_files(
     subject_id: [String] = []
-    snomed_disease_term: [String] = []
+    ctep_disease_term: [String] = []
     stage_of_disease: [String] = []
     tumor_grade: [String] = []
     sex: [String] = []
@@ -495,7 +495,7 @@ type QueryType {
   biospecimen_data_files(
     subject_id: [String] = []
     specimen_id: [String] = []
-    snomed_disease_term: [String] = []
+    ctep_disease_term: [String] = []
     stage_of_disease: [String] = []
     tumor_grade: [String] = []
     sex: [String] = []
@@ -521,7 +521,7 @@ type QueryType {
   ): [FileOverview]
 
   searchParticipants(
-    snomed_disease_term: [String] = []
+    ctep_disease_term: [String] = []
     stage_of_disease: [String] = []
     tumor_grade: [String] = []
     sex: [String] = []
