@@ -362,7 +362,7 @@ Indices:
         type: keyword
       study_short_name:
         type: keyword
-      snomed_disease_term:
+      ctep_disease_term:
         type: keyword
       snomed_disease_code:
         type: keyword
@@ -441,7 +441,7 @@ Indices:
       'participants' as type,
       sb.subject_id as subject_id,
       COLLECT(DISTINCT study.study_short_name) as study_short_name,
-      COLLECT(DISTINCT diag.snomed_disease_term) as snomed_disease_term,
+      COLLECT(DISTINCT diag.ctep_disease_code) as ctep_disease_term,
       COLLECT(DISTINCT diag.snomed_disease_code) as snomed_disease_code, 
       COLLECT(DISTINCT diag.tumor_grade) as tumor_grade,
       COLLECT(DISTINCT diag.stage_of_disease) as stage_of_disease,
@@ -484,7 +484,7 @@ Indices:
         type: keyword
       subject_id:
         type: keyword
-      snomed_disease_term:
+      ctep_disease_term:
         type: keyword
       stage_of_disease:
         type: keyword
@@ -555,7 +555,7 @@ Indices:
       RETURN DISTINCT
       'participants' AS type,
       sb.subject_id AS subject_id,
-      COLLECT(DISTINCT(diag.snomed_disease_term)) AS snomed_disease_term,
+      COLLECT(DISTINCT(diag.ctep_disease_code)) AS ctep_disease_term,
       COLLECT(DISTINCT(diag.stage_of_disease)) AS stage_of_disease,
       COLLECT(DISTINCT(diag.tumor_grade)) AS tumor_grade,
       COLLECT(DISTINCT(diag.subject_age_at_diagnosis)) as age_at_diagnosis,
@@ -603,7 +603,7 @@ Indices:
         type: keyword
       study_short_name:
         type: keyword
-      snomed_disease_term:
+      ctep_disease_term:
         type: keyword
       stage_of_disease:
         type: keyword
@@ -692,17 +692,16 @@ Indices:
       MATCH (sub)<-[:of_subject]-(demo:demographic)
       MATCH (sub)<-[:of_subject]-(exp:exposure)
       MATCH (sub)<-[:of_subject]-(tt:targeted_therapy)
-      MATCH (spec)<-[:associated_with]-(df:data_file)
-
+      MATCH (sub:subject)<-[*..2]-(df:data_file)
       RETURN DISTINCT
         'biospecimens' AS type,
         sub.subject_id AS subject_id,
-        diag.snomed_disease_term AS snomed_disease_term,
+        diag.ctep_disease_code AS ctep_disease_term,
         diag.stage_of_disease AS stage_of_disease,
         diag.primary_disease_site AS primary_disease_site,
         spec.specimen_id AS specimen_id,
         spec.parent_specimen_id AS parent_specimen_id,
-        spec.parent_specimen_type AS parent_specimen_type,
+        spec.parent_bspecimen_type AS parent_specimen_type,
         spec.anatomical_collection_site AS anatomical_collection_site,
         spec.specimen_type AS specimen_type,
         spec.tissue_category AS tissue_category,
@@ -728,7 +727,6 @@ Indices:
           assessment_timepoint: spec.assessment_timepoint
       }) AS biospecimen_info,
         COLLECT(DISTINCT(df.data_file_uuid)) AS data_file_uuid,
-  
         COLLECT(DISTINCT(diag.tumor_grade )) AS tumor_grade,
         demo.sex AS sex,
         demo.reported_gender AS reported_gender,
@@ -772,8 +770,6 @@ Indices:
       subject_id:
         type: keyword
       specimen_id:
-        type: keyword
-      snomed_disease_term:
         type: keyword
       ctep_disease_term:
         type: keyword
@@ -846,8 +842,7 @@ Indices:
       
         spec.specimen_id AS specimen_id,
         sub.subject_id AS subject_id,
-      
-        diag.snomed_disease_term AS snomed_disease_term,
+    
         
         diag.stage_of_disease AS stage_of_disease,
         diag.tumor_grade AS tumor_grade,
@@ -902,8 +897,6 @@ Indices:
         spec.specimen_id AS specimen_id,
         sub.subject_id AS subject_id,
       
-        diag.snomed_disease_term AS snomed_disease_term,
-      
         diag.stage_of_disease AS stage_of_disease,
         diag.tumor_grade AS tumor_grade,
         diag.primary_disease_site as primary_disease_site,
@@ -957,7 +950,7 @@ Indices:
         type: keyword
       specimen_id:
         type: keyword
-      snomed_disease_term:
+      ctep_disease_term:
         type: keyword
       stage_of_disease:
         type: keyword
@@ -1005,7 +998,7 @@ Indices:
         spec.specimen_id AS specimen_id,
         sub.subject_id AS subject_id,
       
-        diag.snomed_disease_term AS snomed_disease_term,
+        diag.ctep_disease_code AS ctep_disease_term,
       
         diag.stage_of_disease AS stage_of_disease,
         diag.tumor_grade AS tumor_grade,
