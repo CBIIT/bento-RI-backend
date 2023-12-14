@@ -14,7 +14,7 @@ queries:
             - field: study_short_name
               type: wildcard
               caseInsensitive: true
-            - field: snomed_disease_term
+            - field: ctep_disease_term
               type: wildcard
               caseInsensitive: true
             - field: sex
@@ -54,7 +54,7 @@ queries:
             - field: study_short_name
               type: wildcard
               caseInsensitive: true
-            - field: snomed_disease_term
+            - field: ctep_disease_term
               type: wildcard
               caseInsensitive: true
             - field: sex
@@ -97,7 +97,7 @@ queries:
             - field: subject_id
               type: wildcard
               caseInsensitive: true
-            - field: snomed_disease_term
+            - field: ctep_disease_term
               type: wildcard
               caseInsensitive: true
             - field: specimen_type
@@ -137,7 +137,7 @@ queries:
             - field: subject_id
               type: wildcard
               caseInsensitive: true
-            - field: snomed_disease_term
+            - field: ctep_disease_term
               type: wildcard
               caseInsensitive: true
             - field: specimen_type
