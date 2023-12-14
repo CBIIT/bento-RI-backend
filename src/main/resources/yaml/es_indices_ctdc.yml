@@ -692,7 +692,7 @@ Indices:
       MATCH (sub)<-[:of_subject]-(demo:demographic)
       MATCH (sub)<-[:of_subject]-(exp:exposure)
       MATCH (sub)<-[:of_subject]-(tt:targeted_therapy)
-      MATCH (sub:subject)<-[*..2]-(df:data_file)
+      MATCH (sub)<-[*..2]-(df:data_file)
       RETURN DISTINCT
         'biospecimens' AS type,
         sub.subject_id AS subject_id,
@@ -701,7 +701,7 @@ Indices:
         diag.primary_disease_site AS primary_disease_site,
         spec.specimen_id AS specimen_id,
         spec.parent_specimen_id AS parent_specimen_id,
-        spec.parent_bspecimen_type AS parent_specimen_type,
+        spec.parent_specimen_type AS parent_specimen_type,
         spec.anatomical_collection_site AS anatomical_collection_site,
         spec.specimen_type AS specimen_type,
         spec.tissue_category AS tissue_category,
@@ -727,6 +727,7 @@ Indices:
           assessment_timepoint: spec.assessment_timepoint
       }) AS biospecimen_info,
         COLLECT(DISTINCT(df.data_file_uuid)) AS data_file_uuid,
+  
         COLLECT(DISTINCT(diag.tumor_grade )) AS tumor_grade,
         demo.sex AS sex,
         demo.reported_gender AS reported_gender,
@@ -825,8 +826,8 @@ Indices:
       MATCH (sub)<-[:of_subject]-(demo:demographic)
       MATCH (sub)<-[:of_subject]-(exp:exposure)
       MATCH (sub)<-[:of_subject]-(tt:targeted_therapy)
- 
       RETURN DISTINCT
+
         'data file' AS type,
         f.data_file_name AS data_file_name,
         f.data_file_format AS data_file_format,
@@ -839,15 +840,16 @@ Indices:
         f.data_file_location AS data_file_location,
         f.data_file_compression_status AS data_file_compression_status,
         'biospecimen' AS association,
-      
-        spec.specimen_id AS specimen_id,
+
+       
+        COALESCE(spec.specimen_id, ' ') as specimen_id,
         sub.subject_id AS subject_id,
-    
+      
+        diag.ctep_disease_code AS ctep_disease_term,
         
         diag.stage_of_disease AS stage_of_disease,
         diag.tumor_grade AS tumor_grade,
         diag.primary_disease_site as primary_disease_site,
-        diag.ctep_disease_code as ctep_disease_term,
         diag.meddra_disease_code as meddra_disease_code,
         diag.histology as histology,
 
@@ -894,8 +896,9 @@ Indices:
         f.data_file_location AS data_file_location,
         f.data_file_compression_status AS data_file_compression_status,
         'participant' AS association,
-        spec.specimen_id AS specimen_id,
+        COALESCE(spec.specimen_id, ' ') as specimen_id,
         sub.subject_id AS subject_id,
+      
       
         diag.stage_of_disease AS stage_of_disease,
         diag.tumor_grade AS tumor_grade,

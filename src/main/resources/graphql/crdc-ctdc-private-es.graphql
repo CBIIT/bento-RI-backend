@@ -314,7 +314,7 @@ type SearchResult {
   numberOfTargetedTherapies: Int
   numberOfSpecimens: Int
   numberOfFiles: Int
-  participantCountBySnomedDiseaseTerm: [GroupCount]
+  participantCountByCtepDiseaseTerm: [GroupCount]
   participantCountBySnomedDiseaseCode: [GroupCount]
   participantCountByDiagnosis: [GroupCount]
   participantCountByTumorGrade: [GroupCount]
@@ -332,7 +332,7 @@ type SearchResult {
   dataFileCountByDataFileFormat: [GroupCount]
   participantCountByStageOfDisease: [GroupCount]
 
-  filterParticipantCountBySnomedDiseaseTerm: [GroupCount]
+  filterParticipantCountByCtepDiseaseTerm: [GroupCount]
   filterParticipantCountBySnomedDiseaseCode: [GroupCount]
   filterParticipantCountByTumorGrade: [GroupCount]
   filterParticipantCountBySex: [GroupCount]

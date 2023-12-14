@@ -98,7 +98,7 @@ queries:
         result:
           type: int
           method: count_bucket_keys
-      - name: participantCountBySnomedDiseaseTerm
+      - name: participantCountByCtepDiseaseTerm
         index:
           - participants
         filter:
@@ -106,7 +106,7 @@ queries:
           selectedField: ctep_disease_term
         result:
           type: group_count
-      - name: filterParticipantCountBySnomedDiseaseTerm
+      - name: filterParticipantCountByCtepDiseaseTerm
         index:
           - participants
         filter:
