@@ -256,7 +256,7 @@ queries:
           - participants
         filter:
           type: aggregation
-          selectedField: targeted_therapy_id
+          selectedField: targeted_therapy
         result:
           type: group_count
       - name: filterParticipantCountByTargetedTherapy
@@ -264,7 +264,7 @@ queries:
           - participants
         filter:
           type: aggregation
-          selectedField: targeted_therapy_id
+          selectedField: targeted_therapy
           ignoreSelectedField: true
         result:
           type: group_count
