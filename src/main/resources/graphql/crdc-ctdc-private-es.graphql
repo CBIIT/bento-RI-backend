@@ -204,7 +204,7 @@ type Diagnosis {
 type StudyDiagnosis {
   study_short_name: String
   diagnosis: [Diagnosis]
-  ctep_disease_codes: [String]
+  ctep_disease_terms: [String]
 }
 
 type HomePage {

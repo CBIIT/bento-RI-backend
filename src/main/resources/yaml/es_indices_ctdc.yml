@@ -265,7 +265,7 @@ Indices:
             type: keyword
           tumor_grade:
             type: keyword
-      ctep_disease_codes:
+      ctep_disease_terms:
         type: keyword
 
     # Cypher query will be used to retrieve data from Neo4j, and index into Elasticsearch
@@ -274,8 +274,8 @@ Indices:
         optional MATCH (s:study)<-[:belongs_to]-(subject)<-[:of_subject]-(sd:diagnosis)
         RETURN DISTINCT
             s.study_short_name AS study_short_name,
-            COLLECT(DISTINCT sd.ctep_disease_term) as ctep_disease_codes,
-            COLLECT(DISTINCT{ctep_disease_code: sd.ctep_disease_term,
+            COLLECT(DISTINCT sd.ctep_disease_term) as ctep_disease_terms,
+            COLLECT(DISTINCT{ctep_disease_term: sd.ctep_disease_term,
             diagnosis_date: sd.diagnosis_date,
             diagnosis_date_original: sd.diagnosis_date_original,
             diagnosis_date_original_unit: sd.diagnosis_date_original_unit,
