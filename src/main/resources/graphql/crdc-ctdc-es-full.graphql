@@ -23,7 +23,7 @@ type image_collection{
 }
 
 type diagnosis {
-    ctep_disease_code : String
+    ctep_disease_term : String
     diagnosis_id :String
     icd_10_disease_code : String
     meddra_disease_code: String
@@ -55,7 +55,7 @@ type principal_investigator{
 
 
 type diagnosis {
-    ctep_disease_code : String
+    ctep_disease_term : String
     diagnosis_id :String
     icd_10_disease_code : String
     meddra_disease_code: String

@@ -231,7 +231,7 @@ Indices:
       diagnosis:
         type: nested
         properties:
-          ctep_disease_code:
+          ctep_disease_term:
             type: keyword
           diagnosis_date:
             type: keyword
@@ -265,7 +265,7 @@ Indices:
             type: keyword
           tumor_grade:
             type: keyword
-      ctep_disease_codes:
+      ctep_disease_terms:
         type: keyword
 
     # Cypher query will be used to retrieve data from Neo4j, and index into Elasticsearch
@@ -274,8 +274,8 @@ Indices:
         optional MATCH (s:study)<-[:belongs_to]-(subject)<-[:of_subject]-(sd:diagnosis)
         RETURN DISTINCT
             s.study_short_name AS study_short_name,
-            COLLECT(DISTINCT sd.ctep_disease_code) as ctep_disease_codes,
-            COLLECT(DISTINCT{ctep_disease_code: sd.ctep_disease_code,
+            COLLECT(DISTINCT sd.ctep_disease_term) as ctep_disease_terms,
+            COLLECT(DISTINCT{ctep_disease_term: sd.ctep_disease_term,
             diagnosis_date: sd.diagnosis_date,
             diagnosis_date_original: sd.diagnosis_date_original,
             diagnosis_date_original_unit: sd.diagnosis_date_original_unit,
@@ -433,15 +433,15 @@ Indices:
       MATCH (sb:subject)<-[*..2]-(data_file:data_file)
       MATCH (study:study)<-[:belongs_to]-(sb)
       MATCH (demo:demographic)-[:of_subject]->(sb)
-      MATCH (diag:diagnosis)-[:of_subject]->(sb)
-      MATCH (target:targeted_therapy)-[:of_subject]->(sb)
-      MATCH (expose:exposure)-[:of_subject]->(sb)
+      optional MATCH (diag:diagnosis)-[:of_subject]->(sb)
+      optional MATCH (target:targeted_therapy)-[:of_subject]->(sb)
+      optional MATCH (expose:exposure)-[:of_subject]->(sb)
       optional MATCH (spec:specimen)-[:of_subject]->(sb)
       RETURN DISTINCT
       'participants' as type,
       sb.subject_id as subject_id,
       COLLECT(DISTINCT study.study_short_name) as study_short_name,
-      COLLECT(DISTINCT diag.ctep_disease_code) as ctep_disease_term,
+      COLLECT(DISTINCT diag.ctep_disease_term) as ctep_disease_term,
       COLLECT(DISTINCT diag.snomed_disease_code) as snomed_disease_code, 
       COLLECT(DISTINCT diag.tumor_grade) as tumor_grade,
       COLLECT(DISTINCT diag.stage_of_disease) as stage_of_disease,
@@ -550,12 +550,12 @@ Indices:
       MATCH (sb)<-[:of_subject]-(diag:diagnosis)
       optional MATCH (sb)<-[:of_subject]-(spec:specimen)
       MATCH (sb)<-[:of_subject]-(demo:demographic)
-      MATCH (sb)<-[:of_subject]-(exp:exposure)
-      MATCH (sb)<-[:of_subject]-(tt:targeted_therapy)
+      optional MATCH (sb)<-[:of_subject]-(exp:exposure)
+      optional MATCH (sb)<-[:of_subject]-(tt:targeted_therapy)
       RETURN DISTINCT
       'participants' AS type,
       sb.subject_id AS subject_id,
-      COLLECT(DISTINCT(diag.ctep_disease_code)) AS ctep_disease_term,
+      COLLECT(DISTINCT(diag.ctep_disease_term)) AS ctep_disease_term,
       COLLECT(DISTINCT(diag.stage_of_disease)) AS stage_of_disease,
       COLLECT(DISTINCT(diag.tumor_grade)) AS tumor_grade,
       COLLECT(DISTINCT(diag.subject_age_at_diagnosis)) as age_at_diagnosis,
@@ -690,13 +690,13 @@ Indices:
       MATCH (study:study)<-[:belongs_to]-(sub)
       MATCH (sub)<-[:of_subject]-(diag:diagnosis)
       MATCH (sub)<-[:of_subject]-(demo:demographic)
-      MATCH (sub)<-[:of_subject]-(exp:exposure)
+      optional MATCH (sub)<-[:of_subject]-(exp:exposure)
       MATCH (sub)<-[:of_subject]-(tt:targeted_therapy)
       MATCH (sub)<-[*..2]-(df:data_file)
       RETURN DISTINCT
         'biospecimens' AS type,
         sub.subject_id AS subject_id,
-        diag.ctep_disease_code AS ctep_disease_term,
+        diag.ctep_disease_term AS ctep_disease_term,
         diag.stage_of_disease AS stage_of_disease,
         diag.primary_disease_site AS primary_disease_site,
         spec.specimen_id AS specimen_id,
@@ -824,7 +824,7 @@ Indices:
       optional MATCH (f:data_file)-[:associated_with]->(spec:specimen)
       MATCH (sub)<-[:of_subject]-(diag:diagnosis)
       MATCH (sub)<-[:of_subject]-(demo:demographic)
-      MATCH (sub)<-[:of_subject]-(exp:exposure)
+      optional MATCH (sub)<-[:of_subject]-(exp:exposure)
       MATCH (sub)<-[:of_subject]-(tt:targeted_therapy)
       RETURN DISTINCT
 
@@ -845,7 +845,7 @@ Indices:
         COALESCE(spec.specimen_id, ' ') as specimen_id,
         sub.subject_id AS subject_id,
       
-        diag.ctep_disease_code AS ctep_disease_term,
+        diag.ctep_disease_term AS ctep_disease_term,
         
         diag.stage_of_disease AS stage_of_disease,
         diag.tumor_grade AS tumor_grade,
@@ -880,7 +880,7 @@ Indices:
       optional MATCH (f:data_file)-[:associated_with]->(spec:specimen)
       MATCH (sub)<-[:of_subject]-(diag:diagnosis)
       MATCH (sub)<-[:of_subject]-(demo:demographic)
-      MATCH (sub)<-[:of_subject]-(exp:exposure)
+      optional MATCH (sub)<-[:of_subject]-(exp:exposure)
       MATCH (sub)<-[:of_subject]-(tt:targeted_therapy)
  
       RETURN DISTINCT
@@ -903,7 +903,7 @@ Indices:
         diag.stage_of_disease AS stage_of_disease,
         diag.tumor_grade AS tumor_grade,
         diag.primary_disease_site as primary_disease_site,
-        diag.ctep_disease_code as ctep_disease_term,
+        diag.ctep_disease_term as ctep_disease_term,
         diag.meddra_disease_code as meddra_disease_code,
         diag.histology as histology,
 
@@ -986,7 +986,7 @@ Indices:
       optional MATCH (f:data_file)-[:associated_with]->(spec:specimen)
       MATCH (sub)<-[:of_subject]-(diag:diagnosis)
       MATCH (sub)<-[:of_subject]-(demo:demographic)
-      MATCH (sub)<-[:of_subject]-(exp:exposure)
+      optional MATCH (sub)<-[:of_subject]-(exp:exposure)
       MATCH (sub)<-[:of_subject]-(tt:targeted_therapy)
  
       RETURN DISTINCT
@@ -1001,7 +1001,7 @@ Indices:
         spec.specimen_id AS specimen_id,
         sub.subject_id AS subject_id,
       
-        diag.ctep_disease_code AS ctep_disease_term,
+        diag.ctep_disease_term AS ctep_disease_term,
       
         diag.stage_of_disease AS stage_of_disease,
         diag.tumor_grade AS tumor_grade,
