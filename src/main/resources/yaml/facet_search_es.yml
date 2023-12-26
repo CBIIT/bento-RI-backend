@@ -4,7 +4,7 @@ queries:
     returnFields:
       - name: diagnosesAndStageOfDiseases
         index:
-          - participants
+          - widgets_facets_counts
         filter:
           type: sub_aggregation
           selectedField: ctep_disease_term
@@ -13,7 +13,7 @@ queries:
           type: arm_program
       - name: racesAndEthnicities
         index:
-          - participants
+          - widgets_facets_counts
         filter:
           type: sub_aggregation
           selectedField: race
@@ -37,7 +37,7 @@ queries:
           type: arm_program
       - name: sexesAndGenders
         index:
-          - participants
+          - widgets_facets_counts
         filter:
           type: sub_aggregation
           selectedField: sex
@@ -46,7 +46,7 @@ queries:
           type: arm_program
       - name: numberOfStudies
         index:
-          - participants
+          - widgets_facets_counts
         filter:
           type: aggregation
           selectedField: study_short_name
@@ -55,7 +55,7 @@ queries:
           method: count_bucket_keys
       - name: numberOfParticipants
         index:
-          - participants
+          - widgets_facets_counts
         filter:
           type: aggregation
           selectedField: subject_id
@@ -64,7 +64,7 @@ queries:
           method: count_bucket_keys
       - name: numberOfDiagnoses
         index:
-          - participants
+          - widgets_facets_counts
         filter:
           type: aggregation
           selectedField: ctep_disease_term
@@ -73,7 +73,7 @@ queries:
           method: count_bucket_keys
       - name: numberOfTargetedTherapies
         index:
-          - participants
+          - widgets_facets_counts
         filter:
           type: aggregation
           selectedField: targeted_therapy_id
@@ -100,7 +100,7 @@ queries:
           method: count_bucket_keys
       - name: participantCountByCtepDiseaseTerm
         index:
-          - participants
+          - widgets_facets_counts
         filter:
           type: aggregation
           selectedField: ctep_disease_term
@@ -108,7 +108,7 @@ queries:
           type: group_count
       - name: filterParticipantCountByCtepDiseaseTerm
         index:
-          - participants
+          - widgets_facets_counts
         filter:
           type: aggregation
           selectedField: ctep_disease_term
@@ -117,7 +117,7 @@ queries:
           type: group_count
       - name: participantCountBySnomedDiseaseCode
         index:
-          - participants
+          - widgets_facets_counts
         filter:
           type: aggregation
           selectedField: snomed_disease_code
@@ -125,7 +125,7 @@ queries:
           type: group_count
       - name: filterParticipantCountBySnomedDiseaseCode
         index:
-          - participants
+          - widgets_facets_counts
         filter:
           type: aggregation
           selectedField: snomed_disease_code
@@ -134,7 +134,7 @@ queries:
           type: group_count
       - name: participantCountByTumorGrade
         index:
-          - participants
+          - widgets_facets_counts
         filter:
           type: aggregation
           selectedField: tumor_grade
@@ -142,7 +142,7 @@ queries:
           type: group_count
       - name: filterParticipantCountByTumorGrade
         index:
-          - participants
+          - widgets_facets_counts
         filter:
           type: aggregation
           selectedField: tumor_grade
@@ -151,7 +151,7 @@ queries:
           type: group_count
       - name: participantCountByStageOfDisease
         index:
-          - participants
+          - widgets_facets_counts
         filter:
           type: aggregation
           selectedField: stage_of_disease
@@ -159,7 +159,7 @@ queries:
           type: group_count
       - name: filterParticipantCountByStageOfDisease
         index:
-          - participants
+          - widgets_facets_counts
         filter:
           type: aggregation
           selectedField: stage_of_disease
@@ -168,7 +168,7 @@ queries:
           type: group_count
       - name: participantCountBySex
         index:
-          - participants
+          - widgets_facets_counts
         filter:
           type: aggregation
           selectedField: sex
@@ -176,7 +176,7 @@ queries:
           type: group_count
       - name: filterParticipantCountBySex
         index:
-          - participants
+          - widgets_facets_counts
         filter:
           type: aggregation
           selectedField: sex
@@ -185,7 +185,7 @@ queries:
           type: group_count
       - name: participantCountByReportedGender
         index:
-          - participants
+          - widgets_facets_counts
         filter:
           type: aggregation
           selectedField: reported_gender
@@ -193,7 +193,7 @@ queries:
           type: group_count
       - name: filterParticipantCountByReportedGender
         index:
-          - participants
+          - widgets_facets_counts
         filter:
           type: aggregation
           selectedField: reported_gender
@@ -202,7 +202,7 @@ queries:
           type: group_count
       - name: participantCountByRace
         index:
-          - participants
+          - widgets_facets_counts
         filter:
           type: aggregation
           selectedField: race
@@ -210,7 +210,7 @@ queries:
           type: group_count
       - name: filterParticipantCountByRace
         index:
-          - participants
+          - widgets_facets_counts
         filter:
           type: aggregation
           selectedField: race
@@ -219,7 +219,7 @@ queries:
           type: group_count
       - name: participantCountByEthnicity
         index:
-          - participants
+          - widgets_facets_counts
         filter:
           type: aggregation
           selectedField: ethnicity
@@ -227,7 +227,7 @@ queries:
           type: group_count
       - name: filterParticipantCountByEthnicity
         index:
-          - participants
+          - widgets_facets_counts
         filter:
           type: aggregation
           selectedField: ethnicity
@@ -236,7 +236,7 @@ queries:
           type: group_count
       - name: participantCountByCarcinogenExposure
         index:
-          - participants
+          - widgets_facets_counts
         filter:
           type: aggregation
           selectedField: carcinogen_exposure
@@ -244,7 +244,7 @@ queries:
           type: group_count
       - name: filterParticipantCountByCarcinogenExposure
         index:
-          - participants
+          - widgets_facets_counts
         filter:
           type: aggregation
           selectedField: carcinogen_exposure
@@ -253,7 +253,7 @@ queries:
           type: group_count
       - name: participantCountByTargetedTherapy
         index:
-          - participants
+          - widgets_facets_counts
         filter:
           type: aggregation
           selectedField: targeted_therapy
@@ -261,7 +261,7 @@ queries:
           type: group_count
       - name: filterParticipantCountByTargetedTherapy
         index:
-          - participants
+          - widgets_facets_counts
         filter:
           type: aggregation
           selectedField: targeted_therapy
