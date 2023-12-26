@@ -3,7 +3,7 @@ queries:
     returnFields:
       - name: participants
         index:
-          - participants
+          - widgets_facets_counts
         filter:
           type: global
           defaultSortField: subject_id
@@ -43,7 +43,7 @@ queries:
           type: global
       - name: participant_count
         index:
-          - participants
+          - widgets_facets_counts
         filter:
           type: global
           defaultSortField: subject_id
