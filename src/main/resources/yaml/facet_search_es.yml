@@ -53,7 +53,7 @@ queries:
         result:
           type: int
           method: count_bucket_keys
-      - name: numberOfwidgets_facets_counts
+      - name: numberOfParticipants
         index:
           - widgets_facets_counts
         filter:
