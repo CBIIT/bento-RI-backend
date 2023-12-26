@@ -314,7 +314,7 @@ Indices:
         type: keyword
       numberOfRadiologyImages:
         type: keyword
-      specimenCountbySnomedDiseaseCode:
+      specimenCountbyStageOfDisease:
         type: nested
         properties:
           group:
@@ -340,7 +340,7 @@ Indices:
         {
         group: 'Stage ' + diag.stage_of_disease,
         subjects:count(diag.stage_of_disease)}
-         as specimenCountbySnomedDiseaseCode        
+         as specimenCountbyStageOfDisease        
         
         RETURN DISTINCT
               TotalTherapy as numberOfTherapies,
@@ -351,10 +351,10 @@ Indices:
               radiocount as numberOfRadiologyImages,
               untargetedTherapyCount as numberOfNonTargeted,
               targetTherapyCount as numberOfTargeted,
-              COLLECT(specimenCountbySnomedDiseaseCode) as specimenCountbySnomedDiseaseCode
+              COLLECT(specimenCountbyStageOfDisease) as specimenCountbyStageOfDisease
       "
       
-  - index_name: participants
+  - index_name: widgets_facets_counts
     type: neo4j
     # Widgets,Facets,and Global Stats bar
     mapping:

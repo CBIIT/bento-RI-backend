@@ -181,7 +181,7 @@ type search_result {
   numberOfBiomarker: Int
   numberOfHistologyImages: Int
   numberOfRadiologyImages: Int
-  specimenCountbySnomedDiseaseCode : [group_count]
+  specimenCountbyStageOfDisease : [group_count]
 }
 
 type group_count {
@@ -199,7 +199,7 @@ type QueryType {
     studySpecimenTypeCount(study_short_name: [String]):[group_count]
     studySpecimenTimePointCount(study_short_name: [String]):[group_count]
     studyByStudyShortName(study_short_name: String):study
-    specimenCountbySnomedDiseaseCode():[GroupCount]
+    specimenCountbyStageOfDisease():[GroupCount]
 }
 
 schema {
