@@ -229,7 +229,7 @@ type ParticipantOverview {
   ctep_disease_term: String
   stage_of_disease: String
   tumor_grade: String
-  age_at_diagnosis: String # TODO: Check type Int
+  age_at_enrollment: Float # TODO: Check type Int
   sex: String
   reported_gender: String
   race: String

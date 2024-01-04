@@ -490,8 +490,8 @@ Indices:
         type: keyword
       tumor_grade:
         type: keyword
-      age_at_diagnosis:
-        type: keyword
+      age_at_enrollment:
+        type: integer
       sex:
         type: keyword
       reported_gender:
@@ -555,10 +555,10 @@ Indices:
       RETURN DISTINCT
       'participants' AS type,
       sb.subject_id AS subject_id,
-      COLLECT(DISTINCT(diag.ctep_disease_term)) AS ctep_disease_term,
-      COLLECT(DISTINCT(diag.stage_of_disease)) AS stage_of_disease,
-      COLLECT(DISTINCT(diag.tumor_grade)) AS tumor_grade,
-      COLLECT(DISTINCT(diag.subject_age_at_diagnosis)) as age_at_diagnosis,
+      diag.ctep_disease_term AS ctep_disease_term,
+      diag.stage_of_disease AS stage_of_disease,
+      diag.tumor_grade AS tumor_grade,
+      demo.age_at_enrollment as age_at_enrollment,
       demo.sex AS sex,
       demo.reported_gender AS reported_gender,
       demo.race AS race,
