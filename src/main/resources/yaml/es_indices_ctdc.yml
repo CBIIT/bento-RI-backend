@@ -491,7 +491,7 @@ Indices:
       tumor_grade:
         type: keyword
       age_at_enrollment:
-        type: keyword
+        type: integer
       sex:
         type: keyword
       reported_gender:
