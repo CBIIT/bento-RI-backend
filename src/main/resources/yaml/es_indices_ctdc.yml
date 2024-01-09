@@ -484,6 +484,8 @@ Indices:
         type: keyword
       subject_id:
         type: keyword
+      study_short_name:
+        type: keyword
       ctep_disease_term:
         type: keyword
       stage_of_disease:
@@ -546,7 +548,9 @@ Indices:
       data_file_format:
         type: keyword
     cypher_query: "
+
       MATCH (sb:subject)<-[*..2]-(df:data_file)
+      MATCH (study:study)<-[:belongs_to]-(sb)
       MATCH (sb)<-[:of_subject]-(diag:diagnosis)
       optional MATCH (sb)<-[:of_subject]-(spec:specimen)
       MATCH (sb)<-[:of_subject]-(demo:demographic)
@@ -555,6 +559,7 @@ Indices:
       RETURN DISTINCT
       'participants' AS type,
       sb.subject_id AS subject_id,
+      study.study_short_name as study_short_name,
       diag.ctep_disease_term AS ctep_disease_term,
       diag.stage_of_disease AS stage_of_disease,
       diag.tumor_grade AS tumor_grade,

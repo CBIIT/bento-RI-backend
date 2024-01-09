@@ -39,6 +39,9 @@ queries:
             - field: age_at_index
               type: term
               option: integer
+            - field: age_at_enrollment
+              type: term
+              option: integer
         result:
           type: global
       - name: participant_count
@@ -77,6 +80,9 @@ queries:
               caseInsensitive: true
           typedSearch:
             - field: age_at_index
+              type: term
+              option: integer
+            - field: age_at_enrollment
               type: term
               option: integer
         result:
