@@ -338,7 +338,7 @@ Indices:
         MATCH (sp:specimen)-[:of_subject]->(sb:subject)<-[:of_subject]-(diag:diagnosis) 
         WITH histcount,targetTherapyCount,radiocount,countofDiagnoses,subjectcount,biomarkercount,untargetedTherapyCount,TotalTherapy,
         {
-        group: 'Stage ' + diag.stage_of_disease,
+        group: diag.stage_of_disease,
         subjects:count(diag.stage_of_disease)}
          as specimenCountbyStageOfDisease        
         
