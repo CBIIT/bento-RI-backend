@@ -338,7 +338,7 @@ Indices:
         MATCH (sp:specimen)-[:of_subject]->(sb:subject)<-[:of_subject]-(diag:diagnosis) 
         WITH histcount,targetTherapyCount,radiocount,countofDiagnoses,subjectcount,biomarkercount,untargetedTherapyCount,TotalTherapy,
         {
-        group: 'Stage ' + diag.stage_of_disease,
+        group: diag.stage_of_disease,
         subjects:count(diag.stage_of_disease)}
          as specimenCountbyStageOfDisease        
         
@@ -711,7 +711,7 @@ Indices:
         spec.specimen_type AS specimen_type,
         spec.tissue_category AS tissue_category,
         spec.assessment_timepoint AS assessment_timepoint,
-        COLLECT(DISTINCT study.study_short_name) as study_short_name,
+        study.study_short_name as study_short_name,
         COLLECT(DISTINCT{
           data_file_uuid: df.data_file_uuid,
           data_file_name: df.data_file_name,
