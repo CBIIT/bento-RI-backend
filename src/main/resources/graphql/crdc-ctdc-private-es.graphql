@@ -214,9 +214,10 @@ type HomePage {
   numberOfTherapies: Int
   numberOfTargeted: Int
   numberOfNonTargeted: Int
-  dataFileCount: Int
+  numberOfBiomarker: Int
+  numberOfHistologyImages: Int
+  numberOfRadiologyImages: Int
   specimenCountbyStageOfDisease: [GroupCount]
-  dataFileByType: [GroupCount]
 }
 
 type GroupCount {
