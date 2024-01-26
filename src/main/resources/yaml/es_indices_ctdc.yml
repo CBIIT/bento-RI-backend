@@ -308,13 +308,16 @@ Indices:
         type: keyword
       numberOfTherapies:
         type: keyword
-      numberOfBiomarker:
-        type: keyword
-      numberOfHistologyImages:
-        type: keyword
-      numberOfRadiologyImages:
+      dataFileCount:
         type: keyword
       specimenCountbyStageOfDisease:
+        type: nested
+        properties:
+          group:
+            type: keyword
+          subjects:
+            type: keyword
+      dataFileByType:
         type: nested
         properties:
           group:
@@ -324,34 +327,40 @@ Indices:
   
     # Cypher query will be used to retrieve data from Neo4j, and index into Elasticsearch
     cypher_query: "
-        MATCH (sb:subject) WITH count(sb) as subjectcount
-        MATCH (target:targeted_therapy) WITH target,subjectcount
-        MATCH (untargeted:non_targeted_therapy) WITH count(DISTINCT(untargeted)) as untargetedTherapyCount ,subjectcount,target
-        MATCH (sb:subject) WHERE toLOWER(sb.histology_images_available) = 'yes'  WITH count(sb) as histcount,subjectcount,untargetedTherapyCount,target
-        MATCH (sb:subject) WHERE toLOWER(sb.radiology_images_available) = 'yes'  WITH count(sb) as radiocount,subjectcount,histcount,untargetedTherapyCount,target
-        MATCH (sb:subject) WHERE toLOWER(sb.biomarker_results_available) = 'yes'  WITH count(sb) as biomarkercount,subjectcount,histcount,radiocount,untargetedTherapyCount,target
-        WITH biomarkercount,subjectcount,histcount,radiocount,untargetedTherapyCount,count(target) as targetTherapyCount
+        MATCH (sub:subject)<-[*..2]-(df:data_file)
+WITH
+        {
+        group: df.data_file_type,
+        subjects:count(df.data_file_type)}
+         as dataFileByType
+MATCH (df:data_file) with dataFileByType , count(df) as dataFileCount
+MATCH (sb:subject) WITH count(sb) as subjectcount,dataFileByType,dataFileCount
+        MATCH (target:targeted_therapy) WITH target,subjectcount,dataFileByType,dataFileCount
+        MATCH (untargeted:non_targeted_therapy) WITH count(DISTINCT(untargeted)) as untargetedTherapyCount ,subjectcount,target,dataFileByType,dataFileCount
+        WITH subjectcount,count(target) as targetTherapyCount,dataFileByType,dataFileCount,untargetedTherapyCount
 
-        MATCH (diag:diagnosis) with  histcount,
-        count(DISTINCT(diag)) as countofDiagnoses ,targetTherapyCount,radiocount,subjectcount,biomarkercount,untargetedTherapyCount,untargetedTherapyCount + targetTherapyCount as TotalTherapy
+        MATCH (diag:diagnosis) with
+        count(DISTINCT(diag)) as countofDiagnoses ,untargetedTherapyCount,targetTherapyCount,subjectcount,untargetedTherapyCount + targetTherapyCount as TotalTherapy,dataFileByType,dataFileCount
 
         MATCH (sp:specimen)-[:of_subject]->(sb:subject)<-[:of_subject]-(diag:diagnosis) 
-        WITH histcount,targetTherapyCount,radiocount,countofDiagnoses,subjectcount,biomarkercount,untargetedTherapyCount,TotalTherapy,
+        WITH targetTherapyCount,countofDiagnoses,subjectcount,untargetedTherapyCount,TotalTherapy,dataFileByType,dataFileCount,
         {
         group: diag.stage_of_disease,
         subjects:count(diag.stage_of_disease)}
          as specimenCountbyStageOfDisease        
         
         RETURN DISTINCT
+              
               TotalTherapy as numberOfTherapies,
               subjectcount as numberOfParticipants,
               countofDiagnoses as numberOfDiagnoses,
-              biomarkercount as numberOfBiomarker,
-              histcount as numberOfHistologyImages,
-              radiocount as numberOfRadiologyImages,
               untargetedTherapyCount as numberOfNonTargeted,
               targetTherapyCount as numberOfTargeted,
-              COLLECT(specimenCountbyStageOfDisease) as specimenCountbyStageOfDisease
+                dataFileCount as dataFileCount,
+            apoc.coll.toSet(COLLECT(specimenCountbyStageOfDisease)) as specimenCountbyStageOfDisease,
+            apoc.coll.toSet(COLLECT(dataFileByType)) as dataFileByType
+
+
       "
       
   - index_name: widgets_facets_counts
