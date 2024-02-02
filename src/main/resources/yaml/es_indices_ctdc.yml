@@ -340,7 +340,7 @@ MATCH (sb:subject) WITH count(sb) as subjectcount,dataFileByType,dataFileCount
         WITH subjectcount,count(target) as targetTherapyCount,dataFileByType,dataFileCount,untargetedTherapyCount
 
         MATCH (diag:diagnosis) with
-        count(DISTINCT(diag)) as countofDiagnoses ,untargetedTherapyCount,targetTherapyCount,subjectcount,untargetedTherapyCount + targetTherapyCount as TotalTherapy,dataFileByType,dataFileCount
+        count(distinct(diag.ctep_disease_term)) as countofDiagnoses ,untargetedTherapyCount,targetTherapyCount,subjectcount,untargetedTherapyCount + targetTherapyCount as TotalTherapy,dataFileByType,dataFileCount
 
         MATCH (sp:specimen)-[:of_subject]->(sb:subject)<-[:of_subject]-(diag:diagnosis) 
         WITH targetTherapyCount,countofDiagnoses,subjectcount,untargetedTherapyCount,TotalTherapy,dataFileByType,dataFileCount,
@@ -359,8 +359,6 @@ MATCH (sb:subject) WITH count(sb) as subjectcount,dataFileByType,dataFileCount
                 dataFileCount as dataFileCount,
             apoc.coll.toSet(COLLECT(specimenCountbyStageOfDisease)) as specimenCountbyStageOfDisease,
             apoc.coll.toSet(COLLECT(dataFileByType)) as dataFileByType
-
-
       "
       
   - index_name: widgets_facets_counts
