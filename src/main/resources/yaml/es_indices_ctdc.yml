@@ -1075,7 +1075,7 @@ MATCH (sb:subject) WITH count(sb) as subjectcount,dataFileByType,dataFileCount
 
   - index_name: model_values
     type: model
-    subtype: value
+    subtype: value_kw
     # type mapping for each property of the index
     mapping:
       node:
@@ -1087,8 +1087,6 @@ MATCH (sb:subject) WITH count(sb) as subjectcount,dataFileByType,dataFileCount
       property_required:
         type: keyword
       property_type:
-        type: keyword
-      value:
         type: keyword
       value_kw:
         type: keyword
