@@ -212,7 +212,7 @@ queries:
         filter:
           type: global
           searches:
-            - field: value
+            - field: value_kw
               type: wildcard
             - field: property_name
               type: term
@@ -245,7 +245,7 @@ queries:
         filter:
           type: global
           searches:
-            - field: value
+            - field: value_kw
               type: wildcard
             - field: property_name
               type: term
@@ -265,7 +265,7 @@ queries:
             - property_description
             - property_type
             - property_required
-            - value
+            - value_kw
             - node_name
           fragmentSize: 1
         result:
