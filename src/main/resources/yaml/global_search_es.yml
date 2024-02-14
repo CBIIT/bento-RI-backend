@@ -215,7 +215,7 @@ queries:
             - field: value_kw
               type: wildcard
             - field: property_name
-              type: term
+              type: wildcard
             - field: property_type
               type: term
             - field: property_description
@@ -248,7 +248,7 @@ queries:
             - field: value_kw
               type: wildcard
             - field: property_name
-              type: term
+              type: wildcard
             - field: property_type
               type: term
             - field: property_description
