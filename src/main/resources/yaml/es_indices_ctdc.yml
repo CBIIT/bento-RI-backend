@@ -195,13 +195,14 @@ Indices:
             type: keyword
     cypher_query: "
       MATCH (s:study)<-[:belongs_to]-(subject)<-[:of_subject]-(sp:specimen)
-      WITH DISTINCT sp.specimen_type AS biospecimen_type, COUNT(sp) AS count1
+      WITH COUNT(sp) AS sample_count
+      MATCH (s:study)<-[:belongs_to]-(subject)<-[:of_subject]-(sp:specimen)
+      WITH DISTINCT sp.specimen_type AS biospecimen_type, COUNT(sp) AS count1, sample_count
 
       MATCH (s:study)<-[:belongs_to]-(subject)<-[:of_subject]-(sp:specimen)
-      WITH DISTINCT sp.assessment_timepoint AS assessment_timepoint, COUNT(sp) AS count2, biospecimen_type, count1
-
+      WITH DISTINCT sp.assessment_timepoint AS assessment_timepoint, COUNT(sp) AS count2, biospecimen_type, count1, sample_count
       MATCH (s:study)<-[:belongs_to]-(subject)<-[:of_subject]-(sp:specimen)
-      WITH COUNT(sp) AS sample_count ,biospecimen_type , count1, assessment_timepoint,count2,s,sp
+      WITH sample_count, biospecimen_type, count1, assessment_timepoint, count2, s, sp
       RETURN DISTINCT
           s.study_short_name AS study_short_name,
           COLLECT(DISTINCT{group: assessment_timepoint, count: count2}) AS specimen_timepoints,
