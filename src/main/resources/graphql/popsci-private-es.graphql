@@ -1,0 +1,93 @@
+type study_personal {
+  person_role : String
+  last_name : String
+  first_name : String
+  email : String
+}
+type study_publication {
+  author : String
+  title : String
+  year : Int
+  journal : String
+  doi : String
+  pumID : String
+}
+type study_files {
+  file_name: String
+  file_type: String
+  description: String
+  format: String
+  size: Int
+}
+type study_links {
+  associated_link_name: String
+  associated_link_id: String
+  associated_link_url: String
+}
+type StudyGeneral {
+  study_name: String
+  study_short_name: String
+  study_description: String
+  study_type: String
+  study_design_type: String
+  enrollment_period_start: String
+  enrollment_period_end: String
+  study_period_start: String
+  study_period_end: String
+  biopspecimens_collected: String
+  study_status: String
+  dbGap_id: String
+  associated_links: String
+  participant_count: String
+  max_age: String
+  medium_age: String
+  min_age: String
+  study_race: String
+  study_ethnicity: String
+  study_sex: String
+  country_list: String
+  country_count: String
+  state_list: String
+  state_count: String
+  neoplasm_name: String
+  neoplasm_count: String
+  study_personal: [study_personal]
+  study_publication: [study_publication]
+  study_files: [study_files]
+  study_links: [study_links]
+}
+schema {
+  query: QueryType
+}
+
+type QueryType {
+  studyGeneral(
+     study_name: [String] = []
+     study_short_name: [String] = []
+     study_description: [String] = []
+     study_type: [String] = []
+     study_design_type: [String] = []
+     enrollment_period_start: [String] = []
+     enrollment_period_end: [String] = []
+     study_period_start: [String] = []
+     study_period_end: [String] = []
+     biopspecimens_collected: [String] = []
+     study_status: [String] = []
+     dbGap_id: [String] = []
+     associated_links: [String] = []
+     participant_count: [String] = []
+     max_age: [String] = []
+     medium_age: [String] = []
+     min_age: [String] = []
+     study_race: [String] = []
+     study_ethnicity: [String] = []
+     study_sex: [String] = []
+     country_list: [String] = []
+     country_count: [String] = []
+     state_list: [String] = []
+     state_count: [String] = []
+     neoplasm_name: [String] = []
+     neoplasm_count: [String] = []
+
+  ): [StudyGeneral]
+}
