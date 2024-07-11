@@ -37,11 +37,11 @@ type StudyGeneral {
   enrollment_period_end: Int
   study_period_start: Int
   study_period_end: Int
-  biopspecimens_collected: String
+  biospecimens_collected: String
   study_status: String
   dbGap_id: String
   associated_links: String
-  number_of_participants : String
+  number_of_participants : Int
   max_age: Float
   medium_age: Float
   min_age: Float
@@ -71,11 +71,11 @@ type QueryType {
      study_description: [String] = []
      study_type: [String] = []
      study_design: [String] = []
-     enrollment_period_start: [String] = []
-     enrollment_period_end: [String] = []
-     study_period_start: [String] = []
-     study_period_end: [String] = []
-     biopspecimens_collected: [String] = []
+     enrollment_period_start: [Int] = []
+     enrollment_period_end: [Int] = []
+     study_period_start: [Int] = []
+     study_period_end: [Int] = []
+     biospecimens_collected: [String] = []
      study_status: [String] = []
      dbGap_id: [String] = []
      associated_links: [String] = []
