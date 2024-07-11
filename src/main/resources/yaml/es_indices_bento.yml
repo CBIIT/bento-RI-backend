@@ -14,7 +14,7 @@ Indices:
         type: keyword
       study_type:
         type: keyword
-      study_design_type:
+      study_design:
         type: keyword
       enrollment_period_start:
         type: keyword
@@ -24,46 +24,50 @@ Indices:
         type: keyword
       study_period_end:
         type: keyword
-      biopspecimens_collected:
+      biospecimens_collected:
         type: keyword
       study_status:
         type: keyword
       dbGap_id:
         type: keyword
-      associated_links:
-        type: keyword
-      participant_count:
-        type: keyword
+      number_of_participants:
+        type: Int
       max_age:
-        type: keyword
+        type: Double
       medium_age:
-        type: keyword
+        type: Double
       min_age:
-        type: keyword
+        type: Double
       study_race:
         type: keyword
       study_ethnicity:
         type: keyword
       study_sex:
         type: keyword
+      study_gender:
+        type: keyword
       country_list:
         type: keyword
       country_count:
-        type: keyword
+        type: Int
       state_list:
         type: keyword
       state_count:
+        type: Int
+      primary_diagnosis_disease_term:
         type: keyword
-      neoplasm_name:
-        type: keyword
-      neoplasm_count:
-        type: keyword
+      primary_diagnosis_disease_count:
+        type: Int
       study_personal:
         type: nested
         properties:
           first_name:
             type: keyword
+          middle_name:
+            type: keyword
           last_name:
+            type: keyword
+          institution:
             type: keyword
           email:
             type: keyword
@@ -84,6 +88,28 @@ Indices:
             type: keyword
           pumID:
             type: keyword
+      study_files:
+        type: nested
+        properties:
+          file_name:
+            type: keyword
+          file_type:
+            type: keyword
+          description:
+            type: keyword
+          format:
+            type: keyword
+          size:
+            type: keyword
+      study_links:
+        type: nested
+        properties:
+          associated_link_name:
+            type: keyword
+          associated_link_id:
+            type: keyword
+          associated_link_url:
+            type: keyword
     # Cypher query will be used to retrieve data from Neo4j, and index into Elasticsearch
     cypher_query: "
       MATCH (study:study) 
@@ -93,45 +119,61 @@ Indices:
       MATCH (neoplasm:primary_diagnosis)
       MATCH (country:study_country)
       MATCH (state:study_state_province_territory)
+      MATCH (data:data_file)
+      optional MATCH (links:associated_link)
       RETURN 
       study.study_name as study_name,
       study.study_short_name as study_short_name,
       study.study_description as study_description,
       study.study_type as study_type,
-      study.study_design as study_design_type,
+      study.study_design as study_design,
       study.enrollment_beginning_year as enrollment_period_start,
       study.enrollment_ending_year as enrollment_period_end,
       study.study_beginning_year as study_period_start,
       study.study_ending_year as study_period_end,
-      study.biospecimen_collection as biopspecimens_collected,
+      study.biospecimen_collection as biospecimens_collected,
       study.study_status as study_status,
       study.dbgap_accession_id as dbGap_id,
-      study.associated_link_name as associated_links,
-      study.number_of_participants as participant_count,
+      study.number_of_participants as number_of_participants,
       study_demo.study_participant_maximum_age as max_age,
       study_demo.study_participant_median_age as medium_age,
       study_demo.study_participant_minimum_age as min_age,
       study_demo.race as study_race,
       study_demo.ethnicity as study_ethnicity,
       study_demo.sex as study_sex,
+      study_demo.gender as study_gender,
       country.study_country as country_list,
       count(Distinct(country.study_country)) as country_count,
       Collect(distinct(state.study_state_province_territory)) as state_list,
       count(distinct(state)) as state_count,
-      Collect(distinct(neoplasm.primary_diagnosis_disease_term)) as neoplasm_name,
-      count(DISTINCT(neoplasm.primary_diagnosis_disease_term)) as neoplasm_count,
+      Collect(distinct(neoplasm.primary_diagnosis_disease_term)) as primary_diagnosis_disease_term,
+      count(DISTINCT(neoplasm.primary_diagnosis_disease_term)) as primary_diagnosis_disease_count,
       Collect(DISTINCT{
         first_name: study_person.person_first_name,
+        middle_name: study_person.person_middle_name,
         last_name: study_person.person_last_name,
         email: study_person.person_email_address,
-        person_role: study_person.person_role
+        person_role: study_person.person_role,
+        institution: study_person.person_institution
        }) as study_personal,
-      Collect(DISTINCT{
+       Collect(DISTINCT{
         author: study_pub.authorship,
         title: study_pub.publication_title,
         year: study_pub.year_of_publication,
         journal: study_pub.journal_citation,
         doi:study_pub.digital_object_id,
         pumID:study_pub.publication_record_id
-       }) as study_publication
+       }) as study_publication,
+       Collect(DISTINCT{
+        file_name: data.data_file_name,
+        file_type: data.data_file_type,
+        description: data.data_file_description,
+        format:data.data_file_format,
+        size:data.data_file_size
+       }) as study_files,
+        Collect(DISTINCT{
+        associated_link_name: links.associated_link_name,
+        associated_link_id: links.associated_link_id,
+        associated_link_url: links.associated_link_url
+       }) as study_links
       "

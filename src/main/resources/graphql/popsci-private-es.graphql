@@ -1,7 +1,10 @@
 type study_personal {
   person_role : String
-  last_name : String
   first_name : String
+  last_name : String
+  middle_name : String
+  institution : String
+  
   email : String
 }
 type study_publication {
@@ -29,28 +32,29 @@ type StudyGeneral {
   study_short_name: String
   study_description: String
   study_type: String
-  study_design_type: String
-  enrollment_period_start: String
-  enrollment_period_end: String
-  study_period_start: String
-  study_period_end: String
+  study_design: String
+  enrollment_period_start: Int
+  enrollment_period_end: Int
+  study_period_start: Int
+  study_period_end: Int
   biopspecimens_collected: String
   study_status: String
   dbGap_id: String
   associated_links: String
-  participant_count: String
-  max_age: String
-  medium_age: String
-  min_age: String
+  number_of_participants : String
+  max_age: Float
+  medium_age: Float
+  min_age: Float
   study_race: String
   study_ethnicity: String
   study_sex: String
+  study_gender: String
   country_list: String
-  country_count: String
-  state_list: String
-  state_count: String
-  neoplasm_name: String
-  neoplasm_count: String
+  country_count: Int
+  state_list: [String]
+  state_count: Int
+  primary_diagnosis_disease_term: String
+  primary_diagnosis_disease_count: String
   study_personal: [study_personal]
   study_publication: [study_publication]
   study_files: [study_files]
@@ -66,7 +70,7 @@ type QueryType {
      study_short_name: [String] = []
      study_description: [String] = []
      study_type: [String] = []
-     study_design_type: [String] = []
+     study_design: [String] = []
      enrollment_period_start: [String] = []
      enrollment_period_end: [String] = []
      study_period_start: [String] = []
@@ -75,19 +79,19 @@ type QueryType {
      study_status: [String] = []
      dbGap_id: [String] = []
      associated_links: [String] = []
-     participant_count: [String] = []
-     max_age: [String] = []
-     medium_age: [String] = []
-     min_age: [String] = []
+     number_of_participants: [Int] = []
+     max_age: [Float] = []
+     medium_age: [Float] = []
+     min_age: [Float] = []
      study_race: [String] = []
      study_ethnicity: [String] = []
      study_sex: [String] = []
      country_list: [String] = []
-     country_count: [String] = []
+     country_count: [Int] = []
      state_list: [String] = []
-     state_count: [String] = []
-     neoplasm_name: [String] = []
-     neoplasm_count: [String] = []
+     state_count: [Int] = []
+     primary_diagnosis_disease_term: [String] = []
+     primary_diagnosis_disease_count: [Int] = []
 
   ): [StudyGeneral]
 }
