@@ -31,13 +31,13 @@ Indices:
       dbGap_id:
         type: keyword
       number_of_participants:
-        type: Int
+        type: keyword
       max_age:
-        type: Double
+        type: keyword
       medium_age:
-        type: Double
+        type: keyword
       min_age:
-        type: Double
+        type: keyword
       study_race:
         type: keyword
       study_ethnicity:
@@ -49,15 +49,15 @@ Indices:
       country_list:
         type: keyword
       country_count:
-        type: Int
+        type: keyword
       state_list:
         type: keyword
       state_count:
-        type: Int
+        type: keyword
       primary_diagnosis_disease_term:
         type: keyword
       primary_diagnosis_disease_count:
-        type: Int
+        type: keyword
       study_personal:
         type: nested
         properties:
