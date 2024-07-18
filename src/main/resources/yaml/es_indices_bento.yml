@@ -1,4 +1,3 @@
-  # Indices settings
 Indices:
   # First index
   # Name of the index to be created, existing index with same name will be deleted
@@ -29,6 +28,8 @@ Indices:
       study_status:
         type: keyword
       dbGap_id:
+        type: keyword
+      data_file_total_size:
         type: keyword
       number_of_participants:
         type: keyword
@@ -164,6 +165,7 @@ Indices:
         doi:study_pub.digital_object_id,
         pumID:study_pub.publication_record_id
        }) as study_publication,
+       sum(Distinct(data.data_file_size)) as data_file_total_size,
        Collect(DISTINCT{
         file_name: data.data_file_name,
         file_type: data.data_file_type,
@@ -176,4 +178,40 @@ Indices:
         associated_link_id: links.associated_link_id,
         associated_link_url: links.associated_link_url
        }) as study_links
+      "
+  - index_name: global_stats_bar
+    type: neo4j
+    # type mapping for each property of the index
+    mapping:
+      study_short_name:
+        type: keyword
+      data_volume:
+        type: keyword
+      number_of_participants:
+        type: keyword
+      data_collection_category:
+        type: keyword
+      primary_diagnosis_disease_term:
+        type: keyword
+      data_file_uuid:
+        type: keyword
+    # Cypher query will be used to retrieve data from Neo4j, and index into Elasticsearch
+    cypher_query: "
+     MATCH (study:study)
+      OPTIONAL MATCH (data:data_file)
+      OPTIONAL MATCH (primary_diagnosis:primary_diagnosis)
+      OPTIONAL MATCH (data_collection:data_collection)
+      WITH 
+      study,
+      primary_diagnosis,
+      data_collection,
+      COLLECT(DISTINCT data) as data_files,
+      COLLECT(DISTINCT study) as study_particpant_count
+      RETURN
+      COLLECT(DISTINCT study.study_short_name) as study_short_name,
+      apoc.coll.sum([file IN data_files | file.data_file_size]) as data_volume,
+      apoc.coll.sum([particpant IN study_particpant_count | study.number_of_participants]) as number_of_participants,
+      COLLECT(DISTINCT data_collection.data_collection_category) as data_collection_category,
+      COLLECT(DISTINCT primary_diagnosis.primary_diagnosis_disease_term) as primary_diagnosis_disease_term,
+      COLLECT(DISTINCT [file IN data_files | file.data_file_uuid]) as data_file_uuid
       "
