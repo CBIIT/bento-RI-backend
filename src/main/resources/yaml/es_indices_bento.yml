@@ -29,7 +29,7 @@ Indices:
         type: keyword
       dbGap_id:
         type: keyword
-      data_file_total_size:
+      data_file_complete_size:
         type: keyword
       number_of_participants:
         type: keyword
@@ -135,6 +135,7 @@ Indices:
       study.biospecimen_collection as biospecimens_collected,
       study.study_status as study_status,
       study.dbgap_accession_id as dbGap_id,
+      sum(DISTINCT(data.data_file_size)) as data_file_complete_size,
       study.number_of_participants as number_of_participants,
       study_demo.study_participant_maximum_age as max_age,
       study_demo.study_participant_median_age as medium_age,
@@ -165,7 +166,6 @@ Indices:
         doi:study_pub.digital_object_id,
         pumID:study_pub.publication_record_id
        }) as study_publication,
-       sum(Distinct(data.data_file_size)) as data_file_total_size,
        Collect(DISTINCT{
         file_name: data.data_file_name,
         file_type: data.data_file_type,
@@ -201,17 +201,32 @@ Indices:
       OPTIONAL MATCH (data:data_file)
       OPTIONAL MATCH (primary_diagnosis:primary_diagnosis)
       OPTIONAL MATCH (data_collection:data_collection)
-      WITH 
-      study,
-      primary_diagnosis,
-      data_collection,
-      COLLECT(DISTINCT data) as data_files,
-      COLLECT(DISTINCT study) as study_particpant_count
       RETURN
       COLLECT(DISTINCT study.study_short_name) as study_short_name,
-      apoc.coll.sum([file IN data_files | file.data_file_size]) as data_volume,
-      apoc.coll.sum([particpant IN study_particpant_count | study.number_of_participants]) as number_of_participants,
+      sum(DISTINCT(data.data_file_size)) as data_volume,
+      sum(DISTINCT(study.number_of_participants)) as number_of_participants,
       COLLECT(DISTINCT data_collection.data_collection_category) as data_collection_category,
       COLLECT(DISTINCT primary_diagnosis.primary_diagnosis_disease_term) as primary_diagnosis_disease_term,
-      COLLECT(DISTINCT [file IN data_files | file.data_file_uuid]) as data_file_uuid
+      COLLECT(DISTINCT data.data_file_uuid) as data_file_uuid
+      "
+  - index_name: data_collection
+    type: neo4j
+    # type mapping for each property of the index
+    mapping:
+      data_collection_group:
+        type: nested
+        properties:
+          data_collection_category:
+            type: keyword
+          data_collection_count:
+            type: keyword
+        
+    # Cypher query will be used to retrieve data from Neo4j, and index into Elasticsearch
+    cypher_query: "
+     MATCH (data_collection:data_collection) 
+      RETURN
+      Collect(DISTINCT{
+      data_collection_category:data_collection.data_collection_category,
+      data_collection_count:data_collection.data_collection_category_annotation_count
+      }) as data_collection_group
       "

@@ -60,6 +60,7 @@ type StudyGeneral {
   study_gender: String
   country_list: String
   country_count: Int
+  data_file_complete_size: Int
   state_list: [String]
   state_count: Int
   data_file_total_size: Int
