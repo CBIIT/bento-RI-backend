@@ -39,6 +39,7 @@ type associated_links {
   associated_link_url: String
 }
 type StudyGeneral {
+  association: String
   study_name: String
   study_short_name: String
   study_id: String
@@ -80,6 +81,7 @@ schema {
 
 type QueryType {
   studyGeneral(
+     association: [String] = []
      study_name: [String] = []
      study_short_name: [String] = []
      study_id: [String] = []
