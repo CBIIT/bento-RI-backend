@@ -1,28 +1,38 @@
-type study_personal {
+type SearchResult {
+  numberOfStudies: Int
+  numberOfDataCollectionCatagory: Int
+  numberOfDiagnosis: Int
+  numberOfDataFiles: Int
+}
+type GlobalStatsBarStats {
+  data_volume: Int
+  number_of_participants: Int
+}
+type study_personnel {
   person_role : String
-  first_name : String
-  last_name : String
-  middle_name : String
+  person_first_name : String
+  person_last_name : String
+  person_middle_name : String
   institution : String
-  
-  email : String
+  email_address : String
 }
 type study_publication {
-  author : String
-  title : String
-  year : Int
-  journal : String
-  doi : String
-  pumID : String
+  authorship : String
+  publication_title : String
+  year_of_publication : Int
+  journal_citation : String
+  digital_object_id : String
+  pubmed_id : String
+  publication_record_id: String
 }
-type study_files {
-  file_name: String
-  file_type: String
-  description: String
-  format: String
-  size: Int
+type data_file {
+  data_file_name: String
+  data_file_type: String
+  data_file_description: String
+  data_file_format: String
+  data_file_size: Int
 }
-type study_links {
+type associated_links {
   associated_link_name: String
   associated_link_id: String
   associated_link_url: String
@@ -30,35 +40,38 @@ type study_links {
 type StudyGeneral {
   study_name: String
   study_short_name: String
+  study_id: String
   study_description: String
   study_type: String
   study_design: String
-  enrollment_period_start: Int
-  enrollment_period_end: Int
-  study_period_start: Int
-  study_period_end: Int
-  biospecimens_collected: String
+  enrollment_beginning_year: Int
+  enrollment_ending_year: Int
+  study_beginning_year: Int
+  study_ending_year: Int
+  biospecimen_collection: String
   study_status: String
-  dbGap_id: String
-  associated_links: String
+  dbgap_accession_id: String
   number_of_participants : Int
-  max_age: Float
-  medium_age: Float
-  min_age: Float
-  study_race: String
-  study_ethnicity: String
-  study_sex: String
-  study_gender: String
-  country_list: String
-  country_count: Int
-  state_list: [String]
-  state_count: Int
-  primary_diagnosis_disease_term: String
-  primary_diagnosis_disease_count: String
-  study_personal: [study_personal]
+  study_participant_maximum_age: Float
+  study_participant_median_age: Float
+  study_participant_minimum_age: Float
+  race: String
+  ethnicity: String
+  sex: String
+  gender: String
+  study_country: String
+  number_of_countries: Int
+  data_file_complete_size: Int
+  study_state_province_territory: [String]
+  number_of_states_provinces_territories: Int
+  data_file_total_size: Int
+  primary_diagnosis_disease_term: [String]
+  primary_diagnosis_disease_count: Int
+  study_personnel: [study_personnel]
   study_publication: [study_publication]
-  study_files: [study_files]
-  study_links: [study_links]
+  data_file: [data_file]
+  associated_links: [associated_links]
+  
 }
 schema {
   query: QueryType
@@ -68,30 +81,41 @@ type QueryType {
   studyGeneral(
      study_name: [String] = []
      study_short_name: [String] = []
+     study_id: [String] = []
      study_description: [String] = []
      study_type: [String] = []
      study_design: [String] = []
-     enrollment_period_start: [Int] = []
-     enrollment_period_end: [Int] = []
-     study_period_start: [Int] = []
-     study_period_end: [Int] = []
-     biospecimens_collected: [String] = []
+     enrollment_beginning_year: [Int] = []
+     enrollment_ending_year: [Int] = []
+     study_beginning_year: [Int] = []
+     study_ending_year: [Int] = []
+     biospecimen_collection: [String] = []
      study_status: [String] = []
-     dbGap_id: [String] = []
+     dbgap_accession_id: [String] = []
      associated_links: [String] = []
      number_of_participants: [Int] = []
-     max_age: [Float] = []
-     medium_age: [Float] = []
-     min_age: [Float] = []
-     study_race: [String] = []
-     study_ethnicity: [String] = []
-     study_sex: [String] = []
-     country_list: [String] = []
-     country_count: [Int] = []
-     state_list: [String] = []
-     state_count: [Int] = []
+     study_participant_maximum_age: [Float] = []
+     study_participant_median_age: [Float] = []
+     study_participant_minimum_age: [Float] = []
+     race: [String] = []
+     ethnicity: [String] = []
+     sex: [String] = []
+     gender: [String] = []
+     study_country: [String] = []
+     number_of_countries: [Int] = []
+     study_state_province_territory: [String] = []
+     number_of_states_provinces_territories: [Int] = []
      primary_diagnosis_disease_term: [String] = []
      primary_diagnosis_disease_count: [Int] = []
 
   ): [StudyGeneral]
+
+  globalStatsBarStats(
+  study_short_name: [String] = []
+  ): GlobalStatsBarStats
+
+
+  searchSubjects(
+    study_short_name: [String] = []
+  ): SearchResult
 }

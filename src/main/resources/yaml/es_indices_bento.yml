@@ -1,4 +1,3 @@
-  # Indices settings
 Indices:
   # First index
   # Name of the index to be created, existing index with same name will be deleted
@@ -8,6 +7,8 @@ Indices:
     mapping:
       study_name:
         type: keyword
+      study_id:
+        type: keyword
       study_short_name:
         type: keyword
       study_description:
@@ -16,92 +17,96 @@ Indices:
         type: keyword
       study_design:
         type: keyword
-      enrollment_period_start:
+      enrollment_beginning_year:
         type: keyword
-      enrollment_period_end:
+      enrollment_ending_year:
         type: keyword
-      study_period_start:
+      study_beginning_year:
         type: keyword
-      study_period_end:
+      study_ending_year:
         type: keyword
-      biospecimens_collected:
+      biospecimen_collection:
         type: keyword
       study_status:
         type: keyword
-      dbGap_id:
+      dbgap_accession_id:
+        type: keyword
+      data_file_total_size:
         type: keyword
       number_of_participants:
         type: keyword
-      max_age:
+      study_participant_maximum_age:
         type: keyword
-      medium_age:
+      study_participant_median_age:
         type: keyword
-      min_age:
+      study_participant_minimum_age:
         type: keyword
-      study_race:
+      race:
         type: keyword
-      study_ethnicity:
+      ethnicity:
         type: keyword
-      study_sex:
+      sex:
         type: keyword
-      study_gender:
+      gender:
         type: keyword
-      country_list:
+      study_country:
         type: keyword
-      country_count:
+      number_of_countries:
         type: keyword
-      state_list:
+      study_state_province_territory:
         type: keyword
-      state_count:
+      number_of_states_provinces_territories:
         type: keyword
       primary_diagnosis_disease_term:
         type: keyword
       primary_diagnosis_disease_count:
         type: keyword
-      study_personal:
+      study_personnel:
         type: nested
         properties:
-          first_name:
+          person_first_name:
             type: keyword
-          middle_name:
+          person_middle_name:
             type: keyword
-          last_name:
+          person_last_name:
             type: keyword
           institution:
             type: keyword
-          email:
+          email_address:
             type: keyword
           person_role:
             type: keyword
       study_publication:
         type: nested
         properties:
-          author:
+          authorship:
             type: keyword
-          title:
+          publication_title:
             type: keyword
-          year:
+          year_of_publication:
             type: keyword
-          journal:
+          journal_citation:
             type: keyword
-          doi:
+          digital_object_id:
             type: keyword
-          pumID:
+          pubmed_id:
             type: keyword
-      study_files:
+          publication_record_id:
+            type: keyword
+      data_file:
         type: nested
         properties:
-          file_name:
+          data_file_name:
             type: keyword
-          file_type:
+          data_file_type:
             type: keyword
-          description:
+          data_file_description:
             type: keyword
-          format:
+          data_file_data_format:
             type: keyword
-          size:
+          data_file_size:
             type: keyword
-      study_links:
+      associated_links:
         type: nested
         properties:
           associated_link_name:
@@ -124,56 +129,89 @@ Indices:
       RETURN 
       study.study_name as study_name,
       study.study_short_name as study_short_name,
+      study.study_id as study_id,
       study.study_description as study_description,
       study.study_type as study_type,
       study.study_design as study_design,
-      study.enrollment_beginning_year as enrollment_period_start,
-      study.enrollment_ending_year as enrollment_period_end,
-      study.study_beginning_year as study_period_start,
-      study.study_ending_year as study_period_end,
-      study.biospecimen_collection as biospecimens_collected,
+      study.enrollment_beginning_year as enrollment_beginning_year,
+      study.enrollment_ending_year as enrollment_ending_year,
+      study.study_beginning_year as study_beginning_year,
+      study.study_ending_year as study_ending_year,
+      study.biospecimen_collection as biospecimen_collection,
       study.study_status as study_status,
-      study.dbgap_accession_id as dbGap_id,
+      study.dbgap_accession_id as dbgap_accession_id,
+      sum(DISTINCT(data.data_file_size)) as data_file_total_size,
       study.number_of_participants as number_of_participants,
-      study_demo.study_participant_maximum_age as max_age,
-      study_demo.study_participant_median_age as medium_age,
-      study_demo.study_participant_minimum_age as min_age,
-      study_demo.race as study_race,
-      study_demo.ethnicity as study_ethnicity,
-      study_demo.sex as study_sex,
-      study_demo.gender as study_gender,
-      country.study_country as country_list,
-      count(Distinct(country.study_country)) as country_count,
-      Collect(distinct(state.study_state_province_territory)) as state_list,
-      count(distinct(state)) as state_count,
+      study_demo.study_participant_maximum_age as study_participant_maximum_age,
+      study_demo.study_participant_median_age as study_participant_median_age,
+      study_demo.study_participant_minimum_age as study_participant_minimum_age,
+      study_demo.race as race,
+      study_demo.ethnicity as ethnicity,
+      study_demo.sex as sex,
+      study_demo.gender as gender,
+      country.study_country as study_country,
+      count(Distinct(country.study_country)) as number_of_countries,
+      Collect(distinct(state.study_state_province_territory)) as study_state_province_territory,
+      count(distinct(state)) as number_of_states_provinces_territories,
       Collect(distinct(neoplasm.primary_diagnosis_disease_term)) as primary_diagnosis_disease_term,
       count(DISTINCT(neoplasm.primary_diagnosis_disease_term)) as primary_diagnosis_disease_count,
       Collect(DISTINCT{
-        first_name: study_person.person_first_name,
-        middle_name: study_person.person_middle_name,
-        last_name: study_person.person_last_name,
-        email: study_person.person_email_address,
+        person_first_name: study_person.person_first_name,
+        person_middle_name: study_person.person_middle_name,
+        person_last_name: study_person.person_last_name,
+        email_address: study_person.person_email_address,
         person_role: study_person.person_role,
         institution: study_person.person_institution
-       }) as study_personal,
+       }) as study_personnel,
        Collect(DISTINCT{
-        author: study_pub.authorship,
-        title: study_pub.publication_title,
-        year: study_pub.year_of_publication,
-        journal: study_pub.journal_citation,
-        doi:study_pub.digital_object_id,
-        pumID:study_pub.publication_record_id
+        authorship: study_pub.authorship,
+        publication_title: study_pub.publication_title,
+        year_of_publication: study_pub.year_of_publication,
+        journal_citation: study_pub.journal_citation,
+        digital_object_id:study_pub.digital_object_id,
+        pubmed_id:study_pub.pubmed_id,
+        publication_record_id:study_pub.publication_record_id
        }) as study_publication,
        Collect(DISTINCT{
-        file_name: data.data_file_name,
-        file_type: data.data_file_type,
-        description: data.data_file_description,
-        format:data.data_file_format,
-        size:data.data_file_size
-       }) as study_files,
+        data_file_name: data.data_file_name,
+        data_file_type: data.data_file_type,
+        data_file_description: data.data_file_description,
+        data_file_format:data.data_file_format,
+        data_file_size:data.data_file_size
+       }) as data_file,
         Collect(DISTINCT{
         associated_link_name: links.associated_link_name,
         associated_link_id: links.associated_link_id,
         associated_link_url: links.associated_link_url
-       }) as study_links
+       }) as associated_links
+      "
+  - index_name: global_stats_bar
+    type: neo4j
+    # type mapping for each property of the index
+    mapping:
+      study_short_name:
+        type: keyword
+      data_volume:
+        type: keyword
+      number_of_participants:
+        type: keyword
+      data_collection_category:
+        type: keyword
+      primary_diagnosis_disease_term:
+        type: keyword
+      data_file_uuid:
+        type: keyword
+    # Cypher query will be used to retrieve data from Neo4j, and index into Elasticsearch
+    cypher_query: "
+      MATCH (study:study)
+      OPTIONAL MATCH (data:data_file)
+      OPTIONAL MATCH (primary_diagnosis:primary_diagnosis)
+      OPTIONAL MATCH (data_collection:data_collection)
+      RETURN
+      COLLECT(DISTINCT study.study_short_name) as study_short_name,
+      sum(data.data_file_size) as data_volume,
+      sum(study.number_of_participants) as number_of_participants,
+      COLLECT(DISTINCT(data_collection.data_collection_category)) as data_collection_category,
+      COLLECT(DISTINCT(primary_diagnosis.primary_diagnosis_disease_term)) as primary_diagnosis_disease_term,
+      COLLECT(DISTINCT(data.data_file_uuid)) as data_file_uuid
       "
