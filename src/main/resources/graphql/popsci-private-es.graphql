@@ -8,7 +8,7 @@ type GlobalStatsBarStats {
   data_volume: Int
   number_of_participants: Int
 }
-type study_personnel {
+type personnel {
   person_role : String
   person_first_name : String
   person_last_name : String
@@ -16,7 +16,7 @@ type study_personnel {
   institution : String
   email_address : String
 }
-type study_publication {
+type publication {
   authorship : String
   publication_title : String
   year_of_publication : Int
@@ -31,6 +31,8 @@ type data_file {
   data_file_description: String
   data_file_format: String
   data_file_size: Int
+  data_file_uuid: String
+  association: String
 }
 type associated_links {
   associated_link_name: String
@@ -67,8 +69,8 @@ type StudyGeneral {
   data_file_total_size: Int
   primary_diagnosis_disease_term: [String]
   primary_diagnosis_disease_count: Int
-  study_personnel: [study_personnel]
-  study_publication: [study_publication]
+  personnel: [personnel]
+  publication: [publication]
   data_file: [data_file]
   associated_links: [associated_links]
   
