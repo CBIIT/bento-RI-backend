@@ -32,6 +32,7 @@ type data_file {
   data_file_format: String
   data_file_size: Int
   data_file_uuid: String
+  association: String
 }
 type associated_links {
   associated_link_name: String
@@ -39,7 +40,6 @@ type associated_links {
   associated_link_url: String
 }
 type StudyGeneral {
-  association: String
   study_name: String
   study_short_name: String
   study_id: String
@@ -81,7 +81,6 @@ schema {
 
 type QueryType {
   studyGeneral(
-     association: [String] = []
      study_name: [String] = []
      study_short_name: [String] = []
      study_id: [String] = []
