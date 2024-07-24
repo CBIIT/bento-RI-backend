@@ -61,9 +61,8 @@ type StudyGeneral {
   ethnicity: String
   sex: String
   gender: String
-  study_country: String
+  study_country: [String]
   number_of_countries: Int
-  data_file_complete_size: Int
   study_state_province_territory: [String]
   number_of_states_provinces_territories: Int
   data_file_total_size: Int
