@@ -5,8 +5,6 @@ Indices:
     type: neo4j
     # type mapping for each property of the index
     mapping:
-      association:
-        type: keyword
       study_name:
         type: keyword
       study_id:
@@ -110,6 +108,8 @@ Indices:
             type: keyword
           data_file_uuid:
             type: keyword
+          association:
+            type: keyword
       associated_links:
         type: nested
         properties:
@@ -131,7 +131,6 @@ Indices:
       MATCH (data:data_file)
       optional MATCH (links:associated_link)
       RETURN 
-      'study' AS association,
       study.study_name as study_name,
       study.study_short_name as study_short_name,
       study.study_id as study_id,
@@ -154,7 +153,7 @@ Indices:
       study_demo.ethnicity as ethnicity,
       study_demo.sex as sex,
       study_demo.gender as gender,
-      country.study_country as study_country,
+      Collect(distinct(country.study_country)) as study_country,
       count(Distinct(country.study_country)) as number_of_countries,
       Collect(distinct(state.study_state_province_territory)) as study_state_province_territory,
       count(distinct(state)) as number_of_states_provinces_territories,
@@ -183,7 +182,8 @@ Indices:
         data_file_description: data.data_file_description,
         data_file_format:data.data_file_format,
         data_file_size:data.data_file_size,
-        data_file_uuid:data.data_file_uuid
+        data_file_uuid:data.data_file_uuid,
+        association:'study'
        }) as data_file,
         Collect(DISTINCT{
         associated_link_name: links.associated_link_name,
@@ -220,4 +220,28 @@ Indices:
       COLLECT(DISTINCT(data_collection.data_collection_category)) as data_collection_category,
       COLLECT(DISTINCT(primary_diagnosis.primary_diagnosis_disease_term)) as primary_diagnosis_disease_term,
       COLLECT(DISTINCT(data.data_file_uuid)) as data_file_uuid
+      "
+  - index_name: data_collection
+    type: neo4j
+  # type mapping for each property of the index
+    mapping:
+      study_short_name:
+        type: keyword
+      data_collection:
+       type: nested
+       properties:
+          data_collection_category:
+            type: keyword
+          data_collection_category_annotation_count:
+            type: keyword
+    cypher_query:
+      "
+      MATCH (study:study)
+      MATCH (data_collection:data_collection) 
+      RETURN
+      study.study_short_name as study_short_name,
+      Collect(Distinct{
+      data_collection_category:data_collection.data_collection_category,
+      data_collection_category_annotation_count:data_collection.data_collection_category_annotation_count
+      }) as data_collection
       "
