@@ -15,3 +15,10 @@ queries:
       type: default
     result:
       type: object_array
+  - name: dataCollectionPage
+    index:
+      - data_collection
+    filter:
+      type: default
+    result:
+      type: object_array

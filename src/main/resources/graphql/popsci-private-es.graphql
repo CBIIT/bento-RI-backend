@@ -8,6 +8,15 @@ type GlobalStatsBarStats {
   data_volume: Int
   number_of_participants: Int
 }
+type data_collection_page {
+  study_short_name: String
+  data_collection: [data_collection]
+}
+type data_collection {
+  data_collection_category: String
+  data_collection_category_annotation_count: Int
+
+}
 type personnel {
   person_role : String
   person_first_name : String
@@ -115,8 +124,11 @@ type QueryType {
   study_short_name: [String] = []
   ): GlobalStatsBarStats
 
-
   searchSubjects(
     study_short_name: [String] = []
   ): SearchResult
+
+  dataCollectionPage(
+    study_short_name: [String] = []
+  ): [data_collection_page]
 }
