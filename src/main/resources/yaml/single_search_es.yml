@@ -22,3 +22,13 @@ queries:
       type: default
     result:
       type: object_array
+  - name: tabStudy
+    index:
+      - tab_study
+    filter:
+      type: pagination
+      defaultSortField: study_short_name
+      alternativeSortField:
+        subject_id: study_name
+    result:
+      type: object_array
