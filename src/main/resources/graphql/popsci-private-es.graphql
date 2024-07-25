@@ -122,6 +122,10 @@ type TabStudy {
   publication: [publication]
   data_file: [data_file]
   associated_links: [associated_links]
+  enrollment_period: String
+  study_period: String
+  enrollment_age: String
+  data_collection:[data_collection]
 }
 
 schema {
