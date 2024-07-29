@@ -18,13 +18,13 @@ Indices:
       study_design:
         type: keyword
       enrollment_beginning_year:
-        type: keyword
+        type: integer
       enrollment_ending_year:
-        type: keyword
+        type: integer
       study_beginning_year:
-        type: keyword
+        type: integer
       study_ending_year:
-        type: keyword
+        type: integer
       biospecimen_collection:
         type: keyword
       study_status:
@@ -34,13 +34,13 @@ Indices:
       data_file_total_size:
         type: keyword
       number_of_participants:
-        type: keyword
+        type: integer
       study_participant_maximum_age:
-        type: keyword
+        type: integer
       study_participant_median_age:
-        type: keyword
+        type: integer
       study_participant_minimum_age:
-        type: keyword
+        type: integer
       race:
         type: keyword
       ethnicity:
@@ -149,10 +149,10 @@ Indices:
       study_demo.study_participant_maximum_age as study_participant_maximum_age,
       study_demo.study_participant_median_age as study_participant_median_age,
       study_demo.study_participant_minimum_age as study_participant_minimum_age,
-      study_demo.race as race,
-      study_demo.ethnicity as ethnicity,
-      study_demo.sex as sex,
-      study_demo.gender as gender,
+      split(study_demo.race, '|') AS race,
+      split(study_demo.ethnicity, '|') as ethnicity,
+      split(study_demo.sex, '|') as sex,
+      split(study_demo.gender, '|') as gender,
       Collect(distinct(country.study_country)) as study_country,
       count(Distinct(country.study_country)) as number_of_countries,
       Collect(distinct(state.study_state_province_territory)) as study_state_province_territory,
@@ -197,29 +197,26 @@ Indices:
     mapping:
       study_short_name:
         type: keyword
-      data_volume:
-        type: keyword
-      number_of_participants:
-        type: keyword
       data_collection_category:
         type: keyword
       primary_diagnosis_disease_term:
         type: keyword
       data_file_uuid:
         type: keyword
+
     # Cypher query will be used to retrieve data from Neo4j, and index into Elasticsearch
     cypher_query: "
       MATCH (study:study)
       OPTIONAL MATCH (data:data_file)
       OPTIONAL MATCH (primary_diagnosis:primary_diagnosis)
       OPTIONAL MATCH (data_collection:data_collection)
+      OPTIONAL MATCH (study_demographic:study_demographic)
       RETURN
-      COLLECT(DISTINCT study.study_short_name) as study_short_name,
-      sum(data.data_file_size) as data_volume,
-      sum(study.number_of_participants) as number_of_participants,
-      COLLECT(DISTINCT(data_collection.data_collection_category)) as data_collection_category,
+      study.study_short_name as study_short_name,
       COLLECT(DISTINCT(primary_diagnosis.primary_diagnosis_disease_term)) as primary_diagnosis_disease_term,
+      COLLECT(DISTINCT(data_collection.data_collection_category)) as data_collection_category,
       COLLECT(DISTINCT(data.data_file_uuid)) as data_file_uuid
+      
       "
   - index_name: data_collection
     type: neo4j
