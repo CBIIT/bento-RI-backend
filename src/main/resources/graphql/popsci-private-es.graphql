@@ -3,6 +3,37 @@ type SearchResult {
   numberOfDataCollectionCatagory: Int
   numberOfDiagnosis: Int
   numberOfDataFiles: Int
+  studyParticipants: RangeCount
+  studyPeriod: RangeCount
+  enrollmentPeriod: RangeCount
+  studyAgeAtEnrollment: RangeCount
+  studyCountByStudyType: [TypeCount]
+  filterStudyCountByStudyType: [TypeCount]
+  studyCountByStudyDesign: [TypeCount]
+  filterStudyCountByStudyDesign: [TypeCount]
+  studyCountByNeoplasm: [TypeCount]
+  filterStudyCountByNeoplasm: [TypeCount]
+  studyCountByPrimaryCountries: [TypeCount]
+  filterStudyCountByCountries: [TypeCount]
+  studyCountByBiospecimenCollection: [TypeCount]
+  filterStudyCountByBiospecimenCollection: [TypeCount]
+  studyCountByRace: [TypeCount]
+  filterStudyCountByRace: [TypeCount]
+  studyCountByEthnicity: [TypeCount]
+  filterStudyCountByEthnicity: [TypeCount]
+  studyCountBySex: [TypeCount]
+  filterStudyCountBySex: [TypeCount]
+  studyCountByGender: [TypeCount]
+  filterStudyCountByGender: [TypeCount]
+}
+type TypeCount {
+    group: String
+    subjects: Int
+}
+type RangeCount {
+    lowerBound: Float
+    upperBound: Float
+    subjects: Int
 }
 type GlobalStatsBarStats {
   data_volume: Int
@@ -119,6 +150,7 @@ type QueryType {
      primary_diagnosis_disease_count: [Int] = []
 
   ): [StudyGeneral]
+
 
   globalStatsBarStats(
   study_short_name: [String] = []
