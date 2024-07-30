@@ -154,6 +154,33 @@ type QueryType {
 
   globalStatsBarStats(
   study_short_name: [String] = []
+  study_name: [String] = []
+  study_id: [String] = []
+  study_description: [String] = []
+  study_type: [String] = []
+  study_design: [String] = []
+  enrollment_beginning_year: [Int] = []
+  enrollment_ending_year: [Int] = []
+  study_beginning_year: [Int] = []
+  study_ending_year: [Int] = []
+  biospecimen_collection: [String] = []
+  study_status: [String] = []
+  dbgap_accession_id: [String] = []
+  associated_links: [String] = []
+  number_of_participants: [Int] = []
+  study_participant_maximum_age: [Float] = []
+  study_participant_median_age: [Float] = []
+  study_participant_minimum_age: [Float] = []
+  race: [String] = []
+  ethnicity: [String] = []
+  sex: [String] = []
+  gender: [String] = []
+  study_country: [String] = []
+  number_of_countries: [Int] = []
+  study_state_province_territory: [String] = []
+  number_of_states_provinces_territories: [Int] = []
+  primary_diagnosis_disease_term: [String] = []
+  primary_diagnosis_disease_count: [Int] = []
   ): GlobalStatsBarStats
 
   searchSubjects(
