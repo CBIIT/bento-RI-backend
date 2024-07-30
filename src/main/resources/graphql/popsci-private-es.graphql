@@ -83,6 +83,51 @@ type StudyGeneral {
   associated_links: [associated_links]
   
 }
+
+
+type TabStudy {
+  study_name: String
+  study_short_name: String
+  study_id: String
+  study_description: String
+  study_type: String
+  study_design: String
+  enrollment_beginning_year: Int
+  enrollment_ending_year: Int
+  study_beginning_year: Int
+  study_ending_year: Int
+  biospecimen_collection: String
+  study_status: String
+  dbgap_accession_id: String
+  number_of_participants : Int
+  study_participant_maximum_age: Float
+  study_participant_median_age: Float
+  study_participant_minimum_age: Float
+  race: String
+  ethnicity: String
+  sex: String
+  gender: String
+  race_array: String
+  ethnicity_array: String
+  sex_array: String
+  gender_array: String
+  study_country: [String]
+  number_of_countries: Int
+  study_state_province_territory: [String]
+  number_of_states_provinces_territories: Int
+  data_file_total_size: Int
+  primary_diagnosis_disease_term: [String]
+  primary_diagnosis_disease_count: Int
+  personnel: [personnel]
+  publication: [publication]
+  data_file: [data_file]
+  associated_links: [associated_links]
+  enrollment_period: String
+  study_period: String
+  enrollment_age: String
+  data_collection:[data_collection]
+}
+
 schema {
   query: QueryType
 }
@@ -117,8 +162,48 @@ type QueryType {
      number_of_states_provinces_territories: [Int] = []
      primary_diagnosis_disease_term: [String] = []
      primary_diagnosis_disease_count: [Int] = []
-
   ): [StudyGeneral]
+
+
+   tabStudy(
+     study_name: [String] = []
+     study_short_name: [String] = []
+     study_id: [String] = []
+     study_description: [String] = []
+     study_type: [String] = []
+     study_design: [String] = []
+     enrollment_beginning_year: [Int] = []
+     enrollment_ending_year: [Int] = []
+     study_beginning_year: [Int] = []
+     study_ending_year: [Int] = []
+     biospecimen_collection: [String] = []
+     study_status: [String] = []
+     dbgap_accession_id: [String] = []
+     associated_links: [String] = []
+     number_of_participants: [Int] = []
+     study_participant_maximum_age: [Float] = []
+     study_participant_median_age: [Float] = []
+     study_participant_minimum_age: [Float] = []
+     race: [String] = []
+     ethnicity: [String] = []
+     sex: [String] = []
+     gender: [String] = []
+     race_array: [String] = []
+     ethnicity_array: [String] = []
+     sex_array: [String] = []
+     gender_array: [String] = []
+     study_country: [String] = []
+     number_of_countries: [Int] = []
+     study_state_province_territory: [String] = []
+     number_of_states_provinces_territories: [Int] = []
+     primary_diagnosis_disease_term: [String] = []
+     primary_diagnosis_disease_count: [Int] = []
+
+      order_by: String = "study_short_name"
+      sort_direction: String = "asc"
+      first: Int = 10
+      offset: Int = 0
+  ): [TabStudy]
 
   globalStatsBarStats(
   study_short_name: [String] = []

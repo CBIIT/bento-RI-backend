@@ -153,6 +153,7 @@ Indices:
       study_demo.ethnicity as ethnicity,
       study_demo.sex as sex,
       study_demo.gender as gender,
+
       Collect(distinct(country.study_country)) as study_country,
       count(Distinct(country.study_country)) as number_of_countries,
       Collect(distinct(state.study_state_province_territory)) as study_state_province_territory,
@@ -241,6 +242,138 @@ Indices:
       RETURN
       study.study_short_name as study_short_name,
       Collect(Distinct{
+      data_collection_category:data_collection.data_collection_category,
+      data_collection_category_annotation_count:data_collection.data_collection_category_annotation_count
+      }) as data_collection
+      "
+
+   # First index
+  # Name of the index to be created, existing index with same name will be deleted
+  - index_name: tab_study
+    type: neo4j
+    # type mapping for each property of the index
+    mapping:
+      study_name:
+        type: keyword
+      study_id:
+        type: keyword
+      study_short_name:
+        type: keyword
+      study_description:
+        type: keyword
+      study_type:
+        type: keyword
+      study_design:
+        type: keyword
+      enrollment_beginning_year:
+        type: keyword
+      enrollment_ending_year:
+        type: keyword
+      study_beginning_year:
+        type: keyword
+      study_ending_year:
+        type: keyword
+      biospecimen_collection:
+        type: keyword
+      study_status:
+        type: keyword
+      dbgap_accession_id:
+        type: keyword
+      number_of_participants:
+        type: keyword
+      study_participant_maximum_age:
+        type: keyword
+      study_participant_median_age:
+        type: keyword
+      study_participant_minimum_age:
+        type: keyword
+      race:
+        type: keyword
+      ethnicity:
+        type: keyword
+      sex:
+        type: keyword
+      gender:
+        type: keyword
+      race_array:
+        type: keyword
+      ethnicity_array:
+        type: keyword
+      sex_array:
+        type: keyword
+      gender_array:
+        type: keyword
+      enrollment_period:
+        type: keyword
+      study_period:
+        type: keyword
+      enrollment_age:
+        type: keyword
+      study_country:
+        type: keyword
+      number_of_countries:
+        type: keyword
+      study_state_province_territory:
+        type: keyword
+      number_of_states_provinces_territories:
+        type: keyword
+      primary_diagnosis_disease_term:
+        type: keyword
+      primary_diagnosis_disease_count:
+        type: keyword
+      data_collection:
+       type: nested
+       properties:
+          data_collection_category:
+            type: keyword
+          data_collection_category_annotation_count:
+            type: keyword
+    # Cypher query will be used to retrieve data from Neo4j, and index into Elasticsearch
+    cypher_query: "
+      MATCH (study:study)
+      optional MATCH (study)<-[:associated_with]-(study_demo:study_demographic)
+      optional MATCH (study)<-[:associated_with]-(study_person:study_personnel)
+      optional MATCH (study)<-[:associated_with]-(neoplasm:primary_diagnosis)
+      optional MATCH (study)<-[:associated_with]-(country:study_country)
+      optional MATCH (study)<-[:associated_with]-(state:study_state_province_territory)
+      OPTIONAL MATCH (study)<-[:associated_with]-(data_collection:data_collection)
+
+      RETURN 
+      study.study_name as study_name,
+      study.study_short_name as study_short_name,
+      study.study_id as study_id,
+      study.study_description as study_description,
+      study.study_type as study_type,
+      study.study_design as study_design,
+      study.enrollment_beginning_year as enrollment_beginning_year,
+      study.enrollment_ending_year as enrollment_ending_year,
+      toInteger(study.enrollment_beginning_year) + '-' +  toInteger(study.enrollment_ending_year)  as enrollment_period,
+      study.study_beginning_year as study_beginning_year,
+      study.study_ending_year as study_ending_year,
+      toInteger(study.study_beginning_year) + '-' + toInteger(study.study_ending_year) as study_period,
+      study.biospecimen_collection as biospecimen_collection,
+      study.study_status as study_status,
+      study.dbgap_accession_id as dbgap_accession_id,
+      study.number_of_participants as number_of_participants,
+      study_demo.study_participant_maximum_age as study_participant_maximum_age,
+      study_demo.study_participant_median_age as study_participant_median_age,
+      study_demo.study_participant_minimum_age as study_participant_minimum_age,
+      toInteger(study_demo.study_participant_minimum_age) + '-'  + toInteger(study_demo.study_participant_maximum_age)   as enrollment_age,
+      study_demo.race as race,
+      study_demo.ethnicity as ethnicity,
+      study_demo.sex as sex,
+      study_demo.gender as gender,
+      split(study_demo.race, '|') AS race_array,
+      split(study_demo.ethnicity, '|') as ethnicity_array,
+      split(study_demo.sex, '|') as sex_array,
+      split(study_demo.gender, '|') as gender_array,
+      Collect(distinct(country.study_country)) as study_country,
+      count(Distinct(country.study_country)) as number_of_countries,
+      Collect(distinct(state.study_state_province_territory)) as study_state_province_territory,
+      count(distinct(state)) as number_of_states_provinces_territories,
+      Collect(distinct(neoplasm.primary_diagnosis_disease_term)) as primary_diagnosis_disease_term,
+      count(DISTINCT(neoplasm.primary_diagnosis_disease_term)) as primary_diagnosis_disease_count,
+       Collect(Distinct{
       data_collection_category:data_collection.data_collection_category,
       data_collection_category_annotation_count:data_collection.data_collection_category_annotation_count
       }) as data_collection
