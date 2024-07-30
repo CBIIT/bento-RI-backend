@@ -40,18 +40,6 @@ queries:
         result:
           type: int
           method: count_bucket_keys
-      - name: enrollmentPeriod 
-        index:
-          - study_overview
-        filter:
-          type: range
-          selectedField: enrollment_beginning_year
-          ignoreSelectedField: true
-          rangeFilterFields:
-            - enrollment_beginning_year
-            - enrollment_ending_year
-        result:
-          type: range
       - name: studyCountByStudyType
         index:
           - study_overview
@@ -205,7 +193,7 @@ queries:
           ignoreSelectedField: true
         result:
           type: group_count
-      - name: studyPeriod 
+      - name: studyPeriodMin
         index:
           - study_overview
         filter:
@@ -214,19 +202,71 @@ queries:
           ignoreSelectedField: true
           rangeFilterFields:
             - study_beginning_year
-            - study_ending_year
         result:
           type: range
-      - name: studyParticipants
+      - name: studyPeriodMax
         index:
           - study_overview
         filter:
           type: range
-          selectedField: number_of_participants
+          selectedField: study_ending_year
+          ignoreSelectedField: true
+          rangeFilterFields:
+            - study_ending_year
+        result:
+          type: range
+      - name: studyParticipantsMax
+        index:
+          - study_overview
+        filter:
+          type: range
+          selectedField: study_participant_maximum_age
           ignoreSelectedField: true
         result:
           type: range
-      - name: studyAgeAtEnrollment 
+      - name: studyParticipantsMin
+        index:
+          - study_overview
+        filter:
+          type: range
+          selectedField: study_participant_minimum_age
+          ignoreSelectedField: true
+        result:
+          type: range
+      - name: studyAgeAtEnrollmentMin
+        index:
+          - study_overview
+        filter:
+          type: range
+          selectedField: enrollment_beginning_year
+          ignoreSelectedField: true
+          rangeFilterFields:
+            - enrollment_beginning_year
+        result:
+          type: range
+      - name: studyAgeAtEnrollmentMax
+        index:
+          - study_overview
+        filter:
+          type: range
+          selectedField: enrollment_ending_year
+          ignoreSelectedField: true
+          rangeFilterFields:
+            - enrollment_ending_year
+        result:
+          type: range
+      - name: enrollmentPeriod 
+        index:
+          - study_overview
+        filter:
+          type: range
+          selectedField: enrollment_ending_year
+          ignoreSelectedField: true
+          rangeFilterFields:
+            - enrollment_ending_year
+        result:
+          type: range
+      - name: enrollmentPeriodMin
         index:
           - study_overview
         filter:
