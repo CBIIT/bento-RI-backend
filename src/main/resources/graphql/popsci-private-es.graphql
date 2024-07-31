@@ -3,14 +3,13 @@ type SearchResult {
   numberOfDataCollectionCatagory: Int
   numberOfDiagnosis: Int
   numberOfDataFiles: Int
-  studyParticipantsMin: RangeCount
   studyPeriodMin: RangeCount
   enrollmentPeriodMin: RangeCount
-  studyAgeAtEnrollmentMin: RangeCount
-  studyParticipantsMax: RangeCount
+  participantAgeAtEnrollmentMin: RangeCount
+  studyCountByNumberOfParticipants: RangeCount
   studyPeriodMax: RangeCount
   enrollmentPeriodMax: RangeCount
-  studyAgeAtEnrollmentMax: RangeCount
+  participantAgeAtEnrollmentMax: RangeCount
   studyCountByStudyType: [TypeCount]
   filterStudyCountByStudyType: [TypeCount]
   studyCountByStudyDesign: [TypeCount]

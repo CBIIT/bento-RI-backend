@@ -215,25 +215,16 @@ queries:
             - study_ending_year
         result:
           type: range
-      - name: studyParticipantsMax
+      - name: studyCountByNumberOfParticipants
         index:
           - study_overview
         filter:
           type: range
-          selectedField: study_participant_maximum_age
+          selectedField: number_of_participants
           ignoreSelectedField: true
         result:
           type: range
-      - name: studyParticipantsMin
-        index:
-          - study_overview
-        filter:
-          type: range
-          selectedField: study_participant_minimum_age
-          ignoreSelectedField: true
-        result:
-          type: range
-      - name: studyAgeAtEnrollmentMin
+      - name: participantAgeAtEnrollmentMin
         index:
           - study_overview
         filter:
@@ -244,7 +235,7 @@ queries:
             - enrollment_beginning_year
         result:
           type: range
-      - name: studyAgeAtEnrollmentMax
+      - name: participantAgeAtEnrollmentMax
         index:
           - study_overview
         filter:
@@ -255,7 +246,7 @@ queries:
             - enrollment_ending_year
         result:
           type: range
-      - name: enrollmentPeriod 
+      - name: enrollmentPeriodMax
         index:
           - study_overview
         filter:
