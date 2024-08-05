@@ -99,7 +99,7 @@ type StudyGeneral {
   dbgap_accession_id: String
   number_of_participants : Int
   study_participant_maximum_age: Int
-  study_participant_median_age: Int
+  study_participant_median_age: Float
   study_participant_minimum_age: Int
   race: String
   ethnicity: String
@@ -185,7 +185,7 @@ type QueryType {
      associated_links: [String] = []
      number_of_participants: [Int] = []
      study_participant_maximum_age: [Int] = []
-     study_participant_median_age: [Int] = []
+     study_participant_median_age: [Float] = []
      study_participant_minimum_age: [Int] = []
      race: [String] = []
      ethnicity: [String] = []
