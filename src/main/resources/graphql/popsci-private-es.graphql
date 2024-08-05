@@ -115,6 +115,7 @@ type StudyGeneral {
   publication: [publication]
   data_file: [data_file]
   associated_links: [associated_links]
+  primary_diagnosis_disease_count: Int
   
 }
 
