@@ -98,9 +98,9 @@ type StudyGeneral {
   study_status: String
   dbgap_accession_id: String
   number_of_participants : Int
-  study_participant_maximum_age: Int
+  study_participant_maximum_age: Float
   study_participant_median_age: Float
-  study_participant_minimum_age: Int
+  study_participant_minimum_age: Float
   race: String
   ethnicity: String
   sex: String
