@@ -4,19 +4,19 @@ type SearchResult {
   numberOfDiagnosis: Int
   numberOfDataFiles: Int
   studyPeriodMin: RangeCount
-  enrollmentPeriodMin: RangeCount
-  participantAgeAtEnrollmentMin: RangeCount
-  studyCountByNumberOfParticipants: RangeCount
   studyPeriodMax: RangeCount
+  enrollmentPeriodMin: RangeCount
   enrollmentPeriodMax: RangeCount
+  participantAgeAtEnrollmentMin: RangeCount
   participantAgeAtEnrollmentMax: RangeCount
+  studyCountByNumberOfParticipants: RangeCount
   studyCountByStudyType: [TypeCount]
   filterStudyCountByStudyType: [TypeCount]
   studyCountByStudyDesign: [TypeCount]
   filterStudyCountByStudyDesign: [TypeCount]
   studyCountByNeoplasm: [TypeCount]
   filterStudyCountByNeoplasm: [TypeCount]
-  studyCountByPrimaryCountries: [TypeCount]
+  studyCountByCountries: [TypeCount]
   filterStudyCountByCountries: [TypeCount]
   studyCountByBiospecimenCollection: [TypeCount]
   filterStudyCountByBiospecimenCollection: [TypeCount]
@@ -97,9 +97,9 @@ type StudyGeneral {
   study_status: String
   dbgap_accession_id: String
   number_of_participants : Int
-  study_participant_maximum_age: Int
-  study_participant_median_age: Int
-  study_participant_minimum_age: Int
+  study_participant_maximum_age: Float
+  study_participant_median_age: Float
+  study_participant_minimum_age: Float
   race: String
   ethnicity: String
   sex: String
@@ -182,9 +182,9 @@ type QueryType {
      dbgap_accession_id: [String] = []
      associated_links: [String] = []
      number_of_participants: [Int] = []
-     study_participant_maximum_age: [Int] = []
-     study_participant_median_age: [Int] = []
-     study_participant_minimum_age: [Int] = []
+     study_participant_maximum_age: [Float] = []
+     study_participant_median_age: [Float] = []
+     study_participant_minimum_age: [Float] = []
      race: [String] = []
      ethnicity: [String] = []
      sex: [String] = []
@@ -196,14 +196,15 @@ type QueryType {
      primary_diagnosis_disease_term: [String] = []
   ): [StudyGeneral]
 
-
    tabStudy(
+
      study_name: [String] = []
      study_short_name: [String] = []
      study_id: [String] = []
      study_description: [String] = []
      study_type: [String] = []
      study_design: [String] = []
+     data_file_uuid: [String] = []
      enrollment_beginning_year: [Int] = []
      enrollment_ending_year: [Int] = []
      study_beginning_year: [Int] = []
@@ -240,6 +241,7 @@ type QueryType {
   globalStatsBarStats(
   study_short_name: [String] = []
   study_name: [String] = []
+  data_file_uuid: [String] = []
   study_id: [String] = []
   study_description: [String] = []
   study_type: [String] = []
@@ -253,9 +255,9 @@ type QueryType {
   dbgap_accession_id: [String] = []
   associated_links: [String] = []
   number_of_participants: [Int] = []
-  study_participant_maximum_age: [Int] = []
-  study_participant_median_age: [Int] = []
-  study_participant_minimum_age: [Int] = []
+  study_participant_maximum_age: [Float] = []
+  study_participant_median_age: [Float] = []
+  study_participant_minimum_age: [Float] = []
   race: [String] = []
   ethnicity: [String] = []
   sex: [String] = []
@@ -267,7 +269,7 @@ type QueryType {
   primary_diagnosis_disease_term: [String] = []
   ): GlobalStatsBarStats
 
-  searchSubjects(
+  searchStudies(
     study_short_name: [String] = []
     study_name: [String] = []
   study_id: [String] = []
@@ -283,9 +285,9 @@ type QueryType {
   dbgap_accession_id: [String] = []
   associated_links: [String] = []
   number_of_participants: [Int] = []
-  study_participant_maximum_age: [Int] = []
-  study_participant_median_age: [Int] = []
-  study_participant_minimum_age: [Int] = []
+  study_participant_maximum_age: [Float] = []
+  study_participant_median_age: [Float] = []
+  study_participant_minimum_age: [Float] = []
   race: [String] = []
   ethnicity: [String] = []
   sex: [String] = []
