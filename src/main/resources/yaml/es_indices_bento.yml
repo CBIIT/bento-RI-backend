@@ -113,7 +113,7 @@ Indices:
       study_short_name:
         type: keyword
       data_volume:
-        type: keyword
+        type: float
       number_of_participants:
         type: keyword
       data_collection_category:
@@ -163,14 +163,14 @@ Indices:
       RETURN
       study.study_short_name as study_short_name,
       sum(data.data_file_size) as data_volume,
-      sum(study.number_of_participants) as number_of_participants,
+      study.number_of_participants as number_of_participants,
       COLLECT(DISTINCT(data_collection.data_collection_category)) as data_collection_category,
       COLLECT(DISTINCT(neoplasm.primary_diagnosis_disease_term)) as primary_diagnosis_disease_term,
       COLLECT(DISTINCT(data.data_file_uuid)) as data_file_uuid,
       study.enrollment_beginning_year as enrollment_beginning_year,
       study.enrollment_ending_year as enrollment_ending_year,
+      COALESCE(study.study_ending_year,3000) as study_ending_year,
       study.study_beginning_year as study_beginning_year,
-      study.study_ending_year as study_ending_year,
       study.study_status as study_status,
       split(study_demo.race, '|') AS race_array,
       split(study_demo.ethnicity, '|') as ethnicity_array,
@@ -181,6 +181,30 @@ Indices:
       study_demo.study_participant_maximum_age as study_participant_maximum_age,
       study_demo.study_participant_median_age as study_participant_median_age,
       study_demo.study_participant_minimum_age as study_participant_minimum_age 
+      "
+  - index_name: data_collection
+    type: neo4j
+  # type mapping for each property of the index
+    mapping:
+      study_short_name:
+        type: keyword
+      data_collection:
+        type: nested
+        properties:
+          data_collection_category:
+            type: keyword
+          data_collection_category_annotation_count:
+            type: keyword
+    cypher_query:
+      "
+      MATCH (study:study)
+      MATCH (data_collection:data_collection) 
+      RETURN
+      study.study_short_name as study_short_name,
+      Collect(Distinct{
+      data_collection_category:data_collection.data_collection_category,
+      data_collection_category_annotation_count:data_collection.data_collection_category_annotation_count
+      }) as data_collection
       "
    # First index
   # Name of the index to be created, existing index with same name will be deleted
@@ -319,3 +343,4 @@ Indices:
       data_collection_category_annotation_count:data_collection.data_collection_category_annotation_count}) as data_collection,
       COLLECT(DISTINCT(data.data_file_uuid)) as data_file_uuid
       "
+  
