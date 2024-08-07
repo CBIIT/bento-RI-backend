@@ -128,7 +128,7 @@ queries:
           - tab_study
         filter:
           type: aggregation
-          selectedField: race_array
+          selectedField: races
         result:
           type: group_count
       - name: filterStudyCountByRace
@@ -136,7 +136,7 @@ queries:
           - tab_study
         filter:
           type: aggregation
-          selectedField: race_array
+          selectedField: races
           ignoreSelectedField: true
         result:
           type: group_count
@@ -145,7 +145,7 @@ queries:
           - tab_study
         filter:
           type: aggregation
-          selectedField: ethnicity_array
+          selectedField: ethnicities
         result:
           type: group_count
       - name: filterStudyCountByEthnicity
@@ -153,7 +153,7 @@ queries:
           - tab_study
         filter:
           type: aggregation
-          selectedField: ethnicity_array
+          selectedField: ethnicities
           ignoreSelectedField: true
         result:
           type: group_count
@@ -162,7 +162,7 @@ queries:
           - tab_study
         filter:
           type: aggregation
-          selectedField: sex_array
+          selectedField: sexes
         result:
           type: group_count
       - name: filterStudyCountBySex
@@ -170,7 +170,7 @@ queries:
           - tab_study
         filter:
           type: aggregation
-          selectedField: sex_array
+          selectedField: sexes
           ignoreSelectedField: true
         result:
           type: group_count
@@ -179,7 +179,7 @@ queries:
           - tab_study
         filter:
           type: aggregation
-          selectedField: gender_array
+          selectedField: genders
         result:
           type: group_count
       - name: filterStudyCountByGender
@@ -187,7 +187,7 @@ queries:
           - tab_study
         filter:
           type: aggregation
-          selectedField: gender_array
+          selectedField: genders
           ignoreSelectedField: true
         result:
           type: group_count

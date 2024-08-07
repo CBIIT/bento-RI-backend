@@ -40,7 +40,7 @@ type RangeCount {
 }
 type GlobalStatsBar {
   study_short_name: String
-  data_volume: Int
+  data_volume: Float
   number_of_participants: Int
 }
 type data_collection_page {
@@ -113,10 +113,10 @@ type TabStudy {
   ethnicity: String
   sex: String
   gender: String
-  race_array: String
-  ethnicity_array: String
-  sex_array: String
-  gender_array: String
+  ethnicities: String
+  races: String
+  sexes: String
+  genders: String
   study_country: [String]
   number_of_countries: Int
   data_volume: Int
@@ -168,10 +168,10 @@ type QueryType {
      ethnicity: [String] = []
      sex: [String] = []
      gender: [String] = []
-     race_array: [String] = []
-     ethnicity_array: [String] = []
-     sex_array: [String] = []
-     gender_array: [String] = []
+     races: [String] = []
+     ethnicities: [String] = []
+     sexes: [String] = []
+     genders: [String] = []
      study_country: [String] = []
      number_of_countries: [Int] = []
      study_state_province_territory: [String] = []
@@ -200,10 +200,10 @@ type QueryType {
       study_participant_maximum_age: [Float] = []
       study_participant_median_age: [Float] = []
       study_participant_minimum_age: [Float] = []
-      race_array: [String] = []
-      ethnicity_array: [String] = []
-      sex_array: [String] = []
-      gender_array: [String] = []
+      races: [String] = []
+      ethnicities: [String] = []
+      sexes: [String] = []
+      genders: [String] = []
       study_country: [String] = []
       study_state_province_territory: [String] = []
       primary_diagnosis_disease_term: [String] = []
@@ -228,10 +228,10 @@ type QueryType {
     study_participant_maximum_age: [Float] = []
     study_participant_median_age: [Float] = []
     study_participant_minimum_age: [Float] = []
-    race_array: [String] = []
-    ethnicity_array: [String] = []
-    sex_array: [String] = []
-    gender_array: [String] = []
+    races: [String] = []
+    ethnicities: [String] = []
+    sexes: [String] = []
+    genders: [String] = []
     study_country: [String] = []
     number_of_countries: [Int] = []
     study_state_province_territory: [String] = []

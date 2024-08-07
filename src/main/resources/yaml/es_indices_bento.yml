@@ -132,13 +132,13 @@ Indices:
         type: integer
       study_status:
         type: keyword
-      race_array:
+      races:
         type: keyword
-      ethnicity_array:
+      ethnicities:
         type: keyword
-      sex_array:
+      sexes:
         type: keyword
-      gender_array:
+      genders:
         type: keyword
       study_country:
         type: keyword
@@ -172,10 +172,10 @@ Indices:
       COALESCE(study.study_ending_year,3000) as study_ending_year,
       study.study_beginning_year as study_beginning_year,
       study.study_status as study_status,
-      split(study_demo.race, '|') AS race_array,
-      split(study_demo.ethnicity, '|') as ethnicity_array,
-      split(study_demo.sex, '|') as sex_array,
-      split(study_demo.gender, '|') as gender_array,
+      split(study_demo.race, '|') AS races,
+      split(study_demo.ethnicity, '|') as ethnicities,
+      split(study_demo.sex, '|') as sexes,
+      split(study_demo.gender, '|') as genders,
       Collect(distinct(country.study_country)) as study_country,
       Collect(distinct(state.study_state_province_territory)) as study_state_province_territory,
       study_demo.study_participant_maximum_age as study_participant_maximum_age,
@@ -254,13 +254,13 @@ Indices:
         type: keyword
       gender:
         type: keyword
-      race_array:
+      races:
         type: keyword
-      ethnicity_array:
+      ethnicities:
         type: keyword
-      sex_array:
+      sexes:
         type: keyword
-      gender_array:
+      genders:
         type: keyword
       enrollment_period:
         type: keyword
@@ -327,10 +327,10 @@ Indices:
       study_demo.ethnicity as ethnicity,
       study_demo.sex as sex,
       study_demo.gender as gender,
-      split(study_demo.race, '|') AS race_array,
-      split(study_demo.ethnicity, '|') as ethnicity_array,
-      split(study_demo.sex, '|') as sex_array,
-      split(study_demo.gender, '|') as gender_array,
+      split(study_demo.race, '|') AS races,
+      split(study_demo.ethnicity, '|') as ethnicities,
+      split(study_demo.sex, '|') as sexes,
+      split(study_demo.gender, '|') as genders,
       Collect(distinct(country.study_country)) as study_country,
       count(Distinct(country.study_country)) as number_of_countries,
       Collect(distinct(state.study_state_province_territory)) as study_state_province_territory,
