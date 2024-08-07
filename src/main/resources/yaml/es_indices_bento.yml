@@ -311,7 +311,7 @@ Indices:
       study.study_design as study_design,
       study.enrollment_beginning_year as enrollment_beginning_year,
       study.enrollment_ending_year as enrollment_ending_year,
-      toInteger(study.enrollment_beginning_year) + '-' +  toInteger(study.enrollment_ending_year)  as enrollment_period,
+      toInteger(study.enrollment_beginning_year) + ' - ' +  toInteger(study.enrollment_ending_year)  as enrollment_period,
       study.study_beginning_year as study_beginning_year,
       COALESCE(study.study_ending_year,3000) as study_ending_year,
       toInteger(study.study_beginning_year) + '-' + COALESCE(study.study_ending_year,'On Going') as study_period,
