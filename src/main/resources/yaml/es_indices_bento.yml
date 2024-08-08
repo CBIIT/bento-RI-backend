@@ -130,6 +130,10 @@ Indices:
         type: integer
       study_ending_year:
         type: integer
+      study_type:
+        type: keyword
+      study_design:
+        type: keyword
       study_status:
         type: keyword
       races:
@@ -162,6 +166,8 @@ Indices:
       optional MATCH (study)<-[:associated_with]-(state:study_state_province_territory)
       RETURN
       study.study_short_name as study_short_name,
+      study.study_type as study_type,
+      study.study_design as study_design,
       sum(data.data_file_size) as data_volume,
       study.number_of_participants as number_of_participants,
       COLLECT(DISTINCT(data_collection.data_collection_category)) as data_collection_category,
@@ -311,10 +317,10 @@ Indices:
       study.study_design as study_design,
       toInteger(study.enrollment_beginning_year) as enrollment_beginning_year,
       toInteger(study.enrollment_ending_year) as enrollment_ending_year,
-      toInteger(study.enrollment_beginning_year) + ' - ' +  toInteger(study.enrollment_ending_year)  as enrollment_period,
+      toInteger(study.enrollment_beginning_year) + '-' +  toInteger(study.enrollment_ending_year)  as enrollment_period,
       study.study_beginning_year as study_beginning_year,
       COALESCE(study.study_ending_year,3000) as study_ending_year,
-      toInteger(study.study_beginning_year) + ' - ' + COALESCE(study.study_ending_year,'On Going') as study_period,
+      toInteger(study.study_beginning_year) + '-' + COALESCE(study.study_ending_year,'On Going') as study_period,
       study.biospecimen_collection as biospecimen_collection,
       study.study_status as study_status,
       study.dbgap_accession_id as dbgap_accession_id,
@@ -322,7 +328,7 @@ Indices:
       study_demo.study_participant_maximum_age as study_participant_maximum_age,
       study_demo.study_participant_median_age as study_participant_median_age,
       study_demo.study_participant_minimum_age as study_participant_minimum_age,
-      toInteger(study_demo.study_participant_minimum_age) + ' - '  + toInteger(study_demo.study_participant_maximum_age) as enrollment_age,
+      toInteger(study_demo.study_participant_minimum_age) + '-'  + toInteger(study_demo.study_participant_maximum_age) as enrollment_age,
       study_demo.race as race,
       study_demo.ethnicity as ethnicity,
       study_demo.sex as sex,
