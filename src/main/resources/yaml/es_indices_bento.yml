@@ -68,10 +68,10 @@ Indices:
     # Cypher query will be used to retrieve data from Neo4j, and index into Elasticsearch
     cypher_query: "
       MATCH (study:study)
-      MATCH (study_person:study_personnel)
-      MATCH (study_pub:publication)
-      MATCH (data:data_file)
-      optional MATCH (links:associated_link)
+      OPTIONAL MATCH (study)<-[:associated_with]-(study_person:study_personnel)
+      OPTIONAL MATCH (study)<-[:associated_with]-(study_pub:publication)
+      OPTIONAL MATCH (study)<-[:associated_with]-(data:data_file)
+      OPTIONAL MATCH (study)<-[:associated_with]-(links:associated_link)
       RETURN 
       study.study_short_name as study_short_name,
       Collect(DISTINCT{
@@ -209,7 +209,7 @@ Indices:
     cypher_query:
       "
       MATCH (study:study)
-      MATCH (data_collection:data_collection) 
+      OPTIONAL MATCH (study)<-[:associated_with]-(data_collection:data_collection) 
       RETURN
       study.study_short_name as study_short_name,
       Collect(Distinct{
