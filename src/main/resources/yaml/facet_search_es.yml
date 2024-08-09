@@ -1,12 +1,10 @@
 queries:
-  - name: searchSubjects
+  - name: searchStudies
     globalRangeFields:
-      - age_at_index
-      - survival_time
     returnFields:
       - name: numberOfStudies
         index:
-          - global_stats_bar
+          - tab_study
         filter:
           type: aggregation
           selectedField: study_short_name
@@ -42,7 +40,7 @@ queries:
           method: count_bucket_keys
       - name: studyCountByStudyType
         index:
-          - study_overview
+          - tab_study
         filter:
           type: aggregation
           selectedField: study_type
@@ -50,7 +48,7 @@ queries:
           type: group_count
       - name: filterStudyCountByStudyType
         index:
-          - study_overview
+          - tab_study
         filter:
           type: aggregation
           selectedField: study_type
@@ -59,7 +57,7 @@ queries:
           type: group_count
       - name: studyCountByStudyDesign
         index:
-          - study_overview
+          - tab_study
         filter:
           type: aggregation
           selectedField: study_design
@@ -67,7 +65,7 @@ queries:
           type: group_count
       - name: filterStudyCountByStudyDesign
         index:
-          - study_overview
+          - tab_study
         filter:
           type: aggregation
           selectedField: study_design
@@ -76,7 +74,7 @@ queries:
           type: group_count
       - name: studyCountByNeoplasm
         index:
-          - study_overview
+          - tab_study
         filter:
           type: aggregation
           selectedField: primary_diagnosis_disease_term
@@ -84,16 +82,16 @@ queries:
           type: group_count
       - name: filterStudyCountByNeoplasm
         index:
-          - study_overview
+          - tab_study
         filter:
           type: aggregation
           selectedField: primary_diagnosis_disease_term
           ignoreSelectedField: true
         result:
           type: group_count
-      - name: studyCountByPrimaryCountries
+      - name: studyCountByCountries
         index:
-          - study_overview
+          - tab_study
         filter:
           type: aggregation
           selectedField: study_country
@@ -101,10 +99,10 @@ queries:
           type: group_count
       - name: filterStudyCountByCountries
         index:
-          - study_overview
+          - tab_study
         filter:
           type: aggregation
-          selectedField: data_collection_category
+          selectedField: study_country
           ignoreSelectedField: true
         result:
           type: group_count
@@ -121,81 +119,81 @@ queries:
           - global_stats_bar
         filter:
           type: aggregation
-          selectedField: study_country
+          selectedField: data_collection_category
           ignoreSelectedField: true
         result:
           type: group_count
       - name: studyCountByRace
         index:
-          - study_overview
+          - tab_study
         filter:
           type: aggregation
-          selectedField: race
+          selectedField: races
         result:
           type: group_count
       - name: filterStudyCountByRace
         index:
-          - study_overview
+          - tab_study
         filter:
           type: aggregation
-          selectedField: race
+          selectedField: races
           ignoreSelectedField: true
         result:
           type: group_count
       - name: studyCountByEthnicity
         index:
-          - study_overview
+          - tab_study
         filter:
           type: aggregation
-          selectedField: race
+          selectedField: ethnicities
         result:
           type: group_count
       - name: filterStudyCountByEthnicity
         index:
-          - study_overview
+          - tab_study
         filter:
           type: aggregation
-          selectedField: race
+          selectedField: ethnicities
           ignoreSelectedField: true
         result:
           type: group_count
       - name: studyCountBySex
         index:
-          - study_overview
+          - tab_study
         filter:
           type: aggregation
-          selectedField: sex
+          selectedField: sexes
         result:
           type: group_count
       - name: filterStudyCountBySex
         index:
-          - study_overview
+          - tab_study
         filter:
           type: aggregation
-          selectedField: sex
+          selectedField: sexes
           ignoreSelectedField: true
         result:
           type: group_count
       - name: studyCountByGender
         index:
-          - study_overview
+          - tab_study
         filter:
           type: aggregation
-          selectedField: gender
+          selectedField: genders
         result:
           type: group_count
       - name: filterStudyCountByGender
         index:
-          - study_overview
+          - tab_study
         filter:
           type: aggregation
-          selectedField: gender
+          selectedField: genders
           ignoreSelectedField: true
         result:
           type: group_count
       - name: studyPeriodMin
         index:
-          - study_overview
+          - tab_study
         filter:
           type: range
           selectedField: study_beginning_year
@@ -206,7 +204,7 @@ queries:
           type: range
       - name: studyPeriodMax
         index:
-          - study_overview
+          - tab_study
         filter:
           type: range
           selectedField: study_ending_year
@@ -215,64 +213,51 @@ queries:
             - study_ending_year
         result:
           type: range
-      - name: studyParticipantsMax
+      - name: studyCountByNumberOfParticipants
         index:
-          - study_overview
+          - tab_study
         filter:
           type: range
-          selectedField: study_participant_maximum_age
+          selectedField: number_of_participants
           ignoreSelectedField: true
         result:
           type: range
-      - name: studyParticipantsMin
+      - name: participantAgeAtEnrollmentMin
         index:
-          - study_overview
+          - tab_study
         filter:
           type: range
           selectedField: study_participant_minimum_age
-          ignoreSelectedField: true
+          rangeFilterFields:
+            - study_participant_minimum_age
         result:
           type: range
-      - name: studyAgeAtEnrollmentMin
+      - name: participantAgeAtEnrollmentMax
         index:
-          - study_overview
+          - tab_study
         filter:
           type: range
-          selectedField: enrollment_beginning_year
-          ignoreSelectedField: true
+          selectedField: study_participant_maximum_age
           rangeFilterFields:
-            - enrollment_beginning_year
+            - study_participant_maximum_age
         result:
           type: range
-      - name: studyAgeAtEnrollmentMax
+      - name: enrollmentPeriodMax
         index:
-          - study_overview
+          - tab_study
         filter:
           type: range
           selectedField: enrollment_ending_year
-          ignoreSelectedField: true
-          rangeFilterFields:
-            - enrollment_ending_year
-        result:
-          type: range
-      - name: enrollmentPeriod 
-        index:
-          - study_overview
-        filter:
-          type: range
-          selectedField: enrollment_ending_year
-          ignoreSelectedField: true
           rangeFilterFields:
             - enrollment_ending_year
         result:
           type: range
       - name: enrollmentPeriodMin
         index:
-          - study_overview
+          - tab_study
         filter:
           type: range
           selectedField: enrollment_beginning_year
-          ignoreSelectedField: true
           rangeFilterFields:
             - enrollment_beginning_year
         result:

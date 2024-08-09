@@ -3,21 +3,20 @@ type SearchResult {
   numberOfDataCollectionCatagory: Int
   numberOfDiagnosis: Int
   numberOfDataFiles: Int
-  studyParticipantsMin: RangeCount
   studyPeriodMin: RangeCount
-  enrollmentPeriodMin: RangeCount
-  studyAgeAtEnrollmentMin: RangeCount
-  studyParticipantsMax: RangeCount
   studyPeriodMax: RangeCount
+  enrollmentPeriodMin: RangeCount
   enrollmentPeriodMax: RangeCount
-  studyAgeAtEnrollmentMax: RangeCount
+  participantAgeAtEnrollmentMin: RangeCount
+  participantAgeAtEnrollmentMax: RangeCount
+  studyCountByNumberOfParticipants: RangeCount
   studyCountByStudyType: [TypeCount]
   filterStudyCountByStudyType: [TypeCount]
   studyCountByStudyDesign: [TypeCount]
   filterStudyCountByStudyDesign: [TypeCount]
   studyCountByNeoplasm: [TypeCount]
   filterStudyCountByNeoplasm: [TypeCount]
-  studyCountByPrimaryCountries: [TypeCount]
+  studyCountByCountries: [TypeCount]
   filterStudyCountByCountries: [TypeCount]
   studyCountByBiospecimenCollection: [TypeCount]
   filterStudyCountByBiospecimenCollection: [TypeCount]
@@ -39,9 +38,12 @@ type RangeCount {
     upperBound: Float
     subjects: Int
 }
-type GlobalStatsBarStats {
-  data_volume: Int
+type GlobalStatsBar {
+  study_short_name: String
+  data_volume: Float
   number_of_participants: Int
+  study_design: String
+  study_type: String
 }
 type data_collection_page {
   study_short_name: String
@@ -84,33 +86,7 @@ type associated_links {
   associated_link_url: String
 }
 type StudyGeneral {
-  study_name: String
   study_short_name: String
-  study_id: String
-  study_description: String
-  study_type: String
-  study_design: String
-  enrollment_beginning_year: Int
-  enrollment_ending_year: Int
-  study_beginning_year: Int
-  study_ending_year: Int
-  biospecimen_collection: String
-  study_status: String
-  dbgap_accession_id: String
-  number_of_participants : Int
-  study_participant_maximum_age: Float
-  study_participant_median_age: Float
-  study_participant_minimum_age: Float
-  race: String
-  ethnicity: String
-  sex: String
-  gender: String
-  study_country: [String]
-  number_of_countries: Int
-  study_state_province_territory: [String]
-  number_of_states_provinces_territories: Int
-  data_file_total_size: Int
-  primary_diagnosis_disease_term: [String]
   personnel: [personnel]
   publication: [publication]
   data_file: [data_file]
@@ -118,8 +94,6 @@ type StudyGeneral {
   primary_diagnosis_disease_count: Int
   
 }
-
-
 type TabStudy {
   study_name: String
   study_short_name: String
@@ -142,12 +116,13 @@ type TabStudy {
   ethnicity: String
   sex: String
   gender: String
-  race_array: String
-  ethnicity_array: String
-  sex_array: String
-  gender_array: String
+  ethnicities: String
+  races: String
+  sexes: String
+  genders: String
   study_country: [String]
   number_of_countries: Int
+  data_volume: Int
   study_state_province_territory: [String]
   number_of_states_provinces_territories: Int
   data_file_total_size: Int
@@ -169,43 +144,17 @@ schema {
 
 type QueryType {
   studyGeneral(
-     study_name: [String] = []
      study_short_name: [String] = []
-     study_id: [String] = []
-     study_description: [String] = []
-     study_type: [String] = []
-     study_design: [String] = []
-     enrollment_beginning_year: [Int] = []
-     enrollment_ending_year: [Int] = []
-     study_beginning_year: [Int] = []
-     study_ending_year: [Int] = []
-     biospecimen_collection: [String] = []
-     study_status: [String] = []
-     dbgap_accession_id: [String] = []
-     associated_links: [String] = []
-     number_of_participants: [Int] = []
-     study_participant_maximum_age: [Float] = []
-     study_participant_median_age: [Float] = []
-     study_participant_minimum_age: [Float] = []
-     race: [String] = []
-     ethnicity: [String] = []
-     sex: [String] = []
-     gender: [String] = []
-     study_country: [String] = []
-     number_of_countries: [Int] = []
-     study_state_province_territory: [String] = []
-     number_of_states_provinces_territories: [Int] = []
-     primary_diagnosis_disease_term: [String] = []
   ): [StudyGeneral]
 
-
-   tabStudy(
+  tabStudy(
      study_name: [String] = []
      study_short_name: [String] = []
      study_id: [String] = []
      study_description: [String] = []
      study_type: [String] = []
      study_design: [String] = []
+     data_file_uuid: [String] = []
      enrollment_beginning_year: [Int] = []
      enrollment_ending_year: [Int] = []
      study_beginning_year: [Int] = []
@@ -222,10 +171,10 @@ type QueryType {
      ethnicity: [String] = []
      sex: [String] = []
      gender: [String] = []
-     race_array: [String] = []
-     ethnicity_array: [String] = []
-     sex_array: [String] = []
-     gender_array: [String] = []
+     races: [String] = []
+     ethnicities: [String] = []
+     sexes: [String] = []
+     genders: [String] = []
      study_country: [String] = []
      number_of_countries: [Int] = []
      study_state_province_territory: [String] = []
@@ -239,64 +188,60 @@ type QueryType {
       offset: Int = 0
   ): [TabStudy]
   
-  globalStatsBarStats(
-  study_short_name: [String] = []
-  study_name: [String] = []
-  study_id: [String] = []
-  study_description: [String] = []
-  study_type: [String] = []
-  study_design: [String] = []
-  enrollment_beginning_year: [Int] = []
-  enrollment_ending_year: [Int] = []
-  study_beginning_year: [Int] = []
-  study_ending_year: [Int] = []
-  biospecimen_collection: [String] = []
-  study_status: [String] = []
-  dbgap_accession_id: [String] = []
-  associated_links: [String] = []
-  number_of_participants: [Int] = []
-  study_participant_maximum_age: [Float] = []
-  study_participant_median_age: [Float] = []
-  study_participant_minimum_age: [Float] = []
-  race: [String] = []
-  ethnicity: [String] = []
-  sex: [String] = []
-  gender: [String] = []
-  study_country: [String] = []
-  number_of_countries: [Int] = []
-  study_state_province_territory: [String] = []
-  number_of_states_provinces_territories: [Int] = []
-  primary_diagnosis_disease_term: [String] = []
-  ): GlobalStatsBarStats
+  globalStatsBar(
+      study_short_name: [String] = []
+      study_type: [String] = []
+      study_design: [String] = []
+      study_status: [String] = []
+      data_volume: [Float] = []
+      data_file_uuid: [String] = []
+      study_id: [String] = []
+      enrollment_beginning_year: [Int] = []
+      enrollment_ending_year: [Int] = []
+      study_beginning_year: [Int] = []
+      study_ending_year: [Int] = []
+      biospecimen_collection: [String] = []
+      number_of_participants: [Int] = []
+      study_participant_maximum_age: [Float] = []
+      study_participant_median_age: [Float] = []
+      study_participant_minimum_age: [Float] = []
+      races: [String] = []
+      ethnicities: [String] = []
+      sexes: [String] = []
+      genders: [String] = []
+      study_country: [String] = []
+      study_state_province_territory: [String] = []
+      primary_diagnosis_disease_term: [String] = []
+  ): [GlobalStatsBar]
 
-  searchSubjects(
+  searchStudies(
     study_short_name: [String] = []
     study_name: [String] = []
-  study_id: [String] = []
-  study_description: [String] = []
-  study_type: [String] = []
-  study_design: [String] = []
-  enrollment_beginning_year: [Int] = []
-  enrollment_ending_year: [Int] = []
-  study_beginning_year: [Int] = []
-  study_ending_year: [Int] = []
-  biospecimen_collection: [String] = []
-  study_status: [String] = []
-  dbgap_accession_id: [String] = []
-  associated_links: [String] = []
-  number_of_participants: [Int] = []
-  study_participant_maximum_age: [Float] = []
-  study_participant_median_age: [Float] = []
-  study_participant_minimum_age: [Float] = []
-  race: [String] = []
-  ethnicity: [String] = []
-  sex: [String] = []
-  gender: [String] = []
-  study_country: [String] = []
-  number_of_countries: [Int] = []
-  study_state_province_territory: [String] = []
-  number_of_states_provinces_territories: [Int] = []
-  primary_diagnosis_disease_term: [String] = []
+    study_id: [String] = []
+    study_description: [String] = []
+    study_type: [String] = []
+    study_design: [String] = []
+    enrollment_beginning_year: [Int] = []
+    enrollment_ending_year: [Int] = []
+    study_beginning_year: [Int] = []
+    study_ending_year: [Int] = []
+    biospecimen_collection: [String] = []
+    study_status: [String] = []
+    dbgap_accession_id: [String] = []
+    associated_links: [String] = []
+    number_of_participants: [Int] = []
+    study_participant_maximum_age: [Float] = []
+    study_participant_median_age: [Float] = []
+    study_participant_minimum_age: [Float] = []
+    races: [String] = []
+    ethnicities: [String] = []
+    sexes: [String] = []
+    genders: [String] = []
+    study_country: [String] = []
+    number_of_countries: [Int] = []
+    study_state_province_territory: [String] = []
+    number_of_states_provinces_territories: [Int] = []
+    primary_diagnosis_disease_term: [String] = []
   ): SearchResult
 
   dataCollectionPage(

@@ -8,7 +8,7 @@ queries:
         - study_short_name
     result:
       type: object_array
-  - name: GlobalStatsBarStats
+  - name: globalStatsBar
     index:
       - global_stats_bar
     filter:
