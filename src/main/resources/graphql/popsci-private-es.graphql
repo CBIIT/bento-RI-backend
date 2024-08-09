@@ -42,6 +42,8 @@ type GlobalStatsBar {
   study_short_name: String
   data_volume: Float
   number_of_participants: Int
+  study_design: String
+  study_type: String
 }
 type data_collection_page {
   study_short_name: String
@@ -187,7 +189,6 @@ type QueryType {
   ): [TabStudy]
   
   globalStatsBar(
-      
       study_short_name: [String] = []
       study_type: [String] = []
       study_design: [String] = []
