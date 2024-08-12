@@ -10,6 +10,8 @@ type SearchResult {
   participantAgeAtEnrollmentMin: RangeCount
   participantAgeAtEnrollmentMax: RangeCount
   studyCountByNumberOfParticipants: RangeCount
+  studyCountByStudy: [TypeCount]
+  filterStudyCountByStudy: [TypeCount]
   studyCountByStudyType: [TypeCount]
   filterStudyCountByStudyType: [TypeCount]
   studyCountByStudyDesign: [TypeCount]
