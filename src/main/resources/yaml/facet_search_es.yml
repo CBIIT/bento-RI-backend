@@ -38,6 +38,23 @@ queries:
         result:
           type: int
           method: count_bucket_keys
+      - name: studyCountByStudy
+        index:
+          - tab_study
+        filter:
+          type: aggregation
+          selectedField: study_short_name
+        result:
+          type: group_count
+      - name: filterStudyCountByStudy
+        index:
+          - tab_study
+        filter:
+          type: aggregation
+          selectedField: study_short_name
+          ignoreSelectedField: true
+        result:
+          type: group_count
       - name: studyCountByStudyType
         index:
           - tab_study
