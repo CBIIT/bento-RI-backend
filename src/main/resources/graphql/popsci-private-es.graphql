@@ -22,6 +22,8 @@ type SearchResult {
   filterStudyCountByCountries: [TypeCount]
   studyCountByDataCollection: [TypeCount]
   filterStudyCountByDataCollection: [TypeCount]
+  studyCountByBiospecimenCollection: [TypeCount]
+  filterStudyCountByBiospecimenCollection: [TypeCount]
   studyCountByRace: [TypeCount]
   filterStudyCountByRace: [TypeCount]
   studyCountByEthnicity: [TypeCount]

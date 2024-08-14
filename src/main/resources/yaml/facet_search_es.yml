@@ -140,6 +140,23 @@ queries:
           ignoreSelectedField: true
         result:
           type: group_count
+      - name: studyCountByBiospecimenCollection
+        index:
+          - tab_study
+        filter:
+          type: aggregation
+          selectedField: biospecimen_collection
+        result:
+          type: group_count
+      - name: filterStudyCountByBiospecimenCollection
+        index:
+          - tab_study
+        filter:
+          type: aggregation
+          selectedField: biospecimen_collection
+          ignoreSelectedField: true
+        result:
+          type: group_count
       - name: studyCountByRace
         index:
           - tab_study
