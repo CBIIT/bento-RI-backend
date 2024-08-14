@@ -123,17 +123,17 @@ queries:
           ignoreSelectedField: true
         result:
           type: group_count
-      - name: studyCountByBiospecimenCollection
+      - name: studyCountByDataCollection
         index:
-          - global_stats_bar
+          - tab_study
         filter:
           type: aggregation
           selectedField: data_collection_category
         result:
           type: group_count
-      - name: filterStudyCountByBiospecimenCollection
+      - name: filterStudyCountByDataCollection
         index:
-          - global_stats_bar
+          - tab_study
         filter:
           type: aggregation
           selectedField: data_collection_category
