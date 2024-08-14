@@ -116,6 +116,8 @@ Indices:
         type: float
       number_of_participants:
         type: keyword
+      biospecimen_collection:
+        type: keyword
       data_collection_category:
         type: keyword
       primary_diagnosis_disease_term:
@@ -174,6 +176,7 @@ Indices:
       study.study_short_name as study_short_name,
       study.study_type as study_type,
       study.study_design as study_design,
+      study.biospecimen_collection as biospecimen_collection,
       sum(data.data_file_size) as data_volume,
       study.number_of_participants as number_of_participants,
       COLLECT(DISTINCT(data_collection.data_collection_category)) as data_collection_category,
