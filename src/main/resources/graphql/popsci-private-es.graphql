@@ -86,7 +86,7 @@ type data_file {
 }
 type associated_links {
   associated_link_name: String
-  associated_link_id: String
+  associated_record_link_id: String
   associated_link_url: String
 }
 type StudyGeneral {
