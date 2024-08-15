@@ -61,7 +61,7 @@ Indices:
         properties:
           associated_link_name:
             type: keyword
-          associated_record_link_id:
+          associated_link_record_id:
             type: keyword
           associated_link_url:
             type: keyword
@@ -102,7 +102,7 @@ Indices:
        }) as data_file,
         Collect(DISTINCT{
         associated_link_name: links.associated_link_name,
-        associated_record_link_id: links.associated_link_record_id,
+        associated_link_record_id: links.associated_link_record_id,
         associated_link_url: links.associated_link_url
        }) as associated_links
       "
