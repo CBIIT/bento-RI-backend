@@ -20,6 +20,8 @@ type SearchResult {
   filterStudyCountByNeoplasm: [TypeCount]
   studyCountByCountries: [TypeCount]
   filterStudyCountByCountries: [TypeCount]
+  studyCountByDataCollection: [TypeCount]
+  filterStudyCountByDataCollection: [TypeCount]
   studyCountByBiospecimenCollection: [TypeCount]
   filterStudyCountByBiospecimenCollection: [TypeCount]
   studyCountByRace: [TypeCount]
@@ -84,7 +86,7 @@ type data_file {
 }
 type associated_links {
   associated_link_name: String
-  associated_link_id: String
+  associated_link_record_id: String
   associated_link_url: String
 }
 type StudyGeneral {
@@ -108,6 +110,7 @@ type TabStudy {
   study_beginning_year: Int
   study_ending_year: Int
   biospecimen_collection: String
+  data_collection_category: [String]
   study_status: String
   dbgap_accession_id: String
   number_of_participants : Int
@@ -162,6 +165,7 @@ type QueryType {
      study_beginning_year: [Int] = []
      study_ending_year: [Int] = []
      biospecimen_collection: [String] = []
+     data_collection_category: [String] = []
      study_status: [String] = []
      dbgap_accession_id: [String] = []
      associated_links: [String] = []
@@ -203,6 +207,7 @@ type QueryType {
       study_beginning_year: [Int] = []
       study_ending_year: [Int] = []
       biospecimen_collection: [String] = []
+      data_collection_category: [String] = []
       number_of_participants: [Int] = []
       study_participant_maximum_age: [Float] = []
       study_participant_median_age: [Float] = []
@@ -228,6 +233,7 @@ type QueryType {
     study_beginning_year: [Int] = []
     study_ending_year: [Int] = []
     biospecimen_collection: [String] = []
+    data_collection_category: [String] = []
     study_status: [String] = []
     dbgap_accession_id: [String] = []
     associated_links: [String] = []
