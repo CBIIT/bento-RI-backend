@@ -106,7 +106,7 @@ Indices:
         associated_link_url: links.associated_link_url
        }) as associated_links
       "
-  - index_name: files
+  - index_name: data_volume_query
     type: neo4j
     # type mapping for each property of the index
     mapping:

@@ -298,7 +298,7 @@ queries:
           type: range
       - name: dataVolume
         index:
-        - files
+        - data_volume_query
         filter:
           type: sum
           selectedField: data_volume
