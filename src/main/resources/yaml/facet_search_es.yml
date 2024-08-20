@@ -279,3 +279,12 @@ queries:
             - enrollment_beginning_year
         result:
           type: range
+      - name: dataVolume
+        index:
+        - files
+        filter:
+          type: sum
+          selectedField: data_volume
+        result:
+          type: float
+          method: sum
