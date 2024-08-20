@@ -268,6 +268,7 @@ Indices:
       study.study_type as study_type,
       study.study_design as study_design,
       study.number_of_participants as number_of_participants,
+      study.biospecimen_collection as biospecimen_collection,
       COLLECT(DISTINCT(data_collection.data_collection_category)) as data_collection_category,
       COLLECT(DISTINCT(neoplasm.primary_diagnosis_disease_term)) as primary_diagnosis_disease_term,
       COLLECT(DISTINCT(data.data_file_uuid)) as data_file_uuid,
