@@ -106,7 +106,7 @@ Indices:
         associated_link_url: links.associated_link_url
        }) as associated_links
       "
-  - index_name: global_stats_bar
+  - index_name: data_volume_query
     type: neo4j
     # type mapping for each property of the index
     mapping:
@@ -167,9 +167,10 @@ Indices:
       optional MATCH (study)<-[:associated_with]-(study_demo:study_demographic)
       optional MATCH (study)<-[:associated_with]-(country:study_country)
       optional MATCH (study)<-[:associated_with]-(state:study_state_province_territory)
-      WHERE study.study_ending_year CONTAINS 'Ongoing'
+      WHERE toLower(trim(study.study_ending_year)) CONTAINS 'ongoing'
+      SET study.study_ending_year = replace(study.study_ending_year, ' ', '')
       SET study.study_ending_year = CASE
-      WHEN study.study_ending_year CONTAINS 'Ongoing' THEN REPLACE(study.study_ending_year, 'Ongoing', '3000')
+      WHEN toLower(trim(study.study_ending_year)) CONTAINS 'ongoing' THEN REPLACE(toLower(trim(study.study_ending_year)),study.study_ending_year, '3000')
       ELSE study.study_ending_year
       END
       RETURN
@@ -177,8 +178,97 @@ Indices:
       study.study_type as study_type,
       study.study_design as study_design,
       study.biospecimen_collection as biospecimen_collection,
-      sum(data.data_file_size) as data_volume,
+      data.data_file_uuid as data_file_uuid,
+      data.data_file_size as data_volume,
       study.number_of_participants as number_of_participants,
+      COLLECT(DISTINCT(data_collection.data_collection_category)) as data_collection_category,
+      COLLECT(DISTINCT(neoplasm.primary_diagnosis_disease_term)) as primary_diagnosis_disease_term,
+      study.enrollment_beginning_year as enrollment_beginning_year,
+      study.enrollment_ending_year as enrollment_ending_year,
+      toInteger(study.study_ending_year) as study_ending_year,
+      study.study_beginning_year as study_beginning_year,
+      study.study_status as study_status,
+      split(study_demo.race, '|') AS races,
+      split(study_demo.ethnicity, '|') as ethnicities,
+      split(study_demo.sex, '|') as sexes,
+      split(study_demo.gender, '|') as genders,
+      Collect(distinct(country.study_country)) as study_country,
+      Collect(distinct(state.study_state_province_territory)) as study_state_province_territory,
+      study_demo.study_participant_maximum_age as study_participant_maximum_age,
+      study_demo.study_participant_median_age as study_participant_median_age,
+      study_demo.study_participant_minimum_age as study_participant_minimum_age 
+      "
+  - index_name: global_stats_bar
+    type: neo4j
+    # type mapping for each property of the index
+    mapping:
+      study_short_name:
+        type: keyword
+      number_of_participants:
+        type: keyword
+      biospecimen_collection:
+        type: keyword
+      data_collection_category:
+        type: keyword
+      primary_diagnosis_disease_term:
+        type: keyword
+      data_file_uuid:
+        type: keyword
+      enrollment_beginning_year:
+        type: integer
+      enrollment_ending_year:
+        type: keyword
+      study_beginning_year:
+        type: integer
+      study_ending_year:
+        type: integer
+      study_type:
+        type: keyword
+      study_design:
+        type: keyword
+      study_status:
+        type: keyword
+      races:
+        type: keyword
+      ethnicities:
+        type: keyword
+      sexes:
+        type: keyword
+      genders:
+        type: keyword
+      study_country:
+        type: keyword
+      study_state_province_territory:
+        type: keyword
+      study_participant_maximum_age:
+        type: float
+      study_participant_median_age:
+        type: float
+      study_participant_minimum_age:
+        type: float
+      
+    # Cypher query will be used to retrieve data from Neo4j, and index into Elasticsearch
+    cypher_query: "
+      MATCH (study:study)
+      OPTIONAL MATCH (study)<-[:associated_with]-(data:data_file)
+      optional MATCH (study)<-[:associated_with]-(neoplasm:primary_diagnosis)
+      OPTIONAL MATCH (study)<-[:associated_with]-(data_collection:data_collection)
+      WHERE data_collection.data_collection_category_annotation_count <> 0 and data_collection.data_collection_category_annotation_count is not null
+      optional MATCH (study)<-[:associated_with]-(study_demo:study_demographic)
+      optional MATCH (study)<-[:associated_with]-(country:study_country)
+      optional MATCH (study)<-[:associated_with]-(state:study_state_province_territory)
+      WHERE toLower(trim(study.study_ending_year)) CONTAINS 'ongoing'
+      SET study.study_ending_year = replace(study.study_ending_year, ' ', '')
+      SET study.study_ending_year = CASE
+      WHEN toLower(trim(study.study_ending_year)) CONTAINS 'ongoing' THEN REPLACE(toLower(trim(study.study_ending_year)),study.study_ending_year, '3000')
+      ELSE study.study_ending_year
+      END
+      RETURN
+      study.study_short_name as study_short_name,
+      study.study_type as study_type,
+      study.study_design as study_design,
+      study.number_of_participants as number_of_participants,
+      study.biospecimen_collection as biospecimen_collection,
       COLLECT(DISTINCT(data_collection.data_collection_category)) as data_collection_category,
       COLLECT(DISTINCT(neoplasm.primary_diagnosis_disease_term)) as primary_diagnosis_disease_term,
       COLLECT(DISTINCT(data.data_file_uuid)) as data_file_uuid,
@@ -316,10 +406,12 @@ Indices:
       optional MATCH (study)<-[:associated_with]-(country:study_country)
       optional MATCH (study)<-[:associated_with]-(state:study_state_province_territory)
       OPTIONAL MATCH (study)<-[:associated_with]-(data_collection:data_collection)
+      WHERE data_collection.data_collection_category_annotation_count <> 0 and data_collection.data_collection_category_annotation_count is not null
       OPTIONAL MATCH (study)<-[:associated_with]-(data:data_file)
-      WHERE study.study_ending_year CONTAINS 'Ongoing'
+      WHERE toLower(trim(study.study_ending_year)) CONTAINS 'ongoing'
+      SET study.study_ending_year = replace(study.study_ending_year, ' ', '')
       SET study.study_ending_year = CASE
-      WHEN study.study_ending_year CONTAINS 'Ongoing' THEN REPLACE(study.study_ending_year, 'Ongoing', '3000')
+      WHEN toLower(trim(study.study_ending_year)) CONTAINS 'ongoing' THEN REPLACE(toLower(trim(study.study_ending_year)),study.study_ending_year, '3000')
       ELSE study.study_ending_year
       END
       RETURN 
