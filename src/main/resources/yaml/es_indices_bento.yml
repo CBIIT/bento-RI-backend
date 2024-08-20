@@ -88,7 +88,7 @@ Indices:
         year_of_publication: study_pub.year_of_publication,
         journal_citation: study_pub.journal_citation,
         digital_object_id:study_pub.digital_object_id,
-        pubmed_id:study_pub.pubmed_id,
+        pubmed_id:tointeger(study_pub.pubmed_id),
         publication_record_id:study_pub.publication_record_id
        }) as publication,
        Collect(DISTINCT{
@@ -208,6 +208,8 @@ Indices:
         type: float
       number_of_participants:
         type: keyword
+      biospecimen_collection:
+        type: keyword
       data_collection_category:
         type: keyword
       primary_diagnosis_disease_term:
@@ -253,6 +255,7 @@ Indices:
       OPTIONAL MATCH (study)<-[:associated_with]-(data:data_file)
       optional MATCH (study)<-[:associated_with]-(neoplasm:primary_diagnosis)
       OPTIONAL MATCH (study)<-[:associated_with]-(data_collection:data_collection)
+      WHERE data_collection.data_collection_category_annotation_count <> 0 and data_collection.data_collection_category_annotation_count is not null
       optional MATCH (study)<-[:associated_with]-(study_demo:study_demographic)
       optional MATCH (study)<-[:associated_with]-(country:study_country)
       optional MATCH (study)<-[:associated_with]-(state:study_state_province_territory)
@@ -421,7 +424,7 @@ Indices:
       study.study_design as study_design,
       toInteger(study.enrollment_beginning_year) as enrollment_beginning_year,
       toInteger(study.enrollment_ending_year) as enrollment_ending_year,
-      toInteger(study.enrollment_beginning_year) +  ' - ' +  toInteger(study.enrollment_ending_year)  as enrollment_period,
+      toInteger(study.enrollment_beginning_year) + ' - ' +  toInteger(study.enrollment_ending_year)  as enrollment_period,
       study.study_beginning_year as study_beginning_year,
       toInteger(study.study_ending_year) as study_ending_year,
       toInteger(study.study_beginning_year) + ' - ' + COALESCE(study.study_ending_year,'On Going') as study_period,
@@ -432,7 +435,7 @@ Indices:
       study_demo.study_participant_maximum_age as study_participant_maximum_age,
       study_demo.study_participant_median_age as study_participant_median_age,
       study_demo.study_participant_minimum_age as study_participant_minimum_age,
-      toInteger(study_demo.study_participant_minimum_age) + ' - '  + toInteger(study_demo.study_participant_maximum_age) as enrollment_age,
+      toInteger(study_demo.study_participant_minimum_age) + ' - '   + toInteger(study_demo.study_participant_maximum_age) as enrollment_age,
       study_demo.race as race,
       study_demo.ethnicity as ethnicity,
       study_demo.sex as sex,
