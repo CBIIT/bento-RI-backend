@@ -204,8 +204,6 @@ Indices:
     mapping:
       study_short_name:
         type: keyword
-      data_volume:
-        type: float
       number_of_participants:
         type: keyword
       biospecimen_collection:
