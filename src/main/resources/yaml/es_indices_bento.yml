@@ -56,7 +56,7 @@ Indices:
             type: keyword
           association:
             type: keyword
-          signed_url:
+          data_file_location:
             type: keyword
       associated_links:
         type: nested
@@ -101,7 +101,7 @@ Indices:
         data_file_size:data.data_file_size,
         data_file_uuid:data.data_file_uuid,
         association:'study',
-        signed_url:data.signed_url
+        data_file_location:data.data_file_location
        }) as data_file,
         Collect(DISTINCT{
         associated_link_name: links.associated_link_name,
