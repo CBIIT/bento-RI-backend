@@ -84,6 +84,7 @@ type data_file {
   data_file_size: Int
   data_file_uuid: String
   association: String
+  data_file_location: String
 }
 type associated_links {
   associated_link_name: String
