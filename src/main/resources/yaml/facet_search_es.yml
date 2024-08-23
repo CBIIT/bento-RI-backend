@@ -1,6 +1,14 @@
 queries:
   - name: searchStudies
     globalRangeFields:
+      - studyPeriodMin
+      - studyPeriodMax
+      - enrollmentPeriodMin
+      - enrollmentPeriodMax
+      - participantAgeAtEnrollmentMin
+      - participantAgeAtEnrollmentMax
+      - studyCountByNumberOfParticipants
+      - number_of_participants
     returnFields:
       - name: numberOfStudies
         index:
@@ -231,7 +239,6 @@ queries:
         filter:
           type: range
           selectedField: study_beginning_year
-          ignoreSelectedField: true
           rangeFilterFields:
             - study_beginning_year
         result:
@@ -242,7 +249,6 @@ queries:
         filter:
           type: range
           selectedField: study_ending_year
-          ignoreSelectedField: true
           rangeFilterFields:
             - study_ending_year
         result:
@@ -253,7 +259,6 @@ queries:
         filter:
           type: range
           selectedField: number_of_participants
-          ignoreSelectedField: true
         result:
           type: range
       - name: participantAgeAtEnrollmentMin
