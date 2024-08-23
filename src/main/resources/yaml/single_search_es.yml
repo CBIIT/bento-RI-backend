@@ -12,6 +12,14 @@ queries:
     index:
       - global_stats_bar
     filter:
+      rangeFilterFields:
+        - number_of_participants
+        - study_beginning_year
+        - study_ending_year
+        - enrollment_beginning_year
+        - enrollment_ending_year
+        - study_participant_minimum_age
+        - study_participant_maximum_age
       type: default
     result:
       type: object_array
@@ -28,6 +36,14 @@ queries:
     filter:
       type: pagination
       defaultSortField: study_short_name
+      rangeFilterFields:
+        - number_of_participants
+        - study_beginning_year
+        - study_ending_year
+        - enrollment_beginning_year
+        - enrollment_ending_year
+        - study_participant_minimum_age
+        - study_participant_maximum_age
       alternativeSortField:
         subject_id: study_name
     result:
