@@ -58,6 +58,8 @@ Indices:
             type: keyword
           data_file_location:
             type: keyword
+          data_file_signed_url:
+            type: keyword
       associated_links:
         type: nested
         properties:
@@ -101,7 +103,8 @@ Indices:
         data_file_size:data.data_file_size,
         data_file_uuid:data.data_file_uuid,
         association:'study',
-        data_file_location:data.data_file_location
+        data_file_location:data.data_file_location,
+        data_file_signed_url:data.data_file_signed_url
        }) as data_file,
         Collect(DISTINCT{
         associated_link_name: links.associated_link_name,
@@ -118,7 +121,7 @@ Indices:
       data_volume:
         type: float
       number_of_participants:
-        type: keyword
+        type: integer
       biospecimen_collection:
         type: keyword
       data_collection_category:
@@ -208,7 +211,7 @@ Indices:
       study_short_name:
         type: keyword
       number_of_participants:
-        type: keyword
+        type: integer
       biospecimen_collection:
         type: keyword
       data_collection_category:
