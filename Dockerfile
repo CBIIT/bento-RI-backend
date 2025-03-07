@@ -1,6 +1,6 @@
 # Build stage
 ARG ECR_REPO
-FROM maven:3.8.5-openjdk-17 as build
+FROM maven:3.9.9-eclipse-temurin-17 as build
 #ARG BENTO_API_VERSION
 WORKDIR /usr/src/app
 COPY . .
