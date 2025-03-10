@@ -17,16 +17,15 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.0.13</version>
+        <version>3.4.3</version>
     </parent>
 
 
     <properties>
         <java.version>17</java.version>
-        <spring.version>6.0.14</spring.version>
-        <spring.restdocs.version>3.0.1</spring.restdocs.version>
+        <spring.version>6.2.3</spring.version>
+        <spring.restdocs.version>3.0.3</spring.restdocs.version>
         <snakeyaml.version>2.3</snakeyaml.version>
-        <kotlin.version>1.8.0</kotlin.version>
     </properties>
 
     <dependencies>
@@ -113,7 +112,7 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-web</artifactId>
-            <version>6.0.17</version>
+            <version>6.2.3</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.restdocs</groupId>
@@ -147,17 +146,18 @@
         <dependency>
             <groupId>com.graphql-java</groupId>
             <artifactId>graphql-java</artifactId>
-            <version>21.5</version>
+            <version>21.3</version>
         </dependency>
         <!-- GSON -->
         <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
+            <version>2.11.0</version>
             <scope>compile</scope>
         </dependency>
         <dependency>  
-            <groupId>com.github.ben-manes.caffeine</groupId>  
-            <artifactId>caffeine</artifactId>
+			<groupId>com.github.ben-manes.caffeine</groupId>  
+			<artifactId>caffeine</artifactId>
             <exclusions>
                 <exclusion>
                     <groupId>com.google.errorprone</groupId>
@@ -181,7 +181,7 @@
         <dependency>
             <groupId>org.apache.tomcat.embed</groupId>
             <artifactId>tomcat-embed-core</artifactId>
-            <version>10.1.34</version>
+            <version>10.1.36</version>
         </dependency>
         <!-- JUnit -->
         <dependency>
@@ -209,16 +209,11 @@
             <version>1.5.1</version>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.dataformat</groupId>
-            <artifactId>jackson-dataformat-yaml</artifactId>
-            <version>2.15.2</version>
-        </dependency>
         <!-- Neo4j Graphql -->
         <dependency>
             <groupId>org.neo4j</groupId>
             <artifactId>neo4j-graphql-java</artifactId>
-            <version>1.9.0</version>
+            <version>1.9.1</version>
             <exclusions>
                 <exclusion>
                     <groupId>com.graphql-java</groupId>
@@ -246,67 +241,71 @@
             <groupId>org.opensearch.client</groupId>
             <artifactId>opensearch-rest-client</artifactId>
             <version>2.5.0</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.apache.httpcomponents</groupId>
+					<artifactId>httpclient</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.apache.httpcomponents</groupId>
+					<artifactId>httpcore</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.apache.httpcomponents</groupId>
+					<artifactId>httpcore-nio</artifactId>
+				</exclusion>
+                <exclusion>
+                    <groupId>commons-logging</groupId>
+                    <artifactId>commons-logging</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.apache.logging.log4j</groupId>
+                    <artifactId>log4j-api</artifactId>
+                </exclusion>
+			</exclusions>
+        </dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>4.5.13</version>
             <exclusions>
-                <exclusion>
-                    <groupId>org.apache.httpcomponents</groupId>
-                    <artifactId>httpclient</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.apache.httpcomponents</groupId>
-                    <artifactId>httpcore</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.apache.httpcomponents</groupId>
-                    <artifactId>httpcore-nio</artifactId>
-                </exclusion>
                 <exclusion>
                     <groupId>commons-logging</groupId>
                     <artifactId>commons-logging</artifactId>
                 </exclusion>
             </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>httpclient</artifactId>
-            <version>4.5.14</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>commons-logging</groupId>
-                    <artifactId>commons-logging</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
+		</dependency>
 
-        <dependency>
-            <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>httpcore-nio</artifactId>
-            <version>4.4.16</version>
-        </dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpcore-nio</artifactId>
+			<version>4.4.16</version>
+		</dependency>
 
-        <dependency>
-            <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>httpcore</artifactId>
-            <version>4.4.16</version>
-        </dependency>
-        <dependency>
-            <groupId>org.opensearch.client</groupId>
-            <artifactId>opensearch-rest-high-level-client</artifactId>
-            <version>2.5.0</version>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpcore</artifactId>
+			<version>4.4.16</version>
+		</dependency>
+		<dependency>
+			<groupId>org.opensearch.client</groupId>
+			<artifactId>opensearch-rest-high-level-client</artifactId>
+			<version>2.5.0</version>
             <exclusions>
                 <exclusion>
                     <groupId>joda-time</groupId>
                     <artifactId>joda-time</artifactId>
                 </exclusion>
                 <exclusion>
-                    <groupId>com.fasterxml.jackson.dataformat</groupId>
-                    <artifactId>jackson-dataformat-yaml</artifactId>
+                    <groupId>commons-logging</groupId>
+                    <artifactId>commons-logging</artifactId>
                 </exclusion>
                 <exclusion>
                     <groupId>org.apache.logging.log4j</groupId>
                     <artifactId>log4j-api</artifactId>
                 </exclusion>
             </exclusions>
-        </dependency>
+		</dependency>
         <!-- AWS Java SDK -->
         <dependency>
             <groupId>com.amazonaws</groupId>
