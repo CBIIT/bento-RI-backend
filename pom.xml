@@ -369,6 +369,22 @@
                   </execution>
                 </executions>
             </plugin>
+            <!--
+                Vulnerability Scanning
+                1. DISABLE VPN OR SCAN WILL FAIL
+                2. Request and NVD API key and add it to the command below
+                3. Run with "mvn dependency-check:check -DNVD_API_KEY=<your NVD API key>"
+                This plugin will initialize or update a local vulnerability database with each run so the first time running may take 10-15 minutes
+                An HTML report will be generated at "target/dependency-check-report.html"
+             -->
+            <plugin>
+                <groupId>org.owasp</groupId>
+                <artifactId>dependency-check-maven</artifactId>
+                <version>12.1.0</version>
+                <configuration>
+                    <nvdApiKey>${NVD_API_KEY}</nvdApiKey>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 </project>
