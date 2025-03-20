@@ -568,7 +568,7 @@ Indices:
       f.file_format AS file_format_gs,
       f.file_size AS file_size,
       f.md5sum AS md5sum,
-      apoc_replacement_poc.json_to_cypher(f.acl) as acl,
+      nci_crdc_functions.remove_collection_braces(f.acl) as acl,
       toInteger(split(f.file_id,'-')[2]) AS file_id_num,
       ss.disease_subtype AS diagnosis,
       ss.disease_subtype AS diagnoses,
